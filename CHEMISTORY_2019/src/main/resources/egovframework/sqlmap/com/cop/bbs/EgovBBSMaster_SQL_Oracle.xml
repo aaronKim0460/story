@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BBSMaster">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="BoardMasterVO" type="egovframework.com.cop.bbs.service.BoardMasterVO"/>
+	<typeAlias  alias="BoardMaster" type="egovframework.com.cop.bbs.service.BoardMaster"/>
+	<typeAlias  alias="BoardVO" type="egovframework.com.cop.bbs.service.BoardVO"/>
+
+	<resultMap id="boardMasterList" class="egovframework.com.cop.bbs.service.BoardMasterVO">
+		<result property="bbsId" column="BBS_ID" columnIndex="1"/>
+		<result property="bbsTyCode" column="BBS_TY_CODE" columnIndex="2"/>
+		<result property="bbsTyCodeNm" column="BBS_TY_CODE_NM" columnIndex="3"/>
+		<result property="bbsAttrbCode" column="BBS_ATTRB_CODE" columnIndex="4"/>
+		<result property="bbsAttrbCodeNm" column="BBS_ATTRB_CODE_NM" columnIndex="5"/>
+		<result property="bbsNm" column="BBS_NM" columnIndex="6"/>
+		<result property="tmplatId" column="TMPLAT_ID" columnIndex="7"/>
+		<result property="useAt" column="USE_AT" columnIndex="8"/>
+		<result property="frstRegisterPnttm" column="FRST_REGIST_PNTTM" columnIndex="9"/>
+		<result property="siteType" column="BBS_SITE_CODE" columnIndex="10"/>
+		<result property="codeNm" column="SITE_NM" columnIndex="11"/>
+		<result property="totCnt" column="TOT_CNT" columnIndex="12"/>
+	</resultMap>
+
+	<resultMap id="boardMasterDetail" class="egovframework.com.cop.bbs.service.BoardMasterVO">
+		<result property="bbsId" column="BBS_ID" columnIndex="1"/>
+		<result property="bbsTyCode" column="BBS_TY_CODE" columnIndex="2"/>
+		<result property="bbsAttrbCode" column="BBS_ATTRB_CODE" columnIndex="3"/>
+		<result property="bbsNm" column="BBS_NM" columnIndex="4"/>
+		<result property="bbsIntrcn" column="BBS_INTRCN" columnIndex="5"/>
+		<result property="replyPosblAt" column="REPLY_POSBL_AT" columnIndex="6"/>
+		<result property="fileAtchPosblAt" column="FILE_ATCH_POSBL_AT" columnIndex="7"/>
+		<result property="posblAtchFileNumber" column="ATCH_POSBL_FILE_NUMBER" columnIndex="8"/>
+		<result property="posblAtchFileSize" column="ATCH_POSBL_FILE_SIZE" columnIndex="9"/>
+		<result property="tmplatId" column="TMPLAT_ID" columnIndex="10"/>
+		<result property="frstRegisterId" column="FRST_REGISTER_ID" columnIndex="11"/>
+		<result property="frstRegisterNm" column="FRST_REGISTER_NM" columnIndex="12"/>
+		<result property="frstRegisterPnttm" column="FRST_REGIST_PNTTM" columnIndex="13"/>
+		<result property="bbsTyCodeNm" column="BBS_TY_CODE_NM" columnIndex="14"/>
+		<result property="bbsAttrbCodeNm" column="BBS_ATTRB_CODE_NM" columnIndex="15"/>
+ 	    <result property="tmplatNm" column="TMPLAT_NM" columnIndex="16"/>
+		<result property="authFlag" column="AUTH_FLAG" columnIndex="17"/>
+		<result property="tmplatCours" column="TMPLAT_COURS" columnIndex="18"/>
+		<result property="loginReqAt" column="BBS_LOGIN_AT" columnIndex="19"/>
+		<result property="siteType" column="BBS_SITE_CODE" columnIndex="20"/>
+		<result property="bbs_desc_img_path" column="BBS_DC_IMAGE_PATH" columnIndex="21"/>
+		<result property="bbs_desc_img_nm" column="BBS_DC_IMAGE_NM" columnIndex="22"/>
+		<result property="bbsSubOpt" column="BBS_SUB_OPTN" columnIndex="23"/>
+		<result property="codeNm" column="CODE_NM" columnIndex="24"/>
+		<result property="bbsPageUnit" column="BBS_PGE_UNIT" columnIndex="25"/>
+		<result property="bbsPageSize" column="BBS_PGE_SIZE" columnIndex="26"/>
+		<result property="intrlckYn" column="INTRLCK_AT" columnIndex="27"/>
+		<result property="confmUseYn" column="CONFM_USE_AT" columnIndex="28"/>
+		<result property="useAt" column="USE_AT" columnIndex="29"/>
+		<result property="userListPge" column="USER_LIST_PGE" columnIndex="30"/>
+		<result property="userDetailPge" column="USER_DETAIL_PGE" columnIndex="31"/>
+		<result property="userRegistPge" column="USER_REGIST_PGE" columnIndex="32"/>
+		<result property="userUpdtPge" column="USER_UPDT_PGE" columnIndex="33"/>
+		<result property="mngrListPge" column="MNGR_LIST_PGE" columnIndex="34"/>
+		<result property="mngrDetailPge" column="MNGR_DETAIL_PGE" columnIndex="35"/>
+		<result property="mngrRegistPge" column="MNGR_REGIST_PGE" columnIndex="36"/>
+		<result property="mngrUpdtPge" column="MNGR_UPDT_PGE" columnIndex="37"/>
+		<result property="cl1Code" column="CL1_CODE" columnIndex="38"/>
+		<result property="cl2Code" column="CL2_CODE" columnIndex="39"/>
+		<result property="etc0ClNm" column="ETC0_CL_NM" columnIndex="40"/>
+		<result property="etc1ClNm" column="ETC1_CL_NM" columnIndex="41"/>
+		<result property="etc2ClNm" column="ETC2_CL_NM" columnIndex="42"/>
+		<result property="etc3ClNm" column="ETC3_CL_NM" columnIndex="43"/>
+		<result property="etc4ClNm" column="ETC4_CL_NM" columnIndex="44"/>
+		<result property="etc5ClNm" column="ETC5_CL_NM" columnIndex="45"/>
+		<result property="etc6ClNm" column="ETC6_CL_NM" columnIndex="46"/>
+		<result property="etc7ClNm" column="ETC7_CL_NM" columnIndex="47"/>
+		<result property="etc8ClNm" column="ETC8_CL_NM" columnIndex="48"/>
+		<result property="etc9ClNm" column="ETC9_CL_NM" columnIndex="49"/>
+		<result property="cl1CodeNm" column="CL1_CODE_NM" columnIndex="50"/>
+		<result property="cl2CodeNm" column="CL2_CODE_NM" columnIndex="51"/>
+	</resultMap>
+
+	<resultMap id="boardMasterAll" class="egovframework.com.cop.bbs.service.BoardMasterVO">
+		<result property="bbsId" column="BBS_ID" columnIndex="1"/>
+		<result property="bbsTyCode" column="BBS_TY_CODE" columnIndex="2"/>
+		<result property="bbsAttrbCode" column="BBS_ATTRB_CODE" columnIndex="3"/>
+		<result property="bbsNm" column="BBS_NM" columnIndex="4"/>
+		<result property="tmplatId" column="TMPLAT_ID" columnIndex="5"/>
+	</resultMap>
+	
+	<resultMap id="boardMasterBbsId" class="egovframework.com.cop.bbs.service.BoardMasterVO">
+		<result property="bbsId" column="BBS_ID" columnIndex="1"/>
+	</resultMap>
+
+	<insert id="BBSAttributeManageDAO.insertBBSMasterInf" parameterClass="BoardMaster" >
+		/* BBSAttributeManageDAO.insertBBSMasterInf */
+		<![CDATA[
+			INSERT INTO TN_BBS_MASTR
+			(BBS_ID, BBS_TY_CODE, BBS_ATTRB_CODE, BBS_NM, BBS_INTRCN,
+			 REPLY_POSBL_AT, FILE_ATCH_POSBL_AT, ATCH_POSBL_FILE_NUMBER,
+			 ATCH_POSBL_FILE_SIZE, TMPLAT_ID, USE_AT,
+			 FRST_REGISTER_ID, FRST_REGIST_PNTTM, BBS_LOGIN_AT, BBS_SITE_CODE,
+			 BBS_DC_IMAGE_PATH, BBS_DC_IMAGE_NM, BBS_SUB_OPTN, BBS_PGE_SIZE, BBS_PGE_UNIT, INTRLCK_AT, CONFM_USE_AT
+			 , USER_LIST_PGE,USER_DETAIL_PGE, USER_REGIST_PGE, USER_UPDT_PGE, MNGR_LIST_PGE, MNGR_DETAIL_PGE, MNGR_REGIST_PGE, MNGR_UPDT_PGE
+			 ,CL1_CODE, CL2_CODE
+			 ,ETC0_CL_NM, ETC1_CL_NM, ETC2_CL_NM, ETC3_CL_NM, ETC4_CL_NM, ETC5_CL_NM, ETC6_CL_NM, ETC7_CL_NM, ETC8_CL_NM, ETC9_CL_NM )
+			VALUES
+			( #bbsId#, #bbsTyCode#, #bbsAttrbCode#, #bbsNm#, #bbsIntrcn#,
+			  #replyPosblAt#, #fileAtchPosblAt#, #posblAtchFileNumber#,
+			  #posblAtchFileSize#, #tmplatId#, #useAt#, 
+			  #frstRegisterId#, SYSDATE, #loginReqAt#, #siteType#,
+			  #bbs_desc_img_path#, #bbs_desc_img_nm#, #bbsSubOpt#, #bbsPageSize#, #bbsPageUnit#, #intrlckYn#, #confmUseYn#
+			  ,#userListPge#, #userDetailPge#, #userRegistPge#, #userUpdtPge#, #mngrListPge#, #mngrDetailPge#, #mngrRegistPge#, #mngrUpdtPge#
+			  ,#cl1Code#, #cl2Code#
+			  ,#etc0ClNm#, #etc1ClNm#, #etc2ClNm#, #etc3ClNm#, #etc4ClNm#, #etc5ClNm#, #etc6ClNm#, #etc7ClNm#, #etc8ClNm#, #etc9ClNm#
+			 )
+		]]>
+	</insert>
+
+	<select id="BBSAttributeManageDAO.selectBBSMasterInfs" parameterClass="BoardMasterVO" resultMap="boardMasterList" >
+		/* BBSAttributeManageDAO.selectBBSMasterInfs */
+		<![CDATA[
+		SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+			SELECT
+				a.BBS_ID, a.BBS_TY_CODE, b.CODE_NM as BBS_TY_CODE_NM,
+				a.BBS_ATTRB_CODE, c.CODE_NM as BBS_ATTRB_CODE_NM, a.BBS_NM,
+				a.TMPLAT_ID, a.USE_AT,
+				TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,
+				a.BBS_SITE_CODE ,
+				d.CODE_NM as SITE_NM,
+				COUNT(1) OVER() AS TOT_CNT
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE d
+					ON a.BBS_SITE_CODE = d.CODE AND d.CODE_ID = 'COM078' AND d.USE_AT='Y'
+			WHERE 1=1
+		]]>
+			<isNotEmpty property="useAt">
+				AND a.USE_AT = #useAt#
+			</isNotEmpty>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.BBS_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	b.CODE_NM LIKE '%' || #searchWrd# || '%'		]]>
+			</isEqual>
+			<isNotEmpty property="siteId">
+				AND A.BBS_SITE_CODE = #siteId#
+			</isNotEmpty>
+		<![CDATA[
+			ORDER BY a.BBS_SITE_CODE, a.FRST_REGIST_PNTTM DESC
+			) TB ) Z WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+		]]>
+	</select>
+
+	<select id="BBSAttributeManageDAO.selectBBSMasterInfsCnt" parameterClass="BoardMasterVO" resultClass="java.lang.Integer" >
+		/* BBSAttributeManageDAO.selectBBSMasterInfsCnt */
+		<![CDATA[
+			SELECT
+				COUNT(a.BBS_ID)
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+			WHERE 1=1
+		]]>
+			<isNotEmpty property="useAt">
+				AND a.USE_AT = #useAt#
+			</isNotEmpty>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.BBS_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	b.CODE_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+	</select>
+
+	<select id="BBSAttributeManageDAO.selectBBSMasterInf" parameterClass="BoardMaster" resultMap="boardMasterDetail" >
+		/* BBSAttributeManageDAO.selectBBSMasterInf */
+		<![CDATA[
+			SELECT
+				a.BBS_ID, a.BBS_TY_CODE, b.CODE_NM as BBS_TY_CODE_NM, a.BBS_INTRCN,
+				a.BBS_ATTRB_CODE, c.CODE_NM as BBS_ATTRB_CODE_NM, a.BBS_NM,
+				a.TMPLAT_ID, d.TMPLAT_NM, d.TMPLAT_COURS, a.FILE_ATCH_POSBL_AT, a.ATCH_POSBL_FILE_NUMBER,
+				a.ATCH_POSBL_FILE_SIZE, a.REPLY_POSBL_AT, a.FRST_REGISTER_ID, e.USER_NM as FRST_REGISTER_NM,
+				a.USE_AT, TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM, a.BBS_DC_IMAGE_PATH, a.BBS_DC_IMAGE_NM
+				,NVL(i.USE_AT,'N') as AUTH_FLAG, BBS_LOGIN_AT, BBS_SITE_CODE, BBS_SUB_OPTN,
+				h.CODE_NM,
+				BBS_PGE_UNIT, BBS_PGE_SIZE, INTRLCK_AT, CONFM_USE_AT, a.USE_AT
+				,A.USER_LIST_PGE
+				,A.USER_DETAIL_PGE
+				,A.USER_REGIST_PGE
+				,A.USER_UPDT_PGE
+				,A.MNGR_LIST_PGE
+				,A.MNGR_DETAIL_PGE
+				,A.MNGR_REGIST_PGE
+				,A.MNGR_UPDT_PGE
+				,A.CL1_CODE
+				,A.CL2_CODE
+				,F.CODE_NM CL1_CODE_NM
+				,G.CODE_NM CL2_CODE_NM
+				,A.ETC0_CL_NM
+				,A.ETC1_CL_NM
+				,A.ETC2_CL_NM
+				,A.ETC3_CL_NM
+				,A.ETC4_CL_NM
+				,A.ETC5_CL_NM
+				,A.ETC6_CL_NM
+				,A.ETC7_CL_NM
+				,A.ETC8_CL_NM
+				,A.ETC9_CL_NM
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+				LEFT OUTER JOIN TN_TMPLAT_INFO d
+					ON a.TMPLAT_ID = d.TMPLAT_ID
+				LEFT OUTER JOIN VN_USER_MASTER e
+					ON a.FRST_REGISTER_ID = e.ESNTL_ID
+				LEFT OUTER JOIN
+					(SELECT CODE_ID, CODE_ID CODE, CODE_ID_NM CODE_NM FROM TC_CMMN_CODE WHERE CL_CODE = 'BCC' AND USE_AT='Y') f
+					ON a.CL1_CODE = f.CODE
+				LEFT OUTER JOIN
+					(SELECT CODE_ID, CODE_ID CODE, CODE_ID_NM CODE_NM FROM TC_CMMN_CODE WHERE CL_CODE = 'BCC' AND USE_AT='Y') g
+					ON a.CL2_CODE = g.CODE
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE h
+					ON a.BBS_SITE_CODE = h.CODE AND h.CODE_ID = 'COM078' AND h.USE_AT='Y'
+				LEFT OUTER JOIN TN_BBS_USE i
+					ON a.BBS_ID = i.BBS_ID AND i.TRGET_ID IN (#uniqId#, 'SYSTEM_DEFAULT_BOARD')
+			WHERE a.BBS_ID = #bbsId#
+		]]>
+	</select>
+
+ 	<update id="BBSAttributeManageDAO.updateBBSMasterInf" parameterClass="BoardMaster">
+ 		/* BBSAttributeManageDAO.updateBBSMasterInf */
+ 		<![CDATA[
+			UPDATE TN_BBS_MASTR SET
+				BBS_NM = #bbsNm#,
+				BBS_INTRCN = #bbsIntrcn#,
+				FILE_ATCH_POSBL_AT = #fileAtchPosblAt#,
+				ATCH_POSBL_FILE_NUMBER = #posblAtchFileNumber#,
+				ATCH_POSBL_FILE_SIZE = #posblAtchFileSize#,
+				TMPLAT_ID = #tmplatId#,
+				LAST_UPDUSR_ID = #lastUpdusrId#,
+				LAST_UPDT_PNTTM = SYSDATE,
+				BBS_DC_IMAGE_PATH = #bbs_desc_img_path#,
+				BBS_DC_IMAGE_NM = #bbs_desc_img_nm#,
+				BBS_SUB_OPTN = #bbsSubOpt#,
+				BBS_PGE_SIZE = #bbsPageSize#,
+				BBS_PGE_UNIT = #bbsPageUnit#,
+				INTRLCK_AT = #intrlckYn#,
+				CONFM_USE_AT = #confmUseYn#,
+				USE_AT = #useAt#,
+				USER_LIST_PGE = #userListPge#,
+				USER_DETAIL_PGE = #userDetailPge#,
+				USER_REGIST_PGE = #userRegistPge#,
+				USER_UPDT_PGE = #userUpdtPge#,
+				MNGR_LIST_PGE = #mngrListPge#,
+				MNGR_DETAIL_PGE = #mngrDetailPge#,
+				MNGR_REGIST_PGE = #mngrRegistPge#,
+				MNGR_UPDT_PGE = #mngrUpdtPge#,
+				BBS_TY_CODE = #bbsTyCode#,
+				BBS_ATTRB_CODE = #bbsAttrbCode#,
+				CL1_CODE = #cl1Code#,
+				CL2_CODE = #cl2Code#
+				,ETC0_CL_NM = #etc0ClNm#
+				,ETC1_CL_NM = #etc1ClNm#
+				,ETC2_CL_NM = #etc2ClNm#
+				,ETC3_CL_NM = #etc3ClNm#
+				,ETC4_CL_NM = #etc4ClNm#
+				,ETC5_CL_NM = #etc5ClNm#
+				,ETC6_CL_NM = #etc6ClNm#
+				,ETC7_CL_NM = #etc7ClNm#
+				,ETC8_CL_NM = #etc8ClNm#
+				,ETC9_CL_NM = #etc9ClNm#
+			WHERE BBS_ID = #bbsId#
+ 		]]>
+ 	</update>
+
+ 	<update id="BBSAttributeManageDAO.deleteBBSMasterInf" parameterClass="BoardMaster">
+ 		/* BBSAttributeManageDAO.deleteBBSMasterInf */
+ 		<![CDATA[
+			UPDATE TN_BBS_MASTR SET
+				USE_AT = 'N',
+				LAST_UPDUSR_ID = #lastUpdusrId#,
+				LAST_UPDT_PNTTM = SYSDATE
+			WHERE BBS_ID = #bbsId#
+ 		]]>
+ 	</update>
+
+	<select id="BBSAttributeManageDAO.selectAllBBSMaster" parameterClass="BoardMasterVO" resultMap="boardMasterAll" >
+		/* BBSAttributeManageDAO.selectAllBBSMaster */
+		<![CDATA[
+			SELECT
+				BBS_ID, BBS_TY_CODE, BBS_ATTRB_CODE, BBS_NM, TMPLAT_ID
+			FROM
+				TN_BBS_MASTR
+			WHERE USE_AT = 'Y'
+ 		]]>
+	</select>
+
+	<select id="BBSAttributeManageDAO.selectAllBdMstrByTrget" parameterClass="BoardMasterVO" resultMap="boardMasterAll" >
+		/* BBSAttributeManageDAO.selectAllBdMstrByTrget */
+		<![CDATA[
+			SELECT
+				a.BBS_ID, a.BBS_TY_CODE, a.BBS_ATTRB_CODE, a.BBS_NM, a.TMPLAT_ID
+			FROM
+				TN_BBS_MASTR a, TN_BBS_USE b
+			WHERE
+				a.BBS_ID = b.BBS_ID
+				AND b.TRGET_ID = #trgetId#
+				AND a.USE_AT = 'Y'	 AND b.USE_AT = 'Y'
+			ORDER BY a.BBS_ID
+ 		]]>
+	</select>
+
+	<select  id="BBSAttributeManageDAO.selectBdMstrListByTrget" parameterClass="BoardMasterVO" resultMap="boardMasterList" >
+		/* BBSAttributeManageDAO.selectBdMstrListByTrget */
+		<![CDATA[
+		SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+			SELECT
+				a.BBS_ID, a.BBS_TY_CODE, b.CODE_NM as BBS_TY_CODE_NM,
+				a.BBS_ATTRB_CODE, c.CODE_NM as BBS_ATTRB_CODE_NM, a.BBS_NM,
+				a.TMPLAT_ID, a.USE_AT,
+				TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,
+				a.BBS_SITE_CODE ,
+				e.CODE_NM as SITE_NM,
+				COUNT(1) OVER() AS TOT_CNT
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+				INNER JOIN TN_BBS_USE d
+					ON a.BBS_ID = d.BBS_ID AND d.TRGET_ID = #trgetId#
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE e
+					ON a.BBS_SITE_CODE = e.CODE AND e.CODE_ID = 'COM078' AND e.USE_AT='Y'					
+			WHERE
+				1=1 
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.BBS_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	b.CODE_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+		<![CDATA[
+			ORDER BY a.FRST_REGIST_PNTTM DESC
+			) TB ) Z WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+		]]>
+	</select>
+
+	<select  id="BBSAttributeManageDAO.selectBdMstrListCntByTrget" parameterClass="BoardMasterVO" resultClass="java.lang.Integer" >
+		/* BBSAttributeManageDAO.selectBdMstrListCntByTrget */
+		<![CDATA[
+			SELECT
+				COUNT(a.BBS_ID)
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+				INNER JOIN TN_BBS_USE d
+					ON a.BBS_ID = d.BBS_ID AND d.TRGET_ID = #trgetId#
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE e
+					ON a.BBS_SITE_CODE = e.CODE AND e.CODE_ID = 'COM078' AND e.USE_AT='Y'					
+			WHERE
+				1=1 
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.BBS_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	b.CODE_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+	</select>
+
+	<select id="BBSAttributeManageDAO.selectNotUsedBdMstrList" parameterClass="BoardMasterVO" resultMap="boardMasterList" >
+		/* BBSAttributeManageDAO.selectNotUsedBdMstrList */
+		<![CDATA[
+		SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+			SELECT
+				a.BBS_ID, a.BBS_TY_CODE, b.CODE_NM as BBS_TY_CODE_NM,
+				a.BBS_ATTRB_CODE, c.CODE_NM as BBS_ATTRB_CODE_NM, a.BBS_NM,
+				a.TMPLAT_ID, a.USE_AT,
+				TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,
+				a.BBS_SITE_CODE ,
+				d.CODE_NM as SITE_NM,
+				COUNT(1) OVER() AS TOT_CNT
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE d
+					ON a.BBS_SITE_CODE = d.CODE AND d.CODE_ID = 'COM078' AND d.USE_AT='Y'
+			WHERE 
+				a.USE_AT = 'Y'
+				AND a.BBS_ID NOT IN (SELECT BBS_ID FROM TN_BBS_USE WHERE USE_AT = 'Y')
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.BBS_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	b.CODE_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+		<![CDATA[
+			ORDER BY a.FRST_REGIST_PNTTM DESC
+			) TB ) Z WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+		]]>
+	</select>
+
+	<select id="BBSAttributeManageDAO.selectNotUsedBdMstrListCnt" parameterClass="BoardMasterVO" resultClass="java.lang.Integer" >
+		/* BBSAttributeManageDAO.selectNotUsedBdMstrListCnt */
+		<![CDATA[
+			SELECT
+				COUNT(a.BBS_ID)
+			FROM
+				TN_BBS_MASTR a
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE b
+					ON a.BBS_TY_CODE = b.CODE AND b.CODE_ID = 'COM004' AND b.USE_AT='Y'
+				LEFT OUTER JOIN TC_CMMN_DETAIL_CODE c
+					ON a.BBS_ATTRB_CODE = c.CODE AND c.CODE_ID = 'COM009' AND c.USE_AT='Y'
+			WHERE a.USE_AT = 'Y'
+				AND a.BBS_ID NOT IN (SELECT BBS_ID FROM TN_BBS_USE WHERE USE_AT = 'Y')
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.BBS_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	b.CODE_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+	</select>
+
+	<resultMap id="waterPhoto" class="egovframework.com.cop.bbs.service.BoardMasterVO">
+		<result property="bbsId" column="BBS_ID" columnIndex="1"/>
+		<result property="menuDc" column="MENU_DC" columnIndex="2"/>
+	</resultMap>
+	
+	<select id="BBSAttributeManageDAO.selectBBSPhoto" parameterClass="BoardMaster" resultMap="waterPhoto" >
+	/* BBSAttributeManageDAO.selectBBSPhoto */
+	<![CDATA[
+		SELECT
+			a.BBS_ID, 
+			(SELECT MENU_DC FROM TN_MENU_INFO WHERE MENU_ID = #menuNo#) AS MENU_DC
+		FROM
+			TN_BBS_MASTR a
+		WHERE a.BBS_ID = #bbsId#
+	]]>
+	
+	</select>
+	
+	<select id="BBSAttributeManageDAO.selectBbsObjConfirmList" parameterClass="BoardMasterVO" resultClass="egovMap" >
+		/* BBSAttributeManageDAO.selectBbsObjConfirmList */
+		SELECT 
+			   Z.NTT_ID
+			 , Z.NTT_SJ
+			 , Z.FRST_REGISTER_ID
+			 , Z.FRST_REGISTER_NM
+			 , TO_CHAR(Z.FRST_REGIST_PNTTM, 'YYYY-MM-DD') AS FRST_REGIST_PNTTM
+			 , Z.RDCNT
+			 , Z.PARNTSCTT_NO
+			 , Z.ANSWER_AT
+			 , Z.ANSWER_LC
+			 , Z.USE_AT
+			 , Z.ATCH_FILE_ID
+			 , Z.BBS_ID
+			 , Z.NTCE_BGNDE
+			 , Z.NTCE_ENDDE
+			 , Z.NTT_DOC_SE_CODE
+			 , Z.CODE_NM
+			 , Z.NOTICE_AT
+			 , Z.ETC0
+			 , Z.ETC1
+			 , Z.ETC2
+			 , Z.ETC3
+			 , Z.ETC4
+			 , Z.ETC5
+			 , Z.ETC6
+			 , Z.ETC7
+			 , Z.ETC8
+			 , Z.ETC9
+			 , Z.PUBLIC_NURI_TY_CODE
+			 , Z.CONFM_STTUS_CODE
+			 , CASE 
+			 	WHEN LENGTH(NVL(Z.NTCE_DT, '')) = 0 THEN 
+			 		TO_CHAR(Z.FRST_REGIST_PNTTM, 'YYYY-MM-DD')
+			   	ELSE 
+			   		TO_CHAR(Z.NTCE_DT, 'YYYY-MM-DD') 
+			   END AS NTCE_DT
+			 , Z.CNT
+			 , Z.BBS_NM
+			 , Z.BBS_SITE_ID
+			 , Z.SITE_NM
+		FROM ( SELECT ROWNUM AS RN
+					, TB.NTT_ID
+					, TB.NTT_SJ
+					, TB.FRST_REGISTER_ID
+					, TB.FRST_REGISTER_NM
+					, TB.FRST_REGIST_PNTTM
+					, TB.RDCNT
+					, TB.PARNTSCTT_NO
+					, TB.ANSWER_AT
+					, TB.ANSWER_LC
+					, TB.USE_AT
+					, TB.ATCH_FILE_ID
+					, TB.BBS_ID
+					, RTRIM(TB.NTCE_BGNDE) NTCE_BGNDE
+					, RTRIM(TB.NTCE_ENDDE) NTCE_ENDDE
+					, TB.NTT_DOC_SE_CODE
+					, (SELECT CODE_NM
+						 FROM TC_CMMN_DETAIL_CODE S1
+						WHERE S1.CODE = TB.NTT_SE_CODE) AS CODE_NM
+					, TB.NOTICE_AT
+					, TB.ETC0
+					, TB.ETC1
+					, TB.ETC2
+					, TB.ETC3
+					, TB.ETC4
+					, TB.ETC5
+					, TB.ETC6
+					, TB.ETC7
+					, TB.ETC8
+					, TB.ETC9
+					, TB.PUBLIC_NURI_TY_CODE
+					, TB.CONFM_STTUS_CODE
+					, TB.NTCE_DT
+					, TB.CNT
+					, (SELECT BBS_NM 
+						 FROM TN_BBS_MASTR S1
+						WHERE S1.BBS_ID = TB.BBS_ID) AS BBS_NM
+					, (SELECT BBS_SITE_CODE 
+						 FROM TN_BBS_MASTR S1
+						WHERE S1.BBS_ID = TB.BBS_ID) AS BBS_SITE_ID
+					, (SELECT CODE_NM 
+						 FROM TC_CMMN_DETAIL_CODE S1
+						WHERE S1.CODE_ID = 'COM078' 
+						  AND S1.CODE = (SELECT BBS_SITE_CODE 
+						  				   FROM TN_BBS_MASTR S2
+						  				  WHERE S2.BBS_ID = TB.BBS_ID)) AS SITE_NM
+				FROM ( SELECT A.NTT_ID
+							, A.NTT_SJ
+							, A.FRST_REGISTER_ID
+							, A.NTCR_NM AS FRST_REGISTER_NM
+							, A.FRST_REGIST_PNTTM
+							, A.RDCNT
+							, A.PARNTSCTT_NO
+							, A.ANSWER_AT
+							, A.ANSWER_LC
+							, A.USE_AT
+							, A.ATCH_FILE_ID
+							, A.BBS_ID
+							, A.NTCE_BGNDE
+							, A.NTCE_ENDDE
+							, A.NTT_DOC_SE_CODE
+							, A.NTT_SE_CODE
+							, A.NOTICE_AT
+							, A.ETC0
+							, A.ETC1
+							, A.ETC2
+							, A.ETC3
+							, A.ETC4
+							, A.ETC5
+							, A.ETC6
+							, A.ETC7
+							, A.ETC8
+							, A.ETC9
+							, A.PUBLIC_NURI_TY_CODE
+							, A.CONFM_STTUS_CODE
+							, A.NTCE_DT
+							, COUNT(1) OVER() AS CNT
+							, B.BBS_NM
+							, B.BBS_SITE_CODE AS BBS_SITE_ID
+							, C.CODE_NM AS SITE_NM
+						 FROM TN_BBS A
+							, TN_BBS_MASTR B
+							, TC_CMMN_DETAIL_CODE C
+						WHERE 1=1
+						  AND A.BBS_ID = B.BBS_ID
+						  AND C.CODE_ID = 'COM078'
+						  AND C.CODE = B.BBS_SITE_CODE
+						  AND A.USE_AT = 'Y'
+						<isNotEmpty property="searchWrd">
+						
+							<isEqual property="searchCnd" compareValue="0">
+								AND A.NTT_SJ LIKE '%' || #searchWrd# || '%'
+							</isEqual>
+							<isEqual property="searchCnd" compareValue="1">
+								AND B.BBS_NM LIKE '%' || #searchWrd# || '%'
+							</isEqual>
+						
+						</isNotEmpty>
+						
+						<isNotEmpty property="siteId">
+							AND B.BBS_SITE_CODE = #siteId#
+						</isNotEmpty>
+						
+						<isNotEmpty property="confmUseYn">
+							<isEqual property="confmUseYn" compareValue="R">
+								AND A.CONFM_STTUS_CODE = #confmUseYn#
+							</isEqual>
+						</isNotEmpty>
+			
+						ORDER BY A.NTCE_DT DESC
+							   , A.FRST_REGIST_PNTTM DESC
+					) TB
+			) Z
+		WHERE RN BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	
+	</select>
+	
+	<select id="BBSAttributeManageDAO.selectContentBBSPreview" parameterClass="BoardVO" resultClass="egovMap" >
+		/* BBSAttributeManageDAO.selectContentBBSPreview */
+		SELECT NTT_SJ
+		 	 , NTCR_NM
+		 	 , TO_CHAR(FRST_REGIST_PNTTM, 'YYYY-MM-DD') AS FRST_REGIST_PNTTM
+		 	 , NTT_CN
+		 	 , CONFM_STTUS_CODE
+		 	 , ATCH_FILE_ID
+		 	 , (SELECT BBS_ATTRB_CODE 
+		 	 	  FROM TN_BBS_MASTR S1 
+		 	 	 WHERE S1.BBS_ID = A.BBS_ID) AS BBS_ATTRB_CODE
+		FROM 
+			TN_BBS A
+		WHERE 
+			NTT_ID = #nttId#
+		   	AND BBS_ID = #bbsId#
+	</select> 
+	
+	<select id="BBSAttributeManageDAO.selectBBSFileList" parameterClass="BoardVO" resultClass="egovMap" >
+ 		/* BBSAttributeManageDAO.selectBBSFileList */
+ 		SELECT FILE_CN
+		 	 , FILE_SN
+		 	 , FILE_STRE_COURS
+		 	 , STRE_FILE_NM
+		 	 , FILE_EXTSN
+		 	 , ORIGNL_FILE_NM
+		 	 , FILE_SIZE
+		FROM TN_FILE_DETAIL
+		WHERE ATCH_FILE_ID  = (SELECT ATCH_FILE_ID 
+		 						  FROM TN_BBS S1 
+		 						 WHERE S1.BBS_ID = #bbsId# 
+		 						   AND S1.NTT_ID = #nttId#) 
+			<isNotEmpty property="fileSn">
+			   AND FILE_SN = #fileSn#
+			</isNotEmpty>
+		ORDER BY FILE_SN
+		 
+ 	</select>
+ 	
+ 	<select id="BBSAttributeManageDAO.selectSiteList" resultClass="egovMap" >
+ 		/* BBSAttributeManageDAO.selectSiteList */
+ 		SELECT 
+ 			  CODE
+ 			, CODE_NM
+		FROM 
+			TC_CMMN_DETAIL_CODE
+		WHERE 
+			CODE_ID = 'COM078'
+		   	AND USE_AT = 'Y'
+		ORDER BY 
+			CODE		 
+ 	</select>
+ 	
+ 	<update id="BBSAttributeManageDAO.updateBBSConfmSttus" parameterClass="BoardVO">
+ 		/* BBSAttributeManageDAO.updateBBSConfmSttus */
+		UPDATE TN_BBS
+		   SET CONFM_STTUS_CODE = 'C'
+		   	 , LAST_UPDUSR_ID = #lastUpdusrId#
+		   	 , LAST_UPDT_PNTTM = SYSDATE
+		WHERE 
+			BBS_ID = #bbsId#
+		   	AND NTT_ID = #nttId#
+		   
+ 	</update>
+ 	
+ 	<!-- 승인대기상태로 변경처리 -->
+ 	<update id="BBSAttributeManageDAO.updateBBSConfmWaitSttus" parameterClass="BoardVO">
+ 		/* BBSAttributeManageDAO.updateBBSConfmWaitSttus */
+		UPDATE TN_BBS
+		   SET CONFM_STTUS_CODE = 'R'
+		   	 , LAST_UPDUSR_ID = #lastUpdusrId#
+		   	 , LAST_UPDT_PNTTM = SYSDATE
+		WHERE 
+			BBS_ID = #bbsId#
+		   	AND NTT_ID = #nttId#
+		   
+ 	</update>
+ 	
+	<select id="BBSAttributeManageDAO.selectBBSIdMenuNo" parameterClass="BoardMaster" resultMap="boardMasterBbsId" >
+		/* BBSAttributeManageDAO.selectBBSIdMenuNo */
+		<![CDATA[
+			SELECT 
+				REPLACE(REPLACE(url, '/cop/bbs/selectBoardList.do?bbsId=', ''),'/user', '') BBS_ID
+			FROM 
+				TN_MENU_INFO MI INNER JOIN TN_PROGRM_LIST PL
+				ON PL.progrm_file_nm = MI.progrm_file_nm
+			WHERE 
+				MI.MENU_ID = #menuNo#
+		]]>
+	</select>
+	
+	<select id="BBSAttributeManageDAO.selectBBSIdNttId" parameterClass="BoardMaster" resultMap="boardMasterBbsId" >
+		/* BBSAttributeManageDAO.selectBBSIdNttId */
+		<![CDATA[
+			SELECT 
+				BBS_ID 
+			FROM 
+				TN_BBS 
+			WHERE 
+				NTT_ID = #nttId#
+		]]>
+	</select>
+</sqlMap>

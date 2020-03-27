@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* CSS Document */
+
+.cts13004 {clear:both; width:100%; overflow:hidden;}
+	.cts13004 .cts_typenew {clear:both; overflow:hidden;}
+	.cts13004 .cts_typenew li {overflow:hidden;}
+	.cts13004 .cts_typenew li.tit {font-size:21px; letter-spacing:-1px; color:#0065ba; padding:0 0 10px 22px; margin:22px 0 0 0; background:url(../images/contents/dot_blue.gif) no-repeat 0 7px; overflow-wrap:break-word; word-break:keep-all;}
+	.cts13004 .cts_typenew li.memo {font-size:15px; padding:0 0 3px 34px; background:url(../images/contents/dot_gray.gif) no-repeat 20px 8px;}
+	.cts13004 .cts_result {clear:both; overflow:hidden; background-color:#f9f9f9; border-top:1px solid #40b2aa; margin-top:30px;}
+	.cts13004 .cts_result .titwrap {clear:both; overflow:hidden; padding:0 20px 0 20px; border-bottom:1px solid #dfdfdf; background-color:#f1f1f1;}
+	.cts13004 .cts_result .titwrap .tit {float:left; font-size:17px; font-weight:bold; color:#0090a7; padding:10px 0 0 0; height:32px;}
+	.cts13004 .cts_result .titwrap .btn {float:right; padding:7px 0 0 0; height:35px;}
+	.cts13004 .cts_result .titwrap .btn a {display:inline-block; padding:3px 14px 1px 14px; border:1px solid #e3e3e3; background-color:#ffffff; font-size:13px;}
+	.cts13004 .cts_result .titwrap .btn a:hover {border:1px solid #2ca39b; background-color:#40b2aa; color:#ffffff; text-decoration:none;}
+	.cts13004 .cts_result .resultbox {clear:both; overflow:hidden; padding:36px 40px 30px 40px;}
+	.cts13004 .cts_result .resultbox li {clear:both; overflow:hidden;}
+	.cts13004 .cts_result .resultbox li dl {clear:both; overflow:hidden; padding:0 0 17px 0;}
+	.cts13004 .cts_result .resultbox li dl dd.img {float:left; overflow:hidden; width:195px;}
+	.cts13004 .cts_result .resultbox li dl dd.txt {float:left; overflow:hidden; width:485px; padding-top:15px; font-size:13px; color:#616161; overflow-wrap:break-word; word-break:keep-all;}
+	.cts13004 .cts_result .resultbox li dl dd.txt p {font-size:15px; color:#0090a7; font-weight:bold;}
+	.cts13004 .cts_result .resultbox li dl dd span {font-size:11px;}
+	
+	
+/* 일반게시판 - 기본유형 */
+#contents table.bbs_default_listnew {border-collapse: collapse; width: 100%; margin: 0px 0 10px; /* border-top:3px solid #414141; */border-bottom:1px solid #414141}
+#contents table.bbs_default_listnew th {padding: 12px 0 12px 0; border-bottom: 1px solid #555555; border-left: 1px solid #c2c2c2; line-height:130%; background:#efefef;}
+#contents table.bbs_default_listnew th:first-child, #contents table.bbs_default_listnew td:first-child {border-left:none;}
+#contents table.bbs_default_listnew th.stit {border-bottom:none;}
+#contents table.bbs_default_listnew th.stxt {font-size:11px; font-weight:normal; border-top: 1px solid #c2c2c2 !important; border-left: 1px solid #c2c2c2;  background-color:#f7f7f7;}
+#contents table.bbs_default_listnew td {padding:8px 6px 8px 6px; border-left: 1px solid #e9e9e9; font-size:13px;border-bottom: 1px solid #e9e9e9;}
+#contents table.bbs_default_listnew td.ac { text-align:center;}
+#contents table.bbs_default_listnew td.openview {background-color:#f7f7f7; padding:30px;}
+#contents table.bbs_default tbody.f13 {font-size:13px;}
+
+
+
+/**JJW ADD 20151127********************************************************/
+
+
+
+#contents .openview h3 {padding:0 0 0 20px; margin:0; background:url('../images/contents/bg_h3openview.png') no-repeat 0 3px; color:#2a2a2a; font-size:14px; font-weight:bold; font-weight:bold;}
+#contents .openview h4 {color:#129487; font-weight:bold; padding:20px 0 0 0; margin:0; background:none; font-weight:bold; }
+#contents .openview .infotxt {font-size:12px; background:url('../images/contents/bg_infotxtopen.png') no-repeat 0 2px; padding-left:15px;}
+#contents .openview .infotxt em {font-weight:bold; color:#e76618;}
+.TBopen01 { margin:5px 0;}
+.TBopen01 th {border:1px solid #c9d8d7 !important; padding:7px 0; text-align:center; line-height:18px; color:#2a2a2a; font-size:12px;}
+.TBopen01 thead th {border-bottom:1px solid #79b0ac !important; background:#edf5f5 !important;}
+.TBopen01 td {border:1px solid #dedede !important; background:#fff; font-size:12px; line-height:18px; padding:7px 5px; text-align:left;}
+.TBopen01 tbody th {/*border-right:1px solid #79b0ac !important;*/ background:#f8f8f8;}
+

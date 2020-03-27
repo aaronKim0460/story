@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="calenderDAO">
+
+	<typeAlias  alias="CalenderVO" type="egovframework.com.kids.calender.vo.CalenderVO"/>
+	
+	<resultMap id="selectCalenderList" class="egovframework.com.kids.calender.vo.CalenderVO">
+		<result property="idx" 			column="IDX"			/>
+		<result property="title" 		column="TITLE"			/>
+		<result property="contents" 	column="CONTENTS"		/>
+		<result property="sDate" 		column="SDATE"			/>
+		<result property="eDate" 		column="EDATE"			/>
+		<result property="gubun" 		column="GUBUN"			/>
+		<result property="inputDate" 	column="INPUT_DATE"		/>
+	</resultMap>
+	
+	<select id="CalenderDAO.selectCalenderList" parameterClass="CalenderVO" resultMap="selectCalenderList">
+		/* CalenderDAO.selectCalenderList */
+		SELECT * FROM (SELECT ROWNUM AS RN, T.* FROM
+		(
+			SELECT
+				TC.IDX 
+				, TC.TITLE 
+				, TC.CONTENTS 
+				, TC.SDATE 
+				, TC.EDATE 
+				, TC.GUBUN 
+				, TC.INPUT_DATE
+			FROM
+				TC_CALENDAR TC
+			WHERE
+				1=1
+			<isNotEmpty property="srchYear">
+				<![CDATA[AND (TC.SDATE LIKE #srchYear#||'.__.__' OR TC.EDATE LIKE #srchYear#||'.__.__') ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchMonth">
+<!-- 				<![CDATA[AND (TC.SDATE LIKE '____.'||#srchMonth#||'.__' OR TC.EDATE LIKE '____.'||#srchMonth#||'.__') ]]> -->
+					<![CDATA[AND (SUBSTR(TC.SDATE, 6, 2) = #srchMonth# OR SUBSTR(TC.EDATE, 6, 2) = #srchMonth#) ]]>
+			</isNotEmpty>
+				<isNotEmpty property="srchGubun">
+					<isNotEqual property="srchGubun" compareValue="all">
+						AND TC.GUBUN = #srchGubun#
+					</isNotEqual>
+				</isNotEmpty>
+				<isNotEmpty property="searchKeyword">
+					<isEqual property="searchCondition" compareValue="title">
+						<![CDATA[ AND	TC.TITLE LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCondition" compareValue="contents">
+						<![CDATA[ AND	TC.CONTENTS LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+				</isNotEmpty>
+			ORDER BY 
+				TC.SDATE DESC
+				, TC.EDATE DESC
+		) T ) Z WHERE RN BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	</select>
+	
+	<select id="CalenderDAO.selectCalenderCount" parameterClass="CalenderVO" resultClass="java.lang.Integer">
+		/* CalenderDAO.selectCalenderCount */
+		SELECT
+			COUNT(*)
+		FROM
+			TC_CALENDAR TC
+		WHERE
+			1=1
+			<isNotEmpty property="srchYear">
+				<![CDATA[AND (TC.SDATE LIKE #srchYear#||'.__.__' OR TC.EDATE LIKE #srchYear#||'.__.__') ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchMonth">
+<!-- 				<![CDATA[AND (TC.SDATE LIKE '____.'||#srchMonth#||'.__' OR TC.EDATE LIKE '____.'||#srchMonth#||'.__') ]]> -->
+					<![CDATA[AND (SUBSTR(TC.SDATE, 6, 2) = #srchMonth# OR SUBSTR(TC.EDATE, 6, 2) = #srchMonth#) ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchGubun">
+				<isNotEqual property="srchGubun" compareValue="all">
+					AND TC.GUBUN = #srchGubun#
+				</isNotEqual>
+			</isNotEmpty>
+			<isNotEmpty property="searchKeyword">
+				<isEqual property="searchCondition" compareValue="title">
+					<![CDATA[ AND	TC.TITLE LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+				<isEqual property="searchCondition" compareValue="contents">
+					<![CDATA[ AND	TC.CONTENTS LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+			</isNotEmpty>
+	</select>
+	
+	<resultMap id="selectCalenderViewList" class="egovframework.com.kids.calender.vo.CalenderVO">
+		<result property="idx" 			column="IDX"			/>
+		<result property="title" 		column="TITLE"			/>
+		<result property="contents" 	column="CONTENTS"		/>
+		<result property="sDate" 		column="SDATE"			/>
+		<result property="eDate" 		column="EDATE"			/>
+		<result property="gubun" 		column="GUBUN"			/>
+		<result property="inputDate" 	column="INPUT_DATE"		/>
+	</resultMap>
+	
+	<select id="CalenderDAO.selectCalenderViewList" parameterClass="CalenderVO" resultMap="selectCalenderViewList">
+		/* CalenderDAO.selectCalenderViewList */
+		SELECT
+			TC.IDX 
+			, TC.TITLE 
+			, TC.CONTENTS 
+			, TC.SDATE 
+			, TC.EDATE 
+			, TC.GUBUN 
+			, TC.INPUT_DATE
+		FROM
+			TC_CALENDAR TC
+		WHERE
+			1=1
+			<isNotEmpty property="srchYear">
+				<![CDATA[AND (TC.SDATE LIKE #srchYear#||'.__.__' OR TC.EDATE LIKE #srchYear#||'.__.__') ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchMonth">
+<!-- 				<![CDATA[AND (TC.SDATE LIKE '____.'||#srchMonth#||'.__' OR TC.EDATE LIKE '____.'||#srchMonth#||'.__') ]]> -->
+					<![CDATA[AND (SUBSTR(TC.SDATE, 6, 2) BETWEEN #srchMonth# - 1 AND #srchMonth# + 1 OR SUBSTR(TC.EDATE, 6, 2) BETWEEN #srchMonth# - 1 AND #srchMonth# + 1) ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchGubun">
+				<isNotEqual property="srchGubun" compareValue="all">
+					AND TC.GUBUN = #srchGubun#
+				</isNotEqual>
+			</isNotEmpty>
+			<isNotEmpty property="searchKeyword">
+				<isEqual property="searchCondition" compareValue="title">
+					<![CDATA[ AND	TC.TITLE LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+				<isEqual property="searchCondition" compareValue="contents">
+					<![CDATA[ AND	TC.CONTENTS LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+			</isNotEmpty>
+		ORDER BY 
+			TC.SDATE DESC
+			, TC.EDATE DESC
+	</select>
+	
+	<select id="CalenderDAO.selectCalenderUserList" parameterClass="CalenderVO" resultMap="selectCalenderViewList">
+		/* CalenderDAO.selectCalenderUserList */
+		SELECT
+			TC.IDX 
+			, TC.TITLE 
+			, TC.CONTENTS 
+			, TC.SDATE 
+			, TC.EDATE 
+			, TC.GUBUN 
+			, TC.INPUT_DATE
+		FROM
+			TC_CALENDAR TC
+		WHERE
+			1=1
+			<isNotEmpty property="srchYear">
+				<![CDATA[AND (TC.SDATE LIKE #srchYear#||'.__.__' OR TC.EDATE LIKE #srchYear#||'.__.__') ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchMonth">
+<!-- 				<![CDATA[AND (TC.SDATE LIKE '____.'||#srchMonth#||'.__' OR TC.EDATE LIKE '____.'||#srchMonth#||'.__') ]]> -->
+					<![CDATA[AND (SUBSTR(TC.SDATE, 6, 2) = #srchMonth# OR SUBSTR(TC.EDATE, 6, 2) = #srchMonth#) ]]>
+			</isNotEmpty>
+			<isNotEmpty property="srchGubun">
+				<isNotEqual property="srchGubun" compareValue="all">
+					AND TC.GUBUN = #srchGubun#
+				</isNotEqual>
+			</isNotEmpty>
+			<isNotEmpty property="searchKeyword">
+				<isEqual property="searchCondition" compareValue="title">
+					<![CDATA[ AND	TC.TITLE LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+				<isEqual property="searchCondition" compareValue="contents">
+					<![CDATA[ AND	TC.CONTENTS LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+			</isNotEmpty>
+		ORDER BY 
+			TC.SDATE DESC
+			, TC.EDATE DESC
+	</select>
+	
+	<resultMap id="selectCalender" class="egovframework.com.kids.calender.vo.CalenderVO">
+		<result property="idx" 			column="IDX"			/>
+		<result property="title" 		column="TITLE"			/>
+		<result property="contents" 	column="CONTENTS"		/>
+		<result property="sDate" 		column="SDATE"			/>
+		<result property="eDate" 		column="EDATE"			/>
+		<result property="gubun" 		column="GUBUN"			/>
+		<result property="inputDate" 	column="INPUT_DATE"		/>
+	</resultMap>
+	
+	<select id="CalenderDAO.selectCalender" parameterClass="CalenderVO" resultMap="selectCalender">
+		/* CalenderDAO.selectCalender */
+		SELECT
+			TC.IDX 
+			, TC.TITLE 
+			, TC.CONTENTS 
+			, TC.SDATE 
+			, TC.EDATE 
+			, TC.GUBUN 
+			, TC.INPUT_DATE
+		FROM
+			TC_CALENDAR TC
+		WHERE
+			TC.IDX = #idx#
+	</select>
+	
+	<insert id="CalenderDAO.insertCalender" parameterClass="CalenderVO">
+		<selectKey resultClass="java.lang.Long" keyProperty="idx">
+			SELECT SEQ_CALENDAR.NEXTVAL FROM dual
+		</selectKey>
+		/* CalenderDAO.insertCalender */
+		INSERT INTO TC_CALENDAR
+		(
+			IDX 
+			, TITLE 
+			, CONTENTS 
+			, SDATE 
+			, EDATE 
+			, GUBUN 
+			, INPUT_DATE
+		)
+		VALUES
+		(
+			#idx#
+			, #title# 
+			, #contents# 
+			, #sDate# 
+			, #eDate# 
+			, #gubun# 
+			, SYSDATE
+		)
+	</insert>
+	
+	<update id="CalenderDAO.updateCalender" parameterClass="CalenderVO">
+		/* CalenderDAO.updateCalender */
+		UPDATE TC_CALENDAR
+		SET
+			TITLE = #title# 
+			, CONTENTS = #contents# 
+			, SDATE = #sDate# 
+			, EDATE = #eDate# 
+			, GUBUN = #gubun# 
+			, INPUT_DATE = SYSDATE
+		WHERE
+			IDX = #idx#
+	</update>
+	
+	<delete id="CalenderDAO.deleteCalender" parameterClass="CalenderVO">
+		/* CalenderDAO.deleteCalender */
+		DELETE
+		FROM
+			TC_CALENDAR
+		WHERE
+			IDX = #idx#
+	</delete>
+</sqlMap>

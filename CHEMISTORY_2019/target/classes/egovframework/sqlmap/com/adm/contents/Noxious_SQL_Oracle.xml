@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Noxious">
+
+    <typeAlias  alias="EnvilomentNoxiousVO" type="egovframework.com.adm.contents.noxious.vo.EnvilomentNoxiousVO"/>
+    <typeAlias  alias="SearchEnvNoxious" type="egovframework.com.adm.contents.noxious.vo.SearchEnvNoxious"/>
+    <typeAlias  alias="NoxiousMaterialVO" type="egovframework.com.adm.contents.material.vo.NoxiousMaterialVO"/>
+    <typeAlias  alias="NoxiousMaterialMappingVO" type="egovframework.com.adm.contents.material.vo.NoxiousMaterialMappingVO"/>
+
+    <resultMap id="envNoxVo" class="egovframework.com.adm.contents.noxious.vo.EnvilomentNoxiousVO">
+        <result property="idx"			column="m_idx"				columnIndex="1"/>
+        <result property="eName"		column="m_ename"			columnIndex="2"/>
+        <result property="kName"		column="m_kname"			columnIndex="3"/>
+        <result property="cas"			column="m_cas"				columnIndex="4"/>
+        <result property="trait"		column="m_trait"			columnIndex="5"/>
+        <result property="traitCh"		column="m_trait_ch"			columnIndex="6"/>      
+        <result property="attachFileId"	column="M_ATTACH_FILE_ID"	columnIndex="7"/>  
+    </resultMap>
+
+    <resultMap id="envNoxDetailVo" class="egovframework.com.adm.contents.noxious.vo.EnvilomentNoxiousVO">
+        <result property="idx"				        column="M_IDX"						columnIndex="1"/>
+		<result property="eName"				    column="M_ENAME"					columnIndex="2"/>
+		<result property="kName"				    column="M_KNAME"					columnIndex="3"/>
+		<result property="cas"				        column="M_CAS"						columnIndex="4"/>
+		<result property="trait"				    column="M_TRAIT"					columnIndex="5"/>
+		<result property="traitCh"			        column="M_TRAIT_CH"					columnIndex="6"/>
+		<result property="medium"			        column="M_MEDIUM"					columnIndex="7"/>
+		<result property="noxiousLevel"		        column="M_NOXIOUS_LEVEL"			columnIndex="8"/>
+		<result property="outline"			        column="M_OUTLINE"					columnIndex="9"/>
+		<result property="basic"				    column="M_BASIC"					columnIndex="10"/>
+		<result property="tInfo"				    column="M_T_INFO"					columnIndex="11"/>
+		<result property="tSafe"				    column="M_T_SAFE"					columnIndex="12"/>
+		<result property="overG"				    column="M_OVER_G"					columnIndex="13"/>
+		<result property="infoAttentionMan"	        column="M_INFO_ATTENTION_MAN"		columnIndex="14"/>
+		<result property="overGRe"			        column="M_OVER_G_RE"				columnIndex="15"/>
+		<result property="overM"				    column="M_OVER_M"					columnIndex="16"/>
+		<result property="overMRe"			        column="M_OVER_M_RE"				columnIndex="17"/>
+		<result property="outlineRe"			    column="M_OUTLINE_RE"				columnIndex="18"/>
+		<result property="controlG"			        column="M_CONTROL_G"				columnIndex="19"/>
+		<result property="controlGRe"		        column="M_CONTROL_G_RE"				columnIndex="20"/>
+		<result property="planG"				    column="M_PLAN_G"					columnIndex="21"/>
+		<result property="planGRe"			        column="M_PLAN_G_RE"				columnIndex="22"/>
+		<result property="planM"				    column="M_PLAN_M"					columnIndex="23"/>
+		<result property="infoMatterChild"	        column="M_INFO_MATTER_CHILD"		columnIndex="24"/>
+		<result property="infoExpoChild"		    column="M_INFO_EXPO_CHILD"			columnIndex="25"/>
+		<result property="infoAttentionChild"       column="M_INFO_ATTENTION_CHILD"		columnIndex="26"/>
+		<result property="outlineCh"			    column="M_OUTLINE_CH"				columnIndex="27"/>
+		<result property="basicCh"			        column="M_BASIC_CH"					columnIndex="28"/>
+		<result property="tInfoCh"			        column="M_T_INFO_CH"				columnIndex="29"/>
+		<result property="tSafeCh"			        column="M_T_SAFE_CH"				columnIndex="30"/>
+		<result property="overGCh"			        column="M_OVER_G_CH"				columnIndex="31"/>
+		<result property="infoAttentionManCh"		column="M_INFO_ATTENTION_MAN_CH"	columnIndex="32"/>
+		<result property="overGReCh"				column="M_OVER_G_RE_CH"				columnIndex="33"/>
+		<result property="overMCh"					column="M_OVER_M_CH"				columnIndex="34"/>
+		<result property="overMReCh"				column="M_OVER_M_RE_CH"				columnIndex="35"/>
+		<result property="outlineReCh"				column="M_OUTLINE_RE_CH"			columnIndex="36"/>
+		<result property="controlGCh"				column="M_CONTROL_G_CH"				columnIndex="37"/>
+		<result property="controlGReCh"				column="M_CONTROL_G_RE_CH"			columnIndex="38"/>
+		<result property="planGCh"					column="M_PLAN_G_CH"				columnIndex="39"/>
+		<result property="planGReCh"				column="M_PLAN_G_RE_CH"				columnIndex="40"/>
+		<result property="planMCh"					column="M_PLAN_M_CH"				columnIndex="41"/>
+		<result property="infoMatterChildCh"		column="M_INFO_MATTER_CHILD_CH"		columnIndex="42"/>
+		<result property="infoExpoChildCh"			column="M_INFO_EXPO_CHILD_CH"		columnIndex="43"/>
+		<result property="infoAttentionChildCh"		column="M_INFO_ATTENTION_CHILD_CH"	columnIndex="44"/>
+		<result property="attachFileId"				column="M_ATTACH_FILE_ID"			columnIndex="45"/>
+		<result property="flag"						column="M_FLAG"						columnIndex="46"/>
+    </resultMap>
+    
+    <resultMap id="envVo" class="egovframework.com.adm.contents.material.vo.EnviloMentVO">
+        <result property="envId"			column="env_id"				columnIndex="1"/>
+        <result property="envName"			column="env_name"			columnIndex="2"/>          
+        <result property="regDt"			column="reg_dt"				columnIndex="3"/>          
+    </resultMap>
+
+    <resultMap id="matVo" class="egovframework.com.adm.contents.material.vo.NoxiousMaterialVO">
+        <result property="envId"			column="env_id"				columnIndex="1"/>
+        <result property="envName"			column="env_name"			columnIndex="2"/>          
+        <result property="matId"			column="mat_id"				columnIndex="3"/>          
+        <result property="matName"			column="mat_name"			columnIndex="4"/>        
+        <result property="mappingList"		column="{envId = env_id, matId = mat_id}" select="EnvilomentNoxiousDao.selectMappingList" javaType="List"/>
+    </resultMap>
+    
+    <resultMap id="selectMappingVo" class="egovframework.com.adm.contents.material.vo.NoxiousMaterialMappingVO">
+        <result property="idx"			column="m_idx"				columnIndex="1"/>
+        <result property="eName"		column="m_ename"			columnIndex="2"/>
+        <result property="kName"		column="m_kname"			columnIndex="3"/>
+        <result property="cas"			column="m_cas"				columnIndex="4"/>          
+    </resultMap>
+    
+    <resultMap id="mapVo" class="egovframework.com.adm.contents.material.vo.NoxiousMaterialMappingVO">
+        <result property="envId"		column="env_id"				columnIndex="1"/>
+        <result property="matId"		column="mat_id"				columnIndex="2"/>
+        <result property="idx"			column="m_idx"				columnIndex="3"/>        
+        <result property="kName"		column="m_kname"			columnIndex="4"/>           
+    </resultMap>
+    
+    <select id="EnvilomentNoxiousDao.selectEnvNotxiousList" parameterClass="SearchEnvNoxious" resultMap="envNoxVo">
+    /* EnvilomentNoxiousDao.selectEnvNotxiousList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT 
+		    	m_idx
+		    	,m_ename
+		    	,m_kname
+		    	,m_cas
+		    	,m_trait
+		    	,m_trait_ch
+		    	,M_ATTACH_FILE_ID
+		    FROM
+		    	TT_MATERIAL
+		    <dynamic prepend="WHERE">
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<![CDATA[	m_kname LIKE '%' || #searchKeyword# || '%' 		]]>
+		    	</isNotEmpty>
+		    </dynamic>
+		    ORDER BY 
+		    	m_reg_date DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="EnvilomentNoxiousDao.selectEnvilomentNoxiousListCnt" parameterClass="SearchEnvNoxious" resultClass="int">
+    /* EnvilomentNoxiousDao.selectEnvilomentNoxiousListCnt */
+    SELECT 
+    	count(*)
+    FROM
+    	TT_MATERIAL
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<![CDATA[	m_kname LIKE '%' || #searchKeyword# || '%' 		]]>
+    	</isNotEmpty>
+    </dynamic>
+    ORDER BY 
+    	m_reg_date DESC
+    </select>
+    
+    <select id="EnvilomentNoxiousDao.selectEnviloNoxDetail" parameterClass="EnvilomentNoxiousVO" resultMap="envNoxDetailVo">
+    /* EnvilomentNoxiousDao.selectEnviloNoxDetail */    
+    SELECT 
+    	M_IDX
+		,M_ENAME
+		,M_KNAME
+		,M_CAS					
+		,M_TRAIT
+		,M_TRAIT_CH
+		,M_MEDIUM
+		,M_NOXIOUS_LEVEL					
+		,M_OUTLINE					
+		,M_BASIC
+		,M_T_INFO
+		,M_T_SAFE
+		,M_OVER_G
+		,M_INFO_ATTENTION_MAN
+		,M_OVER_G_RE
+		,M_OVER_M
+		,M_OVER_M_RE
+		,M_OUTLINE_RE
+		,M_CONTROL_G
+		,M_CONTROL_G_RE
+		,M_PLAN_G					
+		,M_PLAN_G_RE
+		,M_PLAN_M
+		,M_INFO_MATTER_CHILD
+		,M_INFO_EXPO_CHILD
+		,M_INFO_ATTENTION_CHILD
+		,M_OUTLINE_CH
+		,M_BASIC_CH
+		,M_T_INFO_CH
+		,M_T_SAFE_CH
+		,M_OVER_G_CH
+		,M_INFO_ATTENTION_MAN_CH
+		,M_OVER_G_RE_CH
+		,M_OVER_M_CH
+		,M_OVER_M_RE_CH
+		,M_OUTLINE_RE_CH
+		,M_CONTROL_G_CH
+		,M_CONTROL_G_RE_CH
+		,M_PLAN_G_CH
+		,M_PLAN_G_RE_CH
+		,M_PLAN_M_CH
+		,M_INFO_MATTER_CHILD_CH
+		,M_INFO_EXPO_CHILD_CH
+		,M_INFO_ATTENTION_CHILD_CH
+		,M_REG_DATE
+		,M_ATTACH_FILE_ID
+		,M_FLAG
+    FROM
+    	TT_MATERIAL
+    WHERE
+    	M_IDX = #idx#
+    ORDER BY 
+    	m_reg_date DESC	
+    </select>
+    
+    <insert id="EnvilomentNoxiousDao.insertEnviloNoxious" parameterClass="EnvilomentNoxiousVO">
+    /* EnvilomentNoxiousDao.insertEnviloNoxious */
+            INSERT INTO TT_MATERIAL
+                   ( M_IDX
+                   	,M_ENAME
+					,M_KNAME
+					,M_CAS					
+					,M_TRAIT
+					,M_TRAIT_CH
+					,M_MEDIUM
+					,M_NOXIOUS_LEVEL					
+					,M_OUTLINE					
+					,M_BASIC
+					,M_T_INFO
+					,M_T_SAFE
+					,M_OVER_G
+					,M_INFO_ATTENTION_MAN
+					,M_OVER_G_RE
+					,M_OVER_M
+					,M_OVER_M_RE
+					,M_OUTLINE_RE
+					,M_CONTROL_G
+					,M_CONTROL_G_RE
+					,M_PLAN_G					
+					,M_PLAN_G_RE
+					,M_PLAN_M
+					,M_INFO_MATTER_CHILD
+					,M_INFO_EXPO_CHILD
+					,M_INFO_ATTENTION_CHILD
+					,M_OUTLINE_CH
+					,M_BASIC_CH
+					,M_T_INFO_CH
+					,M_T_SAFE_CH
+					,M_OVER_G_CH
+					,M_INFO_ATTENTION_MAN_CH
+					,M_OVER_G_RE_CH
+					,M_OVER_M_CH
+					,M_OVER_M_RE_CH
+					,M_OUTLINE_RE_CH
+					,M_CONTROL_G_CH
+					,M_CONTROL_G_RE_CH
+					,M_PLAN_G_CH
+					,M_PLAN_G_RE_CH
+					,M_PLAN_M_CH
+					,M_INFO_MATTER_CHILD_CH
+					,M_INFO_EXPO_CHILD_CH
+					,M_INFO_ATTENTION_CHILD_CH
+					,M_REG_DATE
+					,M_ATTACH_FILE_ID
+					,M_FLAG)
+            VALUES (
+            		#idx#
+					,#eName#
+					,#kName#
+					,#cas#
+					,#trait#
+					,#traitCh#
+					,#medium#
+					,#noxiousLevel#
+					,#outline#
+					,#basic#
+					,#tInfo#
+					,#tSafe#
+					,#overG#
+					,#infoAttentionMan#
+					,#overGRe#
+					,#overM#
+					,#overMRe#
+					,#outlineRe#
+					,#controlG#
+					,#controlGRe#
+					,#planG#
+					,#planGRe#
+					,#planM#
+					,#infoMatterChild#
+					,#infoExpoChild#
+					,#infoAttentionChild#
+					,#outlineCh#
+					,#basicCh#
+					,#tInfoCh#
+					,#tSafeCh#
+					,#overGCh#
+					,#infoAttentionManCh#
+					,#overGReCh#
+					,#overMCh#
+					,#overMReCh#
+					,#outlineReCh#
+					,#controlGCh#
+					,#controlGReCh#
+					,#planGCh#
+					,#planGReCh#
+					,#planMCh#
+					,#infoMatterChildCh#
+					,#infoExpoChildCh#
+					,#infoAttentionChildCh#
+					,SYSDATE
+					,#attachFileId#
+					,'yes'
+					)
+    </insert>
+    
+    <update id="EnvilomentNoxiousDao.updateAdmEnvilomentNoxious" parameterClass="EnvilomentNoxiousVO">
+    /* EnvilomentNoxiousDao.updateAdmEnvilomentNoxious */
+    UPDATE TT_MATERIAL
+    SET
+    	M_FLAG = 'yes'
+    	<isNotEmpty prepend="," property="eName">M_ENAME = #eName#</isNotEmpty>
+    	<isNotEmpty prepend="," property="kName">M_KNAME = #kName#</isNotEmpty>
+    	<isNotEmpty prepend="," property="cas">M_CAS = #cas#</isNotEmpty>
+    	<isNotEmpty prepend="," property="trait">M_TRAIT = #trait#</isNotEmpty>
+    	<isNotEmpty prepend="," property="traitCh">M_TRAIT_CH = #traitCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="medium">M_MEDIUM = #medium#</isNotEmpty>
+    	<isNotEmpty prepend="," property="noxiousLevel">M_NOXIOUS_LEVEL = #noxiousLevel#</isNotEmpty>
+    	<isNotEmpty prepend="," property="outline">M_OUTLINE = #outline#</isNotEmpty>
+    	<isNotEmpty prepend="," property="basic">M_BASIC = #basic#</isNotEmpty>
+    	<isNotEmpty prepend="," property="tInfo">M_T_INFO = #tInfo#</isNotEmpty>
+    	<isNotEmpty prepend="," property="tSafe">M_T_SAFE = #tSafe#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overG">M_OVER_G = #overG#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoAttentionMan">M_INFO_ATTENTION_MAN = #infoAttentionMan#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overGRe">M_OVER_G_RE = #overGRe#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overM">M_OVER_M = #overM#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overMRe">M_OVER_M_RE = #overMRe#</isNotEmpty>
+    	<isNotEmpty prepend="," property="outlineRe">M_OUTLINE_RE = #outlineRe#</isNotEmpty>
+    	<isNotEmpty prepend="," property="controlG">M_CONTROL_G = #controlG#</isNotEmpty>
+    	<isNotEmpty prepend="," property="controlGRe">M_CONTROL_G_RE = #controlGRe#</isNotEmpty>
+    	<isNotEmpty prepend="," property="planG">M_PLAN_G = #planG#</isNotEmpty>
+    	<isNotEmpty prepend="," property="planGRe">M_PLAN_G_RE = #planGRe#</isNotEmpty>
+    	<isNotEmpty prepend="," property="planM">M_PLAN_M = #planM#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoMatterChild">M_INFO_MATTER_CHILD = #infoMatterChild#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoExpoChild">M_INFO_EXPO_CHILD = #infoExpoChild#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoAttentionChild">M_INFO_ATTENTION_CHILD  = #infoAttentionChild#</isNotEmpty>
+    	<isNotEmpty prepend="," property="outlineCh">M_OUTLINE_CH = #outlineCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="basicCh">M_BASIC_CH = #basicCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="tInfoCh">M_T_INFO_CH = #tInfoCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="tSafeCh">M_T_SAFE_CH = #tSafeCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overGCh">M_OVER_G_CH = #overGCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoAttentionManCh">M_INFO_ATTENTION_MAN_CH = #infoAttentionManCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overGReCh">M_OVER_G_RE_CH = #overGReCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overMCh">M_OVER_M_CH = #overMCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="overMReCh">M_OVER_M_RE_CH = #overMReCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="outlineReCh">M_OUTLINE_RE_CH = #outlineReCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="controlGCh">M_CONTROL_G_CH = #controlGCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="controlGReCh">M_CONTROL_G_RE_CH = #controlGReCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="planGCh">M_PLAN_G_CH = #planGCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="planGReCh">M_PLAN_G_RE_CH = #planGReCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="planMCh">M_PLAN_M_CH = #planMCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoMatterChildCh">M_INFO_MATTER_CHILD_CH  = #infoMatterChildCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoExpoChildCh">M_INFO_EXPO_CHILD_CH = #infoExpoChildCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="infoAttentionChildCh">M_INFO_ATTENTION_CHILD_CH = #infoAttentionChildCh#</isNotEmpty>
+    	<isNotEmpty prepend="," property="attachFileId">M_ATTACH_FILE_ID = #attachFileId#</isNotEmpty>
+    WHERE
+    	M_IDX = #idx#	
+    </update>
+    
+    <delete id="EnvilomentNoxiousDao.deleteAdmEnvilomentNoxious" parameterClass="EnvilomentNoxiousVO">
+    /* EnvilomentNoxiousDao.deleteAdmEnvilomentNoxious */
+    DELETE FROM
+    	TT_MATERIAL
+    WHERE
+    	M_IDX = #idx#
+    </delete>
+    
+    <select id="NoxiousMaterialDao.selectEnviloList" resultMap="envVo">
+    /* NoxiousMaterialDao.selectEnviloList */
+    SELECT
+    	ENV_ID
+    	,ENV_NAME
+    	,TO_CHAR(REG_DT,'YYYYMMDD') AS REG_DT
+    FROM
+    	TT_ENVILOMENT
+    ORDER BY
+    	ENV_ID ASC
+    </select>
+    
+    <select id="NoxiousMaterialDao.selectNoxMaterialList" parameterClass="NoxiousMaterialVO" resultMap="matVo">
+    /* NoxiousMaterialDao.selectNoxMaterialList */
+    SELECT  
+    	Z.RNUM
+    	,Z.ENV_ID
+    	,(SELECT env_name FROM TT_ENVILOMENT WHERE env_id = Z.ENV_ID) AS ENV_NAME
+    	,Z.MAT_ID
+    	,Z.MAT_NAME
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+			    SELECT
+			    	ENV_ID
+			    	,MAT_ID
+			    	,MAT_NAME    	
+			    FROM
+			    	TT_ENV_MATERIL
+			    WHERE
+			    	ENV_ID = #envId#
+			    ORDER BY
+			    	REG_DT DESC
+			    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="NoxiousMaterialDao.selectNoxMaterialListCnt" parameterClass="NoxiousMaterialVO" resultClass="int">
+    /* NoxiousMaterialDao.selectNoxMaterialListCnt */
+    SELECT
+    	COUNT(*)
+    FROM
+    	TT_ENV_MATERIL
+    WHERE
+    	ENV_ID = #envId#
+    </select>
+    
+    <select id="NoxiousMaterialDao.selectNoxMaterialForMappingList" parameterClass="NoxiousMaterialMappingVO" resultMap="selectMappingVo">
+    /* NoxiousMaterialDao.selectNoxMaterialForMappingList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT 
+		    	m_idx
+		    	,m_ename
+		    	,m_kname
+		    	,m_cas		    	
+		    FROM
+		    	TT_MATERIAL
+		    <dynamic prepend="WHERE">
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<isEqual property="searchCnd" compareValue="kor">
+			    		<![CDATA[	m_kname LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    		<isEqual property="searchCnd" compareValue="eng">
+			    		<![CDATA[	m_ename LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    		<isEqual property="searchCnd" compareValue="cas">
+			    		<![CDATA[	m_cas LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    	</isNotEmpty>
+		    </dynamic>
+		    ORDER BY 
+		    	m_reg_date DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="NoxiousMaterialDao.selectNoxMaterialForMappingListCnt" parameterClass="NoxiousMaterialMappingVO" resultClass="int">
+    /* NoxiousMaterialDao.selectNoxMaterialForMappingListCnt */
+    SELECT 
+    	count(*)
+    FROM
+    	TT_MATERIAL
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="kor">
+	    		<![CDATA[	m_kname LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="eng">
+	    		<![CDATA[	m_ename LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="cas">
+	    		<![CDATA[	m_cas LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    	</isNotEmpty>
+    </dynamic>
+    ORDER BY 
+    	m_reg_date DESC
+    </select>
+    
+    <select id="NoxiousMaterialDao.existCheckMapping" parameterClass="NoxiousMaterialMappingVO" resultClass="int">
+    /* NoxiousMaterialDao.existCheckMapping */
+    SELECT
+    	COUNT(*)
+    FROM
+    	TT_MAT_NOX_MAPPING
+    WHERE
+    	ENV_ID = #envId#
+    AND
+    	MAT_ID = #matId#
+    AND
+    	M_IDX = #idx#
+    </select>
+    
+    <insert id="NoxiousMaterialDao.insertMatMapping" parameterClass="NoxiousMaterialMappingVO">
+    /* NoxiousMaterialDao.insertMatMapping */
+    INSERT INTO
+    	TT_MAT_NOX_MAPPING(
+    		ENV_ID
+    		,MAT_ID
+    		,M_IDX
+    		,M_KNAME
+    		,REG_DT
+    	)VALUES(
+    		#envId#
+    		,#matId#
+    		,#idx#
+    		,#kName#
+    		,SYSDATE
+    	)
+    </insert>
+    
+    <select id="EnvilomentNoxiousDao.selectMappingList" parameterClass="NoxiousMaterialMappingVO" resultMap="mapVo"> 
+    /* EnvilomentNoxiousDao.selectMappingList */
+    SELECT
+		mnm.ENV_ID
+	    ,mnm.MAT_ID
+	    ,mnm.M_IDX
+	    ,mnm.M_KNAME
+	FROM
+		TT_MAT_NOX_MAPPING mnm
+	WHERE
+		mnm.ENV_ID = #envId# 
+	AND
+		mnm.MAT_ID = #matId#
+    </select>
+    
+    <delete id="NoxiousMaterialDao.deleteMatMapping" parameterClass="NoxiousMaterialMappingVO">
+    /* NoxiousMaterialDao.deleteMatMapping */
+    DELETE FROM TT_MAT_NOX_MAPPING
+    WHERE
+		ENV_ID = #envId# 
+	AND
+		MAT_ID = #matId#
+	AND
+		M_IDX = #idx#
+    </delete>
+    
+    <update id="EnvilomentNoxiousDao.deleteNoxiousAttachFileId" parameterClass="EnvilomentNoxiousVO">
+    /* EnvilomentNoxiousDao.deleteNoxiousAttachFileId */
+    UPDATE TT_MATERIAL
+    SET
+    	M_ATTACH_FILE_ID = NULL
+    WHERE
+    	M_IDX = #idx#
+    </update>
+</sqlMap>

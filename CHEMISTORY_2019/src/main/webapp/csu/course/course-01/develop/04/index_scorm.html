@@ -1,0 +1,40 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel=stylesheet type="text/css" href="../common/common.css">
+<script language="javascript" src="../common/courseconfig.js"></script>
+<script language="javascript" src="../common/SCOFunctions.js"></script>
+<script language="javascript" src="../common/KEMAPIWrapper.js"></script>
+<script language="javascript">
+	function f_initWin(){
+		loadPage();
+		var contentFrame=document.getElementById("frame");
+		var student_name = doGetValue("cmi.learner_name");
+
+		var bookmark = doGetValue("cmi.location"); //Bookmark	호출함수
+
+		if (bookmark == "" || bookmark == null)	{
+			//alert ("첫 방문이십니다.");
+			contentFrame.src = "01.html";
+		} else {
+			contentFrame.src = bookmark;
+			/*if(confirm("이전에 학습하신곳으로\n이동하시겠습니까?")) {
+				contentFrame.src = bookmark;
+			} else {
+				contentFrame.src = "00.html";
+			}*/
+		}
+	}
+</script>
+<script>document.write('<TITLE>'+course_name+'</TITLE>');</script>
+</head>
+<body scroll="no" onload="f_initWin()" onunload="doTerminate()">
+<table border="0" width="1020" height="592" cellpadding="0" cellspacing="0">
+    <tr>
+        <td align="center" valign="middle">
+		<script>document.write("<iframe name='frame' width="+swfWidth+" height="+swfHeight+" border='0' frameborder='0' scrolling='no'></iframe>");</script>
+		</td>
+    </tr>
+</table>
+</body>
+</html>

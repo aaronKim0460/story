@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="KidsGroundKor">
+    
+    <typeAlias  alias="KidsGroundFaciltyKorVO" type="egovframework.com.kor.space.condition.vo.KidsGroundFaciltyKorVO"/>    
+    <typeAlias  alias="KidsGroundReliefKorVO" type="egovframework.com.kor.space.condition.vo.KidsGroundReliefKorVO"/>    
+    
+    <resultMap id="selectKidsGroundFaciltyKorListMap" class="egovframework.com.kor.space.condition.vo.KidsGroundFaciltyKorVO">
+        <result property="fcltySn"      		column="FCLTY_SN"			columnIndex="1"/>
+		<result property="fcltyNo"	    		column="FCLTY_NO"			columnIndex="2"/>
+		<result property="fcltyNm"	    		column="FCLTY_NM"			columnIndex="3"/>
+		<result property="adres1"      			column="ADRES1"				columnIndex="4"/>
+		<result property="adres2"	   			column="ADRES2"				columnIndex="5"/>
+		<result property="plcstra"      		column="PLCSTRA"			columnIndex="6"/>
+		<result property="areaCl"      			column="AREA_CL"			columnIndex="7"/>
+		<result property="fcltyTy"	    		column="FCLTY_TY"			columnIndex="8"/>		
+    </resultMap>
+    
+    <resultMap id="kidsDetailKorMap" class="egovframework.com.kor.space.condition.vo.KidsGroundFaciltyKorVO">
+    	<result property="fcltySn"      		column="FCLTY_SN"			columnIndex="1"/>
+		<result property="fcltyNo"	    		column="FCLTY_NO"			columnIndex="2"/>
+		<result property="fcltyNm"	    		column="FCLTY_NM"			columnIndex="3"/>
+		<result property="adres1"      			column="ADRES1"				columnIndex="4"/>
+		<result property="adres2"	   			column="ADRES2"				columnIndex="5"/>
+		<result property="fcltyTy"      		column="FCLTY_TY"			columnIndex="6"/>
+		<result property="areaCl"      			column="AREA_CL"			columnIndex="7"/>
+		<result property="areaDetailCl"			column="AREA_DETAIL_CL"		columnIndex="8"/>
+		<result property="instlDt"      		column="INSTL_DT"			columnIndex="9"/>
+		<result property="ofcdc"      			column="OFCDC"				columnIndex="10"/>
+		<result property="pcpskl"	    		column="PCPSKL"				columnIndex="11"/>
+		<result property="fondSe"      			column="FOND_SE"			columnIndex="12"/>
+		<result property="schulSttus"	    	column="SCHUL_STTUS"		columnIndex="13"/>
+    </resultMap>
+    
+    <resultMap id="selectKidsGroundReliefKorListMap" class="egovframework.com.kor.space.condition.vo.KidsGroundReliefKorVO">
+    	<result property="crtfcSn"      		column="CRTFC_SN"			columnIndex="1"/>
+    	<result property="fcltyNm"      		column="FCLTY_NM"			columnIndex="2"/>
+    	<result property="fcltyTy"      		column="FCLTY_TY"			columnIndex="3"/>
+    	<result property="locplc"      			column="LOCPLC"				columnIndex="4"/>
+    	<result property="crtfcNo"      		column="CRTFC_NO"			columnIndex="5"/> 	
+    	<result property="crtfcBgnde"      		column="CRTFC_BGNDE"		columnIndex="6"/> 	
+    	<result property="crtfcEndde"      		column="CRTFC_ENDDE"		columnIndex="7"/> 	
+    </resultMap>
+    
+    <resultMap id="detailKidsGroundReliefKorMap" class="egovframework.com.kor.space.condition.vo.KidsGroundReliefKorVO">
+    	<result property="crtfcSn"      		column="CRTFC_SN"			columnIndex="1"/>
+    	<result property="postpneAt"      		column="POSTPNE_AT"			columnIndex="2"/>
+    	<result property="applcYear"      		column="APPLC_YEAR"			columnIndex="3"/>
+    	<result property="crtfcAt"      		column="CRTFC_AT"			columnIndex="4"/>
+    	<result property="crtfcDt"      		column="CRTFC_DT"			columnIndex="5"/>
+    	<result property="crtfcNo"      		column="CRTFC_NO"			columnIndex="6"/>
+    	<result property="fcltyNm"      		column="FCLTY_NM"			columnIndex="7"/>
+    	<result property="rprsntv"      		column="RPRSNTV"			columnIndex="8"/>
+    	<result property="locplc"      			column="LOCPLC"				columnIndex="9"/>
+    	<result property="crtfcBgnde"      		column="CRTFC_BGNDE"		columnIndex="10"/>
+    	<result property="crtfcEndde"      		column="CRTFC_ENDDE"		columnIndex="11"/>
+    	<result property="fcltySn"      		column="FCLTY_SN"			columnIndex="12"/>
+    	<result property="instlDt"      		column="INSTL_DT"			columnIndex="13"/>
+    	<result property="operSe"      			column="OPER_SE"			columnIndex="14"/>
+    	<result property="areaCl"      			column="AREA_CL"			columnIndex="15"/>
+    	<result property="areaDetailCl"      	column="AREA_DETAIL_CL"		columnIndex="16"/>
+    	<result property="fcltyTy"      		column="FCLTY_TY"			columnIndex="17"/>
+    	<result property="registDt"      		column="REGIST_DT"			columnIndex="18"/>
+    	<result property="registerId"      		column="REGISTER_ID"		columnIndex="19"/>
+    	<result property="updtDt"      			column="UPDT_DT"			columnIndex="20"/>    	
+    	<result property="updtId"      			column="UPDT_ID"			columnIndex="21"/>    	
+    </resultMap>
+    
+    <select id="KidsGroundKorDao.selectKidsGroundFaciltyKorList" parameterClass="KidsGroundFaciltyKorVO" resultMap="selectKidsGroundFaciltyKorListMap">
+    /* KidsGroundKorDao.selectKidsGroundFaciltyKorList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT
+				FCLTY_SN
+			    ,FCLTY_NO
+			    ,FCLTY_NM
+			    ,ADRES1
+			    ,ADRES2
+			    ,PLCSTRA
+			    ,AREA_CL
+			    ,FCLTY_TY			    			   
+			FROM
+				 TC_FCLTY
+			<dynamic prepend="WHERE">
+		    	<isNotEmpty prepend="AND" property="searchArea">
+		    		FCLTY_TY = #searchArea#
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchAreaCl">    		
+		    		<![CDATA[	AREA_CL LIKE '%' || #searchAreaCl# || '%' 		]]>
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<isEqual property="searchCnd" compareValue="fct">
+			    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    		<isEqual property="searchCnd" compareValue="fix">
+			    		<![CDATA[	FCLTY_NO LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>		    		
+		    	</isNotEmpty>
+		    </dynamic>
+			ORDER BY
+				 FCLTY_SN DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="KidsGroundKorDao.selectKidsGroundFaciltyKorListCnt" parameterClass="KidsGroundFaciltyKorVO" resultClass="int">
+    /* KidsGroundKorDao.selectKidsGroundFaciltyKorListCnt */
+    SELECT 
+    	count(*)
+    FROM
+    	TC_FCLTY
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchArea">
+    		FCLTY_TY = #searchArea#
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchAreaCl">    		
+	   		<![CDATA[	AREA_CL LIKE '%' || #searchAreaCl# || '%' 		]]>
+	   	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="fct">
+	    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="fix">
+	    		<![CDATA[	PLCSTRA LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>		    		
+    	</isNotEmpty>
+    </dynamic>
+    </select>
+    
+    <select id="KidsGroundKorDao.detailKidsGroundCurrent" parameterClass="KidsGroundFaciltyKorVO" resultMap="kidsDetailKorMap">
+    /* KidsGroundKorDao.detailKidsGroundCurrent */
+    SELECT
+		FCLTY_SN
+	    ,FCLTY_NO
+	    ,FCLTY_NM
+	    ,ADRES1
+	    ,ADRES2
+	    ,FCLTY_TY
+	    ,AREA_CL
+	    ,AREA_DETAIL_CL
+	    ,INSTL_DT
+	    ,OFCDC
+	    ,PCPSKL
+	    ,FOND_SE
+	    ,SCHUL_STTUS
+	FROM
+		TC_FCLTY
+	WHERE
+		FCLTY_SN = #fcltySn#
+    </select>
+    
+    <select id="KidsGroundKorDao.selectKidsGroundReliefKorList" parameterClass="KidsGroundReliefKorVO" resultMap="selectKidsGroundReliefKorListMap">
+    /* KidsGroundKorDao.selectKidsGroundReliefKorList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT
+				CRTFC_SN				
+				,FCLTY_NM				
+				,FCLTY_TY
+				,LOCPLC
+				,CRTFC_NO
+				,CRTFC_BGNDE
+				,CRTFC_ENDDE
+			FROM
+				 TC_FCLTY_CRTFC_RESULT
+			<dynamic prepend="WHERE">
+		    	<isNotEmpty prepend="AND" property="searchArea">
+		    		FCLTY_TY = #searchArea#
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchAreaCl">    		
+		    		<![CDATA[	AREA_CL LIKE '%' || #searchAreaCl# || '%' 		]]>
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<isEqual property="searchCnd" compareValue="fct">
+			    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    		<isEqual property="searchCnd" compareValue="fix">
+			    		<![CDATA[	CRTFC_NO LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>		    		
+		    	</isNotEmpty>
+		    </dynamic>
+			ORDER BY
+				 CRTFC_SN DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="KidsGroundKorDao.selectKidsGroundReliefKorListCnt" parameterClass="KidsGroundReliefKorVO" resultClass="int">
+    /* KidsGroundKorDao.selectKidsGroundReliefKorListCnt */
+    SELECT
+		COUNT(*)
+	FROM
+		 TC_FCLTY_CRTFC_RESULT
+	<dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchArea">
+    		FCLTY_TY = #searchArea#
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchAreaCl">    		
+    		<![CDATA[	AREA_CL LIKE '%' || #searchAreaCl# || '%' 		]]>
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="fct">
+	    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="fix">
+	    		<![CDATA[	CRTFC_NO LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>		    		
+    	</isNotEmpty>
+    </dynamic>
+    </select>
+    
+    <select id="KidsGroundKorDao.detailKidsGroundReliefKor" parameterClass="KidsGroundReliefKorVO" resultMap="detailKidsGroundReliefKorMap">
+    /* KidsGroundKorDao.detailKidsGroundReliefKor */
+    SELECT
+		CRTFC_SN
+		,POSTPNE_AT
+		,APPLC_YEAR
+		,CRTFC_AT
+		,CRTFC_DT
+		,CRTFC_NO
+		,FCLTY_NM
+		,RPRSNTV
+		,LOCPLC
+		,CRTFC_BGNDE
+		,CRTFC_ENDDE
+		,FCLTY_SN
+		,INSTL_DT
+		,OPER_SE
+		,AREA_CL
+		,AREA_DETAIL_CL
+		,FCLTY_TY
+		,REGIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+	FROM
+		 TC_FCLTY_CRTFC_RESULT
+	WHERE
+		CRTFC_SN =  #crtfcSn#	
+    </select>
+    
+</sqlMap>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 
+	수정일                 수정자                          수정내용
+  =========     =======    =================================================
+  2011.10.17   	서준식     	 	OCCRRNC_DE 컬럼과 날짜 비교문에 RTRIM 함수 적용
+
+-->
+<sqlMap namespace="WebLog">
+ 
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<!-- 웹로그 VO -->
+	<typeAlias  alias="webLog" type="egovframework.com.sym.log.wlg.service.WebLog"/>
+
+	<!-- 웹로그 맵 -->
+	<resultMap id="WebLogVO" class="egovframework.com.sym.log.wlg.service.WebLog">
+		<result property="requstId" column="REQUST_ID"/>
+		<result property="occrrncDe" column="OCCRRNC_DE"/>
+		<result property="url" column="URL"/>
+		<result property="rqesterIp" column="RQESTER_IP"/>
+		<result property="rqesterId" column="RQESTER_ID"/>
+		<result property="rqsterNm" column="RQESTER_NM"/>
+		<result property="menuNo" column="MENU_ID"/>
+		<result property="progrmFileNm" column="PROGRM_FILE_NM"/>
+	</resultMap>
+
+	<!-- 웹 로그 등록 -->
+	<insert id="WebLogDAO.logInsertWebLog" parameterClass="webLog" >
+			INSERT INTO TH_WEB_LOG
+				( REQUST_ID
+				  , URL
+				  , RQESTER_ID
+				  , RQESTER_IP
+				  , OCCRRNC_DE
+				  , MENU_ID
+				  , PROGRM_FILE_NM )
+			SELECT
+					#requstId#
+				  , #url#
+				  , #rqesterId#
+				  , #rqesterIp#
+				  , TO_CHAR(sysdate, 'YYYYMMDD')
+				  , #menuNo#
+				  <isEqual property="url" compareValue="/kor/index.do">
+				  , (SELECT PROGRM_FILE_NM FROM TN_PROGRM_LIST WHERE URL = #url#)
+				  </isEqual>
+				  <isNotEqual property="url" compareValue="/kor/index.do">
+				  , (SELECT PROGRM_FILE_NM FROM TN_MENU_INFO WHERE MENU_ID=#menuNo#)
+				  </isNotEqual>
+			FROM
+				DUAL
+	</insert>
+
+	<!-- 웹 로그 상세 조회 -->
+	<select id="WebLogDAO.selectWebLog" parameterClass="webLog" resultMap="WebLogVO">
+		<![CDATA[
+			SELECT
+				  a.REQUST_ID
+				, a.OCCRRNC_DE
+				, a.URL
+				, a.RQESTER_IP
+				, a.RQESTER_ID
+				, b.USER_NM AS RQESTER_NM
+				, a.MENU_ID
+				, a.PROGRM_FILE_NM				
+			FROM
+				TH_WEB_LOG a
+			LEFT OUTER JOIN VN_USER_MASTER b
+				ON a.RQESTER_ID = b.ESNTL_ID
+			WHERE
+				a.REQUST_ID = #requstId#
+			]]>
+	</select>
+
+	<!-- 웹 로그 목록 조회 -->
+	<select id="WebLogDAO.selectWebLogInf" parameterClass="webLog" resultMap="WebLogVO">
+		<![CDATA[
+		SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+			SELECT
+				  a.REQUST_ID
+				, a.OCCRRNC_DE
+				, a.URL
+				, a.RQESTER_IP
+				, a.RQESTER_ID
+				, b.USER_NM AS RQESTER_NM
+				, a.MENU_ID
+				, a.PROGRM_FILE_NM
+			FROM
+				TH_WEB_LOG a
+			LEFT OUTER JOIN VN_USER_MASTER b
+				ON a.RQESTER_ID = b.ESNTL_ID
+			WHERE
+				1 = 1
+			]]>
+			<isNotEmpty prepend="AND" property="searchWrd">
+				<![CDATA[	a.URL LIKE '%' || #searchWrd# || '%' ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="searchBgnDe">
+				<![CDATA[	a.OCCRRNC_DE BETWEEN #searchBgnDe# AND #searchEndDe# ]]>
+			</isNotEmpty>
+		<![CDATA[
+			ORDER BY a.OCCRRNC_DE DESC, a.REQUST_ID DESC
+			) TB ) Z WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+		]]>
+	</select>
+
+	<!-- 웹 로그 총건수 -->
+	<select id="WebLogDAO.selectWebLogInfCnt"  parameterClass="webLog"  resultClass="java.lang.Integer">
+		<![CDATA[
+			SELECT COUNT(a.REQUST_ID) as cnt
+			FROM
+				TH_WEB_LOG a
+			LEFT OUTER JOIN VN_USER_MASTER b
+				ON a.RQESTER_ID = b.ESNTL_ID
+			WHERE
+				1 = 1
+			]]>
+			<isNotEmpty prepend="AND" property="searchWrd">
+				<![CDATA[ 	a.URL LIKE '%' || #searchWrd# || '%'  ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="searchBgnDe">
+				<![CDATA[ 	a.OCCRRNC_DE BETWEEN #searchBgnDe# AND #searchEndDe#  ]]>
+			</isNotEmpty>
+	</select>
+
+	<!-- 웹 로그 전날 로그 요약 등록 -->
+	<insert id="WebLogDAO.logInsertWebLogSummary">
+		<![CDATA[
+			INSERT INTO TS_WEB_LOG_SUMRY 
+			(
+				OCCRRNC_DE
+				,URL
+				,PROGRM_FILE_NM
+				,RDCNT
+				, IP_RDCNT
+			)
+			SELECT
+				T.OCCRRNC_DE
+				, T.URL
+				, T.PROGRM_FILE_NM
+				, SUM (T.RDCNT) AS RDCNT
+				, COUNT(T.RDCNT) AS CNT   
+			FROM    
+				(    
+					SELECT 
+						b.OCCRRNC_DE
+						, b.URL
+						, b.PROGRM_FILE_NM
+						, COUNT(b.OCCRRNC_DE) AS RDCNT
+						, b.RQESTER_IP
+					FROM 
+						TH_WEB_LOG b 
+					INNER JOIN 
+						TN_PROGRM_LIST P 
+					ON 
+						B.PROGRM_FILE_NM=P.PROGRM_FILE_NM 
+					AND INSTR(P.URL, SUBSTR(B.URL,1,INSTR(B.URL, '.do')-1))>0
+					WHERE 
+						NOT EXISTS (
+							SELECT 
+								c.OCCRRNC_DE
+							FROM 
+								TS_WEB_LOG_SUMRY c
+							WHERE 
+								c.OCCRRNC_DE = TO_CHAR((SYSDATE - 1), 'YYYYMMDD')
+						)  	
+					AND b.OCCRRNC_DE = TO_CHAR((SYSDATE - 1), 'YYYYMMDD')
+					GROUP BY 
+					b.OCCRRNC_DE
+					, b.URL
+					, b.PROGRM_FILE_NM
+					, b.RQESTER_IP
+				) T
+			GROUP BY
+				T.OCCRRNC_DE
+				, T.URL
+				, T.PROGRM_FILE_NM
+		]]>
+	</insert>
+
+	<!-- 웹 로그 일주일전 로그 삭제 -->
+	<delete id="WebLogDAO.logDeleteWebLogSummary">
+		<![CDATA[
+			DELETE FROM TH_WEB_LOG
+			 WHERE OCCRRNC_DE < TO_CHAR((SYSDATE - 7), 'YYYYMMDD')
+
+		]]>
+	</delete>
+
+</sqlMap>
+

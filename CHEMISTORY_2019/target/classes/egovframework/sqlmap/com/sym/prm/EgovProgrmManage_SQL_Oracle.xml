@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProgrmManage">
+
+	<typeAlias  alias="comDefaultVO" type="egovframework.com.cmm.ComDefaultVO"/>
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="progrmManageVO" type="egovframework.com.sym.prm.service.ProgrmManageVO"/>
+
+    <!-- 프로그램목록 관리 -->
+	<resultMap id="progrmManage"       class="egovframework.com.sym.prm.service.ProgrmManageVO">
+		<result property="progrmFileNm"    column="progrmFileNm"    columnIndex="1"/>
+		<result property="progrmStrePath"  column="progrmStrePath"  columnIndex="2"/>
+		<result property="progrmKoreanNm"  column="progrmKoreanNm"  columnIndex="3"/>
+		<result property="progrmDc"        column="progrmDc"        columnIndex="4"/>
+		<result property="URL"             column="URL"             columnIndex="5"/>
+	</resultMap> 
+
+	<!-- 프로그램 파일 목록 관리 -->
+	<resultMap id="progrmFileManage"       class="egovframework.com.sym.prm.service.ProgrmManageVO">
+		<result property="nttId"    column="DNLD_ID"    columnIndex="1"/>
+		<result property="fileMgmName"  column="FILE_MANAGE_NM"  columnIndex="2"/>
+		<result property="atchFileId"  column="ATCH_FILE_ID"  columnIndex="3"/>
+		<result property="url"        column="URL"        columnIndex="4"/>
+		<result property="progrmFileNm"             column="FILE_NM"             columnIndex="5"/>
+		<result property="fileMgmDc"             column="FILE_DC"             columnIndex="6"/>
+	</resultMap> 
+	
+	<select id="progrmManageDAO.selectProgrmList_D" parameterClass="comDefaultVO" resultMap="progrmManage">
+		<![CDATA[
+	       SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+				SELECT 
+					  PROGRM_FILE_NM   AS "progrmFileNm"
+					, PROGRM_STRE_PATH AS "progrmStrePath"
+					, PROGRM_KOREAN_NM  AS "progrmKoreanNm" 
+					, substr(PROGRM_DC, 1, 18)||'...' AS "progrmDc"
+					, URL              AS "URL"
+				FROM TN_PROGRM_LIST
+		 ]]>
+				WHERE 1=1
+		<isEqual prepend="AND" property="searchCnd" compareValue="0">
+		    <![CDATA[ PROGRM_KOREAN_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+		</isEqual>
+		<isEqual prepend="AND" property="searchCnd" compareValue="1">
+			<![CDATA[ PROGRM_FILE_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+		</isEqual>	
+	       ) TB ) Z WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	</select> 
+
+	<!-- 총건수 조회  					, PROGRM_DC        AS "progrmDc" -->
+	<select id="progrmManageDAO.selectProgrmListTotCnt_S" parameterClass="comDefaultVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS "totcnt"
+		  FROM TN_PROGRM_LIST
+		]]>
+		WHERE 1=1
+		<isEqual prepend="AND" property="searchCnd" compareValue="0">
+		    <![CDATA[ PROGRM_KOREAN_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+		</isEqual>
+		<isEqual prepend="AND" property="searchCnd" compareValue="1">
+			<![CDATA[ PROGRM_FILE_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+		</isEqual>			
+	</select>
+
+	<!-- 파일명존재여부 조회 -->
+	<select id="progrmManageDAO.selectProgrmNMTotCnt" parameterClass="comDefaultVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS "totcnt"
+		  FROM TN_PROGRM_LIST
+		 WHERE PROGRM_FILE_NM = #searchKeyword#
+		]]>
+	</select>
+
+	<select id="progrmManageDAO.selectProgrm_D" parameterClass="comDefaultVO" resultClass="progrmManageVO">
+		<![CDATA[
+			SELECT
+				  PROGRM_FILE_NM   AS "progrmFileNm" 
+				, PROGRM_STRE_PATH AS "progrmStrePath" 
+				, PROGRM_KOREAN_NM  AS "progrmKoreanNm" 
+				, PROGRM_DC        AS "progrmDc" 
+				, URL              AS "URL"
+				, IFRME_URL              AS "iframeUrl"
+			FROM TN_PROGRM_LIST
+			WHERE PROGRM_FILE_NM = #searchKeyword#
+		]]>
+	</select>
+	
+	<insert id="progrmManageDAO.insertProgrm_S">
+		<![CDATA[
+			INSERT INTO TN_PROGRM_LIST 
+				( PROGRM_FILE_NM
+				  , PROGRM_STRE_PATH
+				  , PROGRM_KOREAN_NM
+				  , PROGRM_DC
+				  , URL 
+				  , IFRME_URL )
+			VALUES ( #progrmFileNm#
+				  , #progrmStrePath#
+				  , #progrmKoreanNm#
+				  , #progrmDc#
+				  , #URL# 
+				  , #iframeUrl#)
+		]]>
+	</insert>
+
+	<update id="progrmManageDAO.updateProgrm_S">
+		<![CDATA[
+			UPDATE TN_PROGRM_LIST 
+			SET PROGRM_STRE_PATH=#progrmStrePath#
+				, PROGRM_KOREAN_NM=#progrmKoreanNm#
+				, PROGRM_DC      =#progrmDc#
+				, URL            =#URL#
+				, IFRME_URL     =#iframeUrl#
+			WHERE PROGRM_FILE_NM=#progrmFileNm#
+		]]>
+	</update>
+
+	<delete id="progrmManageDAO.deleteProgrm_S">
+		<![CDATA[                          
+			DELETE FROM TN_PROGRM_LIST              
+			WHERE PROGRM_FILE_NM=#progrmFileNm#                 
+		]]>                                
+	</delete> 
+
+	<delete id="progrmManageDAO.deleteAllProgrm">
+		<![CDATA[                          
+			DELETE FROM TN_PROGRM_LIST              
+		]]>                                
+	</delete> 
+
+	<!-- 메뉴정보 총건수 조회 -->
+	<select id="progrmManageDAO.selectProgrmListTotCnt" parameterClass="progrmManageVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(PROGRM_FILE_NM) AS "totcnt" FROM TN_PROGRM_LIST
+		]]>
+	</select>
+	
+	
+	<select id="progrmManageDAO.selectProgrmFileList" parameterClass="comDefaultVO" resultMap="progrmFileManage">
+		<![CDATA[
+	       SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+				SELECT 
+					  DNLD_ID 
+					, FILE_MANAGE_NM 
+					, ATCH_FILE_ID 
+					, URL 
+					, FILE_NM 
+					, FILE_DC
+				FROM TN_DWLD_FILE
+				WHERE FILE_MANAGE_NM like  '%'|| #searchKeyword#||'%'
+	       ) TB ) Z WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+		 ]]>
+	</select> 
+	
+	<select id="progrmManageDAO.selectProgrmFileListTotCnt" parameterClass="comDefaultVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS "totcnt"
+		  FROM TN_DWLD_FILE
+	    WHERE FILE_MANAGE_NM like  '%'|| #searchKeyword#||'%'
+		]]>
+	</select>
+	
+	<insert id="progrmManageDAO.insertProgrmFile">
+		<![CDATA[
+			INSERT INTO TN_DWLD_FILE
+				( DNLD_ID
+				  , FILE_MANAGE_NM
+				  , ATCH_FILE_ID
+				  , URL
+				  , FILE_NM 
+				  , FILE_DC )
+			VALUES ( #nttId#
+				  , #fileMgmName#
+				  , #atchFileId#
+				  , #url#
+				  , #progrmFileNm# 
+				  , #fileMgmDc#)
+		]]>
+	</insert>
+	
+	<select id="progrmManageDAO.selectProgrmFile_N" parameterClass="comDefaultVO" resultClass="progrmManageVO">
+		<![CDATA[
+			SELECT
+				  A.DNLD_ID as nttId, A.FILE_MANAGE_NM as fileMgmName, A.ATCH_FILE_ID as atchFileId, A.URL as url, A.FILE_NM as progrmFileNm, A.FILE_DC as fileMgmDc, 
+				  B.FILE_STRE_COURS as fileStreCours, B.STRE_FILE_NM as streFileNm, B.ORIGNL_FILE_NM as orignlFileNm, B.FILE_EXTSN as fileExtSn, B.FILE_SIZE as fileSize
+			FROM TN_DWLD_FILE A
+			LEFT OUTER JOIN TN_FILE_DETAIL B 
+			ON A.ATCH_FILE_ID = B.ATCH_FILE_ID
+			WHERE DNLD_ID = #searchKeyword#
+		]]>
+	</select>
+	
+</sqlMap>                            

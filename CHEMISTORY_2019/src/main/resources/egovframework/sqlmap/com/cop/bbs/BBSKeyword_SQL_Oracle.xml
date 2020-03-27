@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="BBSKeyword">
+
+	<typeAlias  alias="BBSKeyword" type="egovframework.com.cop.bbs.service.BBSKeyword"/>
+	<typeAlias  alias="BBSKeywordVO" type="egovframework.com.cop.bbs.service.BBSKeywordVO"/>
+	<typeAlias  alias="TotalSearchResultVO" type="egovframework.com.cop.bbs.service.TotalSearchResultVO"/>
+	
+	<insert id="BBSKeywordDAO.insertBBSKeyword" parameterClass="BBSKeyword">
+		/* BBSKeywordDAO.insertBBSKeyword */
+		INSERT INTO TN_BBS_KEYWORD
+		(
+			KEY_ID
+			, NTT_ID
+			, BBS_ID
+			, KEYWORD
+			, FRST_REGIST_PNTTM
+			, FRST_REGISTER_ID
+		)
+		VALUES
+		(
+			#keyId#
+			, #nttId#
+			, #bbsId#
+			, #keyword#
+			, SYSDATE
+			, #frstRegisterId#
+		)
+	</insert>
+	
+	<delete id="BBSKeywordDAO.deleteBBSKeywordByBbsKeys" parameterClass="BBSKeyword">
+		/* BBSKeywordDAO.deleteBBSKeywordByBbsKeys */
+		DELETE
+		FROM
+			TN_BBS_KEYWORD
+		WHERE
+			BBS_ID = #bbsId#	
+			<isNotEmpty property="nttId">
+			AND NTT_ID = #nttId#
+			</isNotEmpty>
+	</delete>
+	
+	<resultMap id="selectAllByKeyword" class="egovframework.com.cop.bbs.service.BBSKeywordVO">
+		<result property="bbsId" 		column="BBS_ID" 		/>
+		<result property="totalCount" 	column="TOTAL_COUNT" />
+		<result property="menuNm" 		column="MENU_NM" 	/>
+		<result property="typeStr" 		column="TYPE_STR" 	/>
+		<result property="menuId" 		column="MENU_ID" 	/>
+		<result property="totalResultList" column="{setBbsId=SET_BBS_ID,setNttId=SET_NTT_ID,bbsId=BBS_ID,typeStr=TYPE_STR,menuId=MENU_ID}" javaType="arrayList" select="BBSKeywordDAO.selectAllBbsByKeyword" />
+	</resultMap>
+	
+	<select id="BBSKeywordDAO.selectAllBbsMstByKeyword" parameterClass="BBSKeywordVO" resultMap="selectAllByKeyword">
+		/* BBSKeywordDAO.selectAllBbsMstByKeyword */
+		SELECT 
+			TBK.BBS_ID
+		  , COUNT(*) AS TOTAL_COUNT
+		  , M.MENU_NM
+		  , 'BBS' AS TYPE_STR
+		  , M.MENU_ID 
+		  , #bbsId# AS SET_BBS_ID
+		  , #nttId# AS SET_NTT_ID
+		FROM 
+			TN_BBS_KEYWORD TBK
+		INNER JOIN
+			TN_BBS TB
+		ON
+			TBK.BBS_ID = TB.BBS_ID
+		AND
+			TBK.NTT_ID = TB.NTT_ID
+		AND TB.USE_AT = 'Y'
+		AND TB.CONFM_STTUS_CODE = 'C'
+		AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN TO_CHAR(TB.NTCE_BGNDE,'YYYYMMDD') AND TO_CHAR(TB.NTCE_ENDDE,'YYYYMMDD')
+		AND TB.BBS_ID <![CDATA[!=]]> #bbsId#
+		INNER JOIN
+			(
+		  	SELECT
+		    	SUBSTR(TPL.URL,(INSTR(TPL.URL,'=')+1),20) AS BBS_ID
+		      , TMI.MENU_NM
+		      , TMI.MENU_ID
+		    FROM
+		    	TN_MENU_INFO TMI
+		    INNER JOIN
+		    	TN_PROGRM_LIST TPL
+		    ON
+		    	TMI.PROGRM_FILE_NM = TPL.PROGRM_FILE_NM
+		    AND TMI.MENU_SITE_CODE ='SITE0001'
+		    AND TPL.URL LIKE ('%BBSMSTR%')
+		  ) M
+		ON
+			TBK.BBS_ID = M.BBS_ID
+		WHERE
+			TBK.KEYWORD IN 
+			(
+				SELECT
+					KEYWORD
+				FROM
+					TN_BBS_KEYWORD
+				WHERE
+					BBS_ID = #bbsId#
+				AND NTT_ID = #nttId#			
+			)
+		GROUP BY
+			TBK.BBS_ID
+		  , M.MENU_NM
+		  , M.MENU_ID 
+		UNION ALL
+		SELECT
+			'' AS BBS_ID
+		  , COUNT(*) AS TOTAL_COUNT
+		  , TO_CHAR(TBK.NTT_ID) AS MENU_NM
+		  , 'RECALL' AS TYPE_STR
+		  , TO_CHAR(TBK.NTT_ID) AS MENU_ID
+		  , #bbsId# AS SET_BBS_ID
+		  , #nttId# AS SET_NTT_ID
+		FROM 
+			TN_BBS_KEYWORD TBK
+		INNER JOIN
+			TT_RECALL_BBS TRB
+		ON
+			TBK.BBS_ID = TRB.RECALL_ID
+		WHERE
+			TBK.KEYWORD IN 
+			(
+				SELECT
+					KEYWORD
+				FROM
+					TN_BBS_KEYWORD
+				WHERE
+					BBS_ID = #bbsId#
+				AND NTT_ID = #nttId#			
+			)
+		GROUP BY
+			TBK.NTT_ID
+		ORDER BY 
+			TYPE_STR ASC
+			, BBS_ID DESC
+	</select>
+	
+	<resultMap id="selectAllBbsByKeyword" class="egovframework.com.cop.bbs.service.TotalSearchResultVO">
+		<result property="bbsId" 			column="BBS_ID"				/>
+		<result property="nttId" 			column="NTT_ID"				/>
+		<result property="nttSj" 			column="NTT_SJ"				/>
+		<result property="atchFileId" 		column="ATCH_FILE_ID"		/>
+		<result property="rdcnt" 			column="RDCNT"				/>
+		<result property="frstRegistPnttm" 	column="FRST_REGIST_PNTTM"	/>
+		<result property="position" 		column="POSITION"			/>
+		<result property="afterRecallCn" 	column="AFTER_RECALL_CN"	/>
+		<result property="atchFileId" 		column="ATCH_FILE_ID"		/>
+		<result property="productType" 		column="PRODUCT_TYPE"		/>
+		<result property="materialName" 	column="MATERIAL_NAME"		/>
+		<result property="recallCn" 		column="RECALL_CN"			/>
+	</resultMap>
+	
+	<select id="BBSKeywordDAO.selectAllBbsByKeyword" parameterClass="TotalSearchResultVO" resultMap="selectAllBbsByKeyword">
+		/* BBSKeywordDAO.selectAllBbsByKeyword */
+		<isEqual property="typeStr" compareValue="RECALL">
+			SELECT
+				RECALL_ID AS BBS_ID
+			  , '' AS NTT_ID
+			  , PRODUCT_NAME AS NTT_SJ
+			  , TRB.ATCH_FILE_ID
+			  , NVL(TRB.RDCNT, 0) AS RDCNT
+			  , TO_CHAR(TRB.FRST_REGIST_PNTTM, 'YYYY-MM-DD') AS FRST_REGIST_PNTTM
+			  , TRB.POSITION
+			  , TRB.AFTER_RECALL_CN
+			  , (
+			  	SELECT
+			  		CODE_NM 
+			  	FROM 
+			  		TC_CMMN_DETAIL_CODE
+				WHERE 
+					CODE = TRB.PRODUCT_TYPE) AS PRODUCT_TYPE
+			  , (
+			  	SELECT
+			    	WM_CONCAT (DISTINCT TM.M_KNAME) /*OVER (ORDER BY TRM.RECALL_ID DESC)*/
+			      FROM
+			    	TT_RECALL_MATERIAL TRM
+			    INNER JOIN
+			    	TT_MATERIAL TM
+			    ON
+			      TRM.M_IDX = TM.M_IDX
+			    WHERE
+			    	TRM.RECALL_ID = TRB.RECALL_ID
+			  ) AS MATERIAL_NAME
+			  , TRB.RECALL_CN
+			FROM 
+				TN_BBS_KEYWORD TBK
+			INNER JOIN
+				TT_RECALL_BBS TRB
+			ON
+				TBK.BBS_ID = TRB.RECALL_ID
+			WHERE
+				TBK.KEYWORD IN 
+			(
+				SELECT
+					KEYWORD
+				FROM
+					TN_BBS_KEYWORD
+				WHERE
+					BBS_ID = #setBbsId#
+				AND NTT_ID = #setNttId#			
+			)
+			AND TBK.NTT_ID = TO_NUMBER(#menuId#)
+			GROUP BY
+				RECALL_ID
+				, PRODUCT_NAME
+				, TRB.ATCH_FILE_ID
+				, TRB.RDCNT
+				, TRB.FRST_REGIST_PNTTM
+				, TRB.POSITION
+				, TRB.AFTER_RECALL_CN
+				, TRB.PRODUCT_TYPE
+				, TRB.RECALL_CN
+		</isEqual>
+		<isEqual property="typeStr" compareValue="BBS">
+			SELECT
+				TBK.BBS_ID
+			  , TBK.NTT_ID
+			  , TB.NTT_SJ
+			  , TB.ATCH_FILE_ID
+			  , NVL(TB.RDCNT, 0) AS RDCNT
+			  , TO_CHAR(TB.FRST_REGIST_PNTTM, 'YYYY-MM-DD') AS FRST_REGIST_PNTTM
+			  , '' AS POSITION
+			  , '' AS AFTER_RECALL_CN
+			  , '' AS PRODUCT_TYPE
+			  , '' AS MATERIAL_NAME
+			  , '' AS RECALL_CN
+			FROM
+				TN_BBS_KEYWORD TBK
+			INNER JOIN
+				TN_BBS TB
+			ON
+				TBK.BBS_ID = TB.BBS_ID
+			AND
+				TBK.NTT_ID = TB.NTT_ID
+			WHERE
+				TBK.KEYWORD IN 
+			(
+				SELECT
+					KEYWORD
+				FROM
+					TN_BBS_KEYWORD
+				WHERE
+					BBS_ID = #setBbsId#
+				AND NTT_ID = #setNttId#			
+			)
+			AND TBK.BBS_ID = #bbsId#
+			AND TB.USE_AT = 'Y'
+			AND TB.CONFM_STTUS_CODE = 'C'
+			AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN TO_CHAR(TB.NTCE_BGNDE,'YYYYMMDD') AND TO_CHAR(TB.NTCE_ENDDE,'YYYYMMDD')
+			GROUP BY
+				TBK.BBS_ID
+			  , TBK.NTT_ID
+			  , TB.NTT_SJ
+			  , TB.ATCH_FILE_ID
+			  , RDCNT
+			  , TB.FRST_REGIST_PNTTM
+		</isEqual>
+	</select>
+	
+	<resultMap id="selectAllBbsMstForTotalSearch" class="egovframework.com.cop.bbs.service.BBSKeywordVO">
+		<result property="bbsId" 		column="BBS_ID" 		/>
+		<result property="totalCount" 	column="TOTAL_COUNT" />
+		<result property="menuNm" 		column="MENU_NM" 	/>
+		<result property="typeStr" 		column="TYPE_STR" 	/>
+		<result property="menuId" 		column="MENU_ID" 	/>
+		<result property="totalResultList" column="{keyword=KEYWORD,bbsId=BBS_ID,typeStr=TYPE_STR}" javaType="arrayList" select="BBSKeywordDAO.selectAllBbsForTotalSearch" />
+	</resultMap>
+	
+	<select id="BBSKeywordDAO.selectAllBbsMstForTotalSearch" parameterClass="BBSKeywordVO" resultMap="selectAllBbsMstForTotalSearch">
+		/* BBSKeywordDAO.selectAllBbsMstForTotalSearch */
+		SELECT 
+			TB.BBS_ID
+		  , COUNT(*) AS TOTAL_COUNT
+		  , M.MENU_NM
+		  , 'BBS' AS TYPE_STR
+		  , M.MENU_ID 
+		  , #keyword# AS KEYWORD
+		FROM 
+			TN_BBS TB
+		INNER JOIN
+			(
+		  	SELECT
+		    	SUBSTR(TPL.URL,(INSTR(TPL.URL,'=')+1),20) AS BBS_ID
+		      , TMI.MENU_NM
+		      , TMI.MENU_ID
+		    FROM
+		    	TN_MENU_INFO TMI
+		    INNER JOIN
+		    	TN_PROGRM_LIST TPL
+		    ON
+		    	TMI.PROGRM_FILE_NM = TPL.PROGRM_FILE_NM
+		    AND TMI.MENU_SITE_CODE ='SITE0001'
+		    AND TPL.URL LIKE ('%BBSMSTR%')
+		  ) M
+		ON
+			TB.BBS_ID = M.BBS_ID
+		WHERE
+			TB.NTT_SJ LIKE '%' || #keyword# || '%'
+   		AND TB.USE_AT = 'Y'
+		AND TB.CONFM_STTUS_CODE = 'C'
+		AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN TO_CHAR(TB.NTCE_BGNDE,'YYYYMMDD') AND TO_CHAR(TB.NTCE_ENDDE,'YYYYMMDD')
+		GROUP BY
+			TB.BBS_ID
+		  , M.MENU_NM
+		  , M.MENU_ID 
+		UNION ALL
+		SELECT
+	    	T.BBS_ID
+	      , COUNT(*) AS TOTAL_COUNT
+	      , T.MENU_NM
+	      , T.TYPE_STR
+	      , T.BBS_ID AS MENU_ID
+	      , T.KEYWORD
+	    FROM
+	    (
+	    	SELECT
+		        CASE WHEN TRB.DOMESTIC_YN = 'Y' THEN '11007' ELSE '11008' END  AS BBS_ID
+		        , CASE WHEN TRB.DOMESTIC_YN = 'Y' THEN '국내위해어린이용품리콜현황' ELSE '국외위해어린이용품리콜현황' END AS MENU_NM
+		        , 'RECALL' AS TYPE_STR
+		        , #keyword# AS KEYWORD
+	        FROM 
+	        	TT_RECALL_BBS TRB
+	        WHERE
+	        	TRB.PRODUCT_NAME LIKE '%' || #keyword# || '%'
+	    ) T
+		GROUP BY
+			T.BBS_ID
+	      , T.MENU_NM
+	      , T.TYPE_STR
+	      , T.KEYWORD
+	ORDER BY 
+		TYPE_STR ASC
+		, BBS_ID ASC
+	</select>
+	
+	<resultMap id="selectAllBbsForTotalSearch" class="egovframework.com.cop.bbs.service.TotalSearchResultVO">
+		<result property="bbsId" 			column="BBS_ID"				/>
+		<result property="nttId" 			column="NTT_ID"				/>
+		<result property="nttSj" 			column="NTT_SJ"				/>
+		<result property="atchFileId" 		column="ATCH_FILE_ID"		/>
+		<result property="rdcnt" 			column="RDCNT"				/>
+		<result property="frstRegistPnttm" 	column="FRST_REGIST_PNTTM"	/>
+		<result property="position" 		column="POSITION"			/>
+		<result property="afterRecallCn" 	column="AFTER_RECALL_CN"	/>
+		<result property="atchFileId" 		column="ATCH_FILE_ID"		/>
+		<result property="productType" 		column="PRODUCT_TYPE"		/>
+		<result property="materialName" 	column="MATERIAL_NAME"		/>
+		<result property="recallCn" 		column="RECALL_CN"			/>
+	</resultMap>
+	
+	<select id="BBSKeywordDAO.selectAllBbsForTotalSearch" parameterClass="TotalSearchResultVO" resultMap="selectAllBbsForTotalSearch">
+		/* BBSKeywordDAO.selectAllBbsForTotalSearch */
+		<isEqual property="typeStr" compareValue="RECALL">
+			SELECT
+				TRB.RECALL_ID AS BBS_ID
+			  , '' AS NTT_ID
+			  , TRB.PRODUCT_NAME AS NTT_SJ
+			  , TRB.ATCH_FILE_ID
+			  , NVL(TRB.RDCNT, 0) AS RDCNT
+			  , TO_CHAR(TRB.FRST_REGIST_PNTTM, 'YYYY-MM-DD') AS FRST_REGIST_PNTTM
+			  , TRB.POSITION
+			  , TRB.AFTER_RECALL_CN
+			  , (
+			  	SELECT
+			  		CODE_NM 
+			  	FROM 
+			  		TC_CMMN_DETAIL_CODE
+				WHERE 
+					CODE = TRB.PRODUCT_TYPE) AS PRODUCT_TYPE
+			  , (
+			  	SELECT
+			    	WM_CONCAT (DISTINCT TM.M_KNAME) /*OVER (ORDER BY TRM.RECALL_ID DESC)*/
+			    FROM
+			    	TT_RECALL_MATERIAL TRM
+			    INNER JOIN
+			    	TT_MATERIAL TM
+			    ON
+			      TRM.M_IDX = TM.M_IDX
+			    WHERE
+			    	TRM.RECALL_ID = TRB.RECALL_ID
+			  ) AS MATERIAL_NAME
+			  , TRB.RECALL_CN
+			FROM 
+				TT_RECALL_BBS TRB
+			WHERE
+				TRB.PRODUCT_NAME LIKE '%' || #keyword# || '%'
+			AND TRB.DOMESTIC_YN = CASE WHEN #bbsId# = '11007' THEN 'Y' ELSE 'N' END 
+		</isEqual>
+		<isEqual property="typeStr" compareValue="BBS">
+			SELECT
+				TB.BBS_ID
+			  , TB.NTT_ID
+			  , TB.NTT_SJ
+			  , TB.ATCH_FILE_ID
+			  , NVL(TB.RDCNT, 0) AS RDCNT
+			  , TO_CHAR(TB.FRST_REGIST_PNTTM, 'YYYY-MM-DD') AS FRST_REGIST_PNTTM
+			  , '' AS POSITION
+			  , '' AS AFTER_RECALL_CN
+			  , '' AS PRODUCT_TYPE
+			  , '' AS MATERIAL_NAME
+			  , '' AS RECALL_CN
+			FROM
+				TN_BBS TB
+			WHERE
+				TB.NTT_SJ LIKE '%' || #keyword# || '%'
+			AND TB.BBS_ID = #bbsId#
+			AND TB.USE_AT = 'Y'
+			AND TB.CONFM_STTUS_CODE = 'C'
+			AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN TO_CHAR(TB.NTCE_BGNDE,'YYYYMMDD') AND TO_CHAR(TB.NTCE_ENDDE,'YYYYMMDD')
+		</isEqual>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+    <!-- 국문 레이아웃-->
+    <definition name="KorDefaultTemplate" template="/WEB-INF/jsp/tiles/kor_layout.jsp">
+        <put-attribute name="title" 		value="사용자" />
+        <put-attribute name="script" 		value="/WEB-INF/jsp/tiles/script.jsp" />
+        <put-attribute name="css" 			value="/WEB-INF/jsp/tiles/css.jsp" />
+    </definition>
+
+    <definition name="/kor/common/*" extends="KorDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/kor/common/{1}.jsp" />
+    </definition>
+    
+    <definition name="/common/*" extends="KorDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/common/{1}.jsp" />
+    </definition>    
+    
+    <definition name="/kor/*/*" extends="KorDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/kor/{1}/{2}.jsp" />
+    </definition>
+    
+    <!-- 팝업용 빈 타일즈 상속 추가 -->
+    <definition name="kor/*/*/*Popup" extends="EmptyDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/kor/{1}/{2}/{3}Popup.jsp" />
+    </definition>
+    
+    <definition name="kor/*/*/*" extends="KorDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/kor/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    <!-- ajax를 위한 빈 타일즈 -->
+    <definition name="EmptyDefaultTemplate" template="/WEB-INF/jsp/tiles/empty_layout.jsp">
+        <put-attribute name="title" 		value="수신거부" />
+    </definition>
+    
+    <definition name="ajax/*/*" extends="EmptyDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/ajax/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="ajax/*/*/*" extends="EmptyDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/ajax/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    <!-- 영문 레이아웃 -->
+    <definition name="EngDefaultTemplate" template="/WEB-INF/jsp/tiles/eng_layout.jsp">
+        <put-attribute name="title" 		value="사용자" />
+        <put-attribute name="script" 		value="/WEB-INF/jsp/tiles/script/eng_script.jsp" />
+        <put-attribute name="css" 			value="/WEB-INF/jsp/tiles/css/eng_css.jsp" />
+    </definition>
+        
+    <definition name="/eng/common/*" extends="EngDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/common/{1}.jsp" />
+    </definition>    
+    
+    <definition name="/eng/*/*" extends="EngDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/eng/{1}/{2}.jsp" />
+    </definition> 
+
+
+    <!-- 한강 레이아웃 -->
+    <definition name="HanDefaultTemplate" template="/WEB-INF/jsp/tiles/han_layout.jsp">
+        <put-attribute name="title" 		value="사용자" />
+        <put-attribute name="script" 		value="/WEB-INF/jsp/tiles/script/han_script.jsp" />
+        <put-attribute name="css" 			value="/WEB-INF/jsp/tiles/css/han_css.jsp" />
+    </definition>
+
+    <definition name="/han/common/*" extends="HanDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/common/{1}.jsp" />
+    </definition>   
+        
+    <definition name="/han/*/*" extends="HanDefaultTemplate">
+        <put-attribute name="content" 	value="/WEB-INF/jsp/han/{1}/{2}.jsp" />
+    </definition> 
+    
+</tiles-definitions>

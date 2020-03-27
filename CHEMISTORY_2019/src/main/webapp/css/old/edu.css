@@ -1,0 +1,53 @@
+@charset "euc-kr";
+
+/******************************************************************
+	EDU/KID/EDUDATA
+*******************************************************************/
+body.edudata img {
+	display: block;
+}
+body.edudata div.edudata_con {
+	width: 705px;
+	position: relative;
+}
+body.edudata p.close {
+	margin: -45px 0 0;
+	padding: 10px 25px 0;
+	text-align: right;
+	width: 650px;
+	height: 33px;
+	background: url("/edu/kid/edudata/img/close_bg.gif") no-repeat;
+}
+body.edudata p.close img {
+	display: inline;
+}
+/******************************************************************
+	EDU/KID/NEW
+*******************************************************************/
+body.storybook {
+	background: #fefefc;
+	background: url("/common/edu/new/img/storybook_bg_x.gif") repeat-x top;
+}
+div.storybook_con {
+	padding: 0 0 50px;
+	width: 632px;
+	position: relative;
+}
+div.storybook_con div.navi_top {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+div.storybook_con div.navi_top * {
+	vertical-align: middle;
+}
+div.storybook_con div.navi_bottom {
+	padding: 10px 20px 0 0;
+	text-align: right;
+}
+div.storybook_con div.navi_bottom * {
+	vertical-align: middle;
+}
+div.webtoon_con * {
+	text-align: right;
+}

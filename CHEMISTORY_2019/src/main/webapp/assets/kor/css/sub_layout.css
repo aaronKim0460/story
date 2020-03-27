@@ -1,0 +1,79 @@
+/* (주)한신정보기술 OOO - 2014.04.01 */
+
+/* Layout */
+#section1{}
+#container {position:relative;margin:0;}
+
+/* 사이드 메뉴 */
+#side {position:relative;display:inline; float:left; width:195px !important; margin:0 ; padding:0;z-index:10;}
+.side_tit{width:195px;height:102px; border-top: 4px solid #7ed1c9; margin-top:39px;}
+.side_tit span{display:block;padding:35px 0 0 19px;font-size:22px; line-height:32px; color:#2a2a2a; font-weight:600; letter-spacing:-1px;font-weight:bold}
+.side_nb {margin:0 0 30px 0;padding:0;border-bottom: 2px solid #7ed1c9;box-sizing:border-box }
+.side_nb ul {margin:0; padding:0;}
+.side_nb ul li {margin:0;padding:0;border-top:1px solid #e1e1e1}
+.side_nb ul li a {display: block; padding:12px 0 12px 20px; font-size:15px;color:#6e6e6e; font-weight:bold;text-decoration:none;line-height:20px;background:#fff;}
+.side_nb ul li a.f13 {font-size:13px !important;}
+.side_nb ul > li.on > a, .side_nb ul > li > a:hover{color:#fff; /*background:#7ed1c9;*/background:#008475; font-size:16px;}
+/*.side_nb ul > li.on > a, .side_nb ul > li > a:hover{color:#005b51; background:#7ed1c9; font-size:16px;} */
+side_nb ul > li.on > a.f13, .side_nb ul > li > a.f13:hover {font-size:13px;}
+.side_nb ul ul {display: block; width: 100%; margin: 0;padding:14px 19px;}
+.side_nb ul ul li {padding:0;margin:0;border:none; background:url('../images/common/bg_sidenb.gif') no-repeat left 9px;}
+.side_nb ul ul li a {display:block; line-height:18px; padding:3px 8px;font-size:13px;}
+.side_nb ul li.on li a {background:none;color:#2a2a2a !important;font-weight: normal !important;}
+.side_nb ul ul li.on a, .side_nb ul ul li a:hover { font-weight: bold !important; color:#008475 !important;font-size:13px;}
+
+
+/* 컨텐츠 */
+
+
+#colgroup {display:inline; float:right;width:760px;min-height:500px; padding:0; margin:0;}
+
+.sub_head {position:relative;height:145px; border-bottom:1px solid #d4d4d4; background:no-repeat right bottom;}
+.sub_head.nier-er-11000 {background-image:url('../images/common/img_cate01.gif');}
+.sub_head.nier-er-13000 {background-image:url('../images/common/img_cate02.gif');}
+.sub_head.nier-er-14000 {background-image:url('../images/common/img_cate03.gif');}
+.sub_head.nier-er-90001 {background-image:url('../images/common/img_cate04.gif');}
+.sub_head.nier-er-16000 {background-image:url('../images/common/img_cate05.gif');}
+.sub_head.nier-er-17000 {background-image:url('../images/common/img_cate06.gif');}
+.sub_head.nier-er-18000 {background-image:url('../images/common/img_cate07.gif');}
+.sub_txt {font-size:12px; padding:0; color:#7c7c7c;}
+.sub_title h1 {padding:0; margin:0; color:#2a2a2a; font-size:30px;letter-spacing:-1px;font-weight:normal; letter-spacing:-1px;font-weight:bold}
+.path {width:100%;height:20px;line-height:20px;color:#7c7c7c;font-size:11px; vertical-align:top ; padding-top:35px; padding-bottom:15px;}
+.path span{display:inline-block;width:24px;height:20px;background: url('../images/common/ic_locationarrow.gif') no-repeat center 5px;vertical-align:top;text-indent:-9999px;font-size:0;line-height:0;color:#fff}
+
+#contents{margin:40px 0 50px;min-height:450px;letter-spacing:0;color:#666}
+
+
+.satisfaction{}
+.satisfaction .admin_info {position:relative;background:#f7f7f7 url('../images/sub/admin_info_ico2.png') no-repeat 19px 9px; border:1px solid #e2e2e2; font-size:13px;}
+.satisfaction .admin_info ul{margin-left:62px;}
+.satisfaction .admin_info ul li{float:left;display:inline;padding:0 20px;line-height:40px;/*background: url('../images/sub/admin_info_line.png') no-repeat 0 center*/color:#252525;font-weight:bold;}
+.satisfaction .admin_info ul li:first-child{background:none}
+.satisfaction .admin_info ul li span{font-family:'Nanum Gothic'; color:#686868;}
+
+.satisfaction .research {position:relative;padding:15px 10px;border:1px solid #ececec;border-top:none}
+.satisfaction .research .q {display:inline-block;margin:0 25px 0 18px;padding-left:22px;line-height:25px;background:url('../images/sub/research_ico.png') no-repeat 0 center}
+.satisfaction .research form {display:inline-block;padding:0;}
+.satisfaction .research form input {vertical-align:middle;}
+.satisfaction .research form label{display:inline-block;margin:0 20px 0 5px}
+.satisfaction .research form input[type="submit"] {padding:0 15px;height:25px;color:#fff;font-size:14px;font-weight:bold;background:#7d7d7d}
+
+.btnPrint {text-align:right; padding:20px 0; }
+.origin {border-top:1px solid #e2e2e2; padding:23px 0 23px 190px; position:relative; line-height:25px; height:25px; font-size:12px;}
+.origin .img {position:absolute; top:15px; left:20px;}
+.origin em {color:#008475;}
+
+.quickmenu {position:absolute; top:0; border:1px solid #cccccc; border-radius:5px; width:108px;}
+.quickmenu .tit {color:#fff; text-align:center; height:35px; line-height:35px; background:#008475; border-radius:5px 5px 0 0;}
+.quickmenu ul.quickList {padding:10px 9px;}
+.quickmenu ul.quickList li{border-bottom:1px dashed #efefef;}
+.quickmenu ul.quickList li:last-child {border-bottom:none; }
+.quickmenu ul.quickList li a {display:block; height:39px; line-height:39px; padding-left:28px; width:60px; font-size:11px; background:no-repeat 5px 50%;}
+.quickmenu ul.quickList li.quick01 a {background-image:url(../images/main/bg_quick01.png);}
+.quickmenu ul.quickList li.quick02 a {background-image:url(../images/main/bg_quick02.png);}
+.quickmenu ul.quickList li.quick03 a {background-image:url(../images/main/bg_quick03.png);}
+.quickmenu ul.quickList li.quick04 a {background-image:url(../images/main/bg_quick04.png);}
+.quickmenu ul.quickList li.quick05 a {background-image:url(../images/main/bg_quick05.png);}
+.quickmenu ul.quickList li.quick06 a {background-image:url(../images/main/bg_quick06.png);}
+.quickmenu .goTop a {display:block; background:#f3f3f3; text-align:center; height:36px; line-height:36px; border-radius:0 0 5px 5px; color:#000; font-size:13px;}
+

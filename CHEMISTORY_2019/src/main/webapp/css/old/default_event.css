@@ -1,0 +1,44 @@
+@charset "euc-kr";
+/*-----------------------------------------------------------
+/*Author : Shiren (a.k.a Sungho Kim)
+/*E-mail : shirenbeat@gmail.com
+/*First Edit : 2009.02.23
+/*Last Edit : 2009년 5월 2일 토요일
+/*---------------------------------------------------------*/
+
+
+
+/* Default Style */
+*{margin:0;padding:0;}
+body{*word-break:break-all;-ms-word-break:break-all;}
+/* 콘텐츠 배경 이미지 안나와서 수정함 by hdh*/
+/* body,input{background-color:#fff;} */
+input{background-color:#fff;}
+h1,h2,h3,h4,h5,h6{font-size:11px;text-align:left;}
+img,fieldset,iframe{border:0 none;}
+*img{margin-bottom:-3px;}
+li{list-style:none;}
+
+strong		{font-weight:bold;}
+em,address{font-style:normal;}
+
+/* Input Style */
+button,label{cursor:pointer;_cursor /**/:hand;}
+button *{position:relative;}
+button img{left:-3px;*left:auto;}
+textarea{overflow:auto;}
+option{padding-right:6px;}
+
+/* Link Style */
+a:link		{text-decoration:none;color:#000;}
+a:visited	{text-decoration:none;color:#000;}
+a:hover		{text-decoration:none;color:#000;}
+a:active	{text-decoration:none;color:#000;}
+
+/* Table Style */
+table  		{border-collapse:collapse;}
+
+/*ETC*/
+@media print{body{color:#000;}}
+
+

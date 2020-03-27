@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AuthorManage">
+
+    <typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="AuthorManageVO" type="egovframework.com.sec.ram.service.AuthorManageVO"/>
+    <typeAlias  alias="AuthorManage" type="egovframework.com.sec.ram.service.AuthorManage"/>
+
+    <resultMap id="author" class="egovframework.com.sec.ram.service.AuthorManageVO">
+        <result property="authorCode" column="AUTHOR_CODE" columnIndex="1"/>
+        <result property="authorNm" column="AUTHOR_NM" columnIndex="2"/>
+        <result property="authorDc" column="AUTHOR_DC" columnIndex="3"/>
+        <result property="authorCreatDe" column="FRST_REGIST_PNTTM" columnIndex="4"/>
+        <result property="deleteYn" column="DELETE_YN" columnIndex="5"/>
+    </resultMap>
+
+    <select id="authorManageDAO.selectAuthorList" parameterClass="AuthorManageVO" resultMap="author">
+        <![CDATA[
+            SELECT  * 
+              FROM  (
+            SELECT ROWNUM RNUM, ALL_LIST.*, 
+            		 CASE WHEN CNT > 0 THEN 'N' 
+            		 		ELSE 'Y'
+            		 END AS DELETE_YN
+              FROM  (
+
+	            SELECT
+	                   A.AUTHOR_CODE, A.AUTHOR_NM, A.AUTHOR_DC, TO_CHAR(A.FRST_REGIST_PNTTM,'YYYY-MM-DD') FRST_REGIST_PNTTM, COUNT(B.AUTHOR_CODE) AS CNT
+	              FROM TN_AUTHOR_INFO A
+	              LEFT OUTER JOIN
+	              TN_AUTHOR_MENU B
+	              ON A.AUTHOR_CODE = B.AUTHOR_CODE
+	             WHERE 1=1
+        ]]>              
+            <isEqual prepend="AND" property="searchCondition" compareValue="1">
+                AUTHOR_NM LIKE '%'||#searchKeyword#||'%'
+            </isEqual>
+        <![CDATA[
+        	GROUP BY A.AUTHOR_CODE, A.AUTHOR_NM, A.AUTHOR_DC, A.FRST_REGIST_PNTTM
+            ORDER BY FRST_REGIST_PNTTM DESC
+
+                    ) ALL_LIST
+                    ) Z
+             WHERE  RNUM  > #firstIndex#
+               AND  RNUM <= #firstIndex# + #recordCountPerPage#
+        ]]>                 
+    </select>
+
+    <insert id="authorManageDAO.insertAuthor" parameterClass="AuthorManage">
+        <![CDATA[
+            INSERT INTO TN_AUTHOR_INFO 
+                  ( AUTHOR_CODE
+                  , AUTHOR_NM
+                  , AUTHOR_DC
+                  , FRST_REGIST_PNTTM )
+           VALUES ( #authorCode#
+                  , #authorNm#
+                  , #authorDc#
+                  , SYSDATE)
+        ]]>  
+    </insert>
+
+    <update id="authorManageDAO.updateAuthor" parameterClass="AuthorManage">
+        <![CDATA[
+            UPDATE TN_AUTHOR_INFO 
+               SET AUTHOR_NM=#authorNm#
+                 , AUTHOR_DC=#authorDc#
+             WHERE AUTHOR_CODE=#authorCode#
+        ]]>
+    </update>
+    
+    <delete id="authorManageDAO.deleteAuthor">
+        <![CDATA[
+            DELETE FROM TN_AUTHOR_INFO 
+             WHERE AUTHOR_CODE=#authorCode#
+        ]]>
+    </delete>
+    
+    <select id="authorManageDAO.selectAuthor" resultMap="author">
+        <![CDATA[
+            SELECT AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, FRST_REGIST_PNTTM, '' AS DELETE_YN
+              FROM TN_AUTHOR_INFO 
+             WHERE AUTHOR_CODE=#authorCode#
+        ]]>
+    </select>
+    
+    <select id="authorManageDAO.selectAuthorListTotCnt" parameterClass="AuthorManageVO" resultClass="int">
+            SELECT COUNT(*) totcnt
+            FROM TN_AUTHOR_INFO
+            WHERE 1=1
+            <isEqual prepend="AND" property="searchCondition" compareValue="1">
+                AUTHOR_NM LIKE '%'||#searchKeyword#||'%'
+            </isEqual>
+    </select>
+    
+    <select id="authorManageDAO.selectAuthorAllList" parameterClass="AuthorManageVO" resultMap="author">
+            SELECT
+                   AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, FRST_REGIST_PNTTM, '' AS DELETE_YN
+              FROM TN_AUTHOR_INFO
+    </select>
+</sqlMap>

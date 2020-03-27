@@ -1,0 +1,224 @@
+.clearfix {display:block;}
+/* table 占쎈벡�벥 */
+.table {border-spacing: 0;border-collapse: collapse;background-color: transparent;width: 100%;max-width: 100%;margin-bottom: 20px}
+.table-default, .table-data{padding:0;border:none;border-collapse:collapse;border-spacing:0}
+.table-default th,.table-default td, .table-data th,.table-data td {height:2em;padding:0.5em}
+.table-default th, .table-data th{border-top:3px solid #6997ce;border-bottom:1px solid #959595;background:none;font-size:1.05em}
+.table-default td, .table-data td{border-bottom:1px solid #d1d1d1}
+.table-default tbody tr:last-child td,.table-default tbody tr:last-child th, .table-data tbody tr:last-child td, .table-data tbody tr:last-child th{border-bottom:2px solid #959595}
+.table-default .left {text-align:left !important;}
+.table-default .right {text-align:right !important;}
+.table-default .center {text-align:center !important;}
+.table-default tfoot th {border-top: 0;border-bottom: 1px solid #d1d1d1;}
+.table-default tfoot th, .table-default tfoot td {background: #fafafa; font-weight: bold; color: #111}
+
+.table-vertical th, .table-vertical td {border-top:none;border-bottom:1px solid #959595;background:none}
+.table-vertical th, .table-vertical td {border-bottom: 1px solid #d1d1d1}
+.table-vertical tr:first-child th, .table-vertical tr:first-child td {border-top:3px solid #6997ce}
+.table-vertical tbody tr:last-child th, .table-vertical tbody tr:last-child td,
+.table-vertical th.border-bottom, .table-vertical td.border-bottom  {border-bottom: 1px solid #959595}
+
+.board-list{clear:both;width:100%;margin:0 0 20px; }
+.board-list:after, .gallery-list:after{display:block;clear:both;content:' '}
+.gallery-list {border-top:3px solid #6996cd; border-bottom:2px solid #929292; padding-top: 35px}
+.board-footer {position:relative; clear:both;width:100%;margin:0 0 20px}
+.board-footer:after{display:block;clear:both;content:' '}
+/* board pages */
+.board-pages{float:left;line-height:34px}
+.board-pages strong {font-weight: bold; color:#D93800}
+
+/* board-search */
+.board-search {width: 70%;text-align: left;padding: 0;margin: 0 0 16px 0;float: right; text-align: right}
+.board-search-normal {float:none;width: 180px;height:31px;*height:28px;line-height:31px; font-size: 13px;padding:0 5px;border:1px solid #b5b5b5;}
+.board-search-keyword{float:none;width: 180px;height:31px;*height:28px;line-height:31px; font-size: 13px;padding:0 5px;border:1px solid #b5b5b5; border-right:0px; vertical-align:top;ime-mode:active}
+.board-search-select {width: 90px;height: 31px;line-height:31px; padding:4px; border:1px solid #b5b5b5;font-size: 13px}
+#board-search-submit{width: 60px; margin-left: -5px}
+.board-search-date {float: left; width: 40%}
+.board-search .btn {height: 31px}
+/* 疫꿸퀡�궚 野껊슣�뻻占쏙옙*/
+.board-default{width:100%;padding:0;border:none;border-collapse:collapse;border-spacing:0}
+.board-default th{height:39px;border-top:2px solid #6997ce;border-bottom:1px solid #959595;background:none;text-align:center}
+.board-default td{height:39px;border-bottom:1px solid #e9e9e9; font-size:13px;}
+.board-default tbody tr:last-child td{border-bottom:1px solid #555555}
+.board-default-th {text-align:center}
+.board-default-td {text-align:center}
+.board-default-td-no{text-align:center}
+.board-default-td-title{padding:0 0 0 10px; font-size:13px;}
+.board-default-td-cate{text-align:center}
+.board-default-td-notice{padding:0 0 0 10px;font-weight:700}
+.board-default-td-name{text-align:center}
+.board-default-td-attach{text-align:center}
+.board-default-td-date{text-align:center}
+.board-default-td-hit{text-align:center}
+.board-total .board-default th{border-top:0}
+.board-data .board-default th{border-top:0}
+.board-default-td-no i, .board-default-td-title i {color:#787878}
+.board-td-re {padding-left:2em; position: relative}
+.board-td-re i.fa-reply {display: block; position:absolute; top:9px; left:20px; height: 20px}
+.board-td-re a {padding-left:1.1em; display: block; float: left}
+.board-default .left {text-align:left !important;}
+.board-default .right {text-align:right !important;}
+.board-default .center {text-align:center !important;}
+
+/* 20150622 占쎄쑴�땾 占쎈굝�젾 占쏙옙�걠 */
+.board-required {display:inline-block; vertical-align: middle; margin-left: 3px;}
+.board-required:before {content: "\f069";font: normal normal normal 14px/1 FontAwesome; color: #f00; font-size:11px; font-weight: normal}
+
+/* 20150619 占쎄퀬萸쇘빊遺쏙옙 */
+.table-total tfoot th,
+.table-total tfoot td {border-top: 1px solid #959595 !important; border-bottom: 3px solid #6997ce}
+.table-total tbody tr:last-child th, .table-data tbody tr:last-child th,
+.table-total tbody tr:last-child td, .table-data tbody tr:last-child td {border-bottom:0}
+.table-total tbody th {border-top:0; border-bottom:1px solid #d1d1d1}
+
+/* 20150619 占쎈챶以덌옙占썼퉪���쐭 占쎈��삋占쏙옙�빊遺쏙옙 */
+.table-board {border-top:3px solid #6997ce;}
+.table-board thead th {border-top:none; border-bottom:1px solid #959595;}
+.table-board tbody th {border-top:1px solid #d1d1d1; border-bottom: 1px solid #d1d1d1; font-size:14px;}
+.table-board td {border-left:1px solid #d1d1d1; border-right:1px solid #d1d1d1;}
+.table-board tr th:first-child {border-left:none}
+.table-board tr th:last-child {border-right:none}
+.table-board tr td:first-child {border-left:none}
+.table-board tr td:last-child {border-right:none}
+/*占쎌눛苑ｏ옙類ｌ졊*/
+.table-board.center {text-align:center;}
+
+
+/* 疫꿸퀡�궚 野껊슣�뻻占쏙옙占쎄퀗由�/占쎌꼷�젟 */
+.board-write{width:100%;margin-bottom:1.5em;padding:0;border:none;border-collapse:collapse;border-spacing:0; }
+.board-write > tbody > tr:first-child th,.board-write > tbody > tr:first-child td{border-top:3px solid #6997ce}
+.board-write-th{height:44px;border-bottom:1px solid #d1d1d1;background:none;font-size:1.05em}
+.board-write-td{height:44px;padding:0 2em;border-bottom:1px solid #d1d1d1}
+.board-write label.input-radio{display:inline-block;width:100px}
+.board-write label.input-radio span{margin-left:.5em}
+.board-write-editor{padding:.5em 1em !important}
+.board-write-editor .textarea-board {width: 100% !important; min-height: 333px !important;}
+
+/* 疫꿸퀡�궚 野껊슣�뻻占쏙옙癰귣챶揆 : table style */
+.board-detail-head{clear:both;width:100%;margin:0 0 15px}
+.board-detail-head:after,.board-detail-foot:after{display:block;clear:both;content:' '}
+table.board-detail {width: 100%}
+table.board-detail th, table.board-detail td {border-top:none;border-bottom:1px solid #959595;background:none;font-size: 15px; padding:10px; text-align: left}
+table.board-detail th, table.board-detail td {border-bottom: 1px solid #d1d1d1}
+table.board-detail tr:first-child th, table.board-detail tr:first-child td {border-top:3px solid #6997ce}
+table.board-detail tbody tr:last-child th, table.board-detail tbody tr:last-child td,
+table.board-detail th.border-bottom, table.board-detail td.border-bottom  {border-bottom: 1px solid #959595}
+.board-detail-td-title {font-weight: bold}
+.board-detail-file-th {color:#5478b2}
+.board-detail-file-td a {display: block; float: left; margin-right: 15px}
+.board-detail-head .board-detail-file-td span{padding:3px 10px}
+
+/* 疫꿸퀡�궚 野껊슣�뻻占쏙옙癰귣챶揆 : dl style */
+.board-detail-head dl,.board-detail-foot dl{display:table;border-bottom:1px solid #d1d1d1}
+.board-detail-head.vertical dl, .board-detail-foot.vertical dl {clear: both; width: 100%; float: left}
+.board-detail-head dl:after,.board-detail-foot dl:after{display:block;clear:both;content:' '}
+.board-detail-head dt,.board-detail-head dd,.board-detail-foot dt,.board-detail-foot dd{display:table-cell;float:left;position:relative;margin:0;padding:0;vertical-align:middle; height: 41px}
+.board-detail-head dt,.board-detail-foot dt{width:83px; font-weight:700;font-size:1.05em;text-align:left}
+.board-detail-head dd,.board-detail-foot dd{text-align:left; }
+.board-detail-head.vertical dd,.board-detail-foot.vertical dd{text-align:left}
+.board-detail-head span,.board-detail-foot span{display:inline-block;padding:10px}
+.board-detail-head-title dd{font-weight:700}
+.board-detail-head-title{float:left;width:100%}
+.board-detail-head-writer{float:left;width:58%}
+.board-detail-head-date{float:left;width:23%}
+.board-detail-head-hit {float:left;width:19%}
+.board-detail-head-hit dt,.board-detail-head-date dt {width:65px}
+.board-detail-foot{clear:both;width:100%;margin-bottom:3em;}
+.board-detail-foot.no-bd {border:none}
+.board-detail-head-file, .board-detail-foot .last {width:100%;margin-bottom:1em}
+.board-detail-head-file dd i, .board-detail-head dd i{margin-left: 11px;margin-right:0}
+.board-detail-content{margin-top: 20px;margin-bottom:30px;padding:0 3%}
+.board-detail-content p{line-height:1.7em;font-size:1em;color:#666}
+.board-detail-head-file dt {color:#5478b2}
+.board-detail-head dl.board-detail-head-file {border-bottom:1px solid #919191}
+
+/* Prev Next */
+.board-detail-prevnext{clear:both}
+.board-detail-prev,.board-detail-next{clear:both;border-top:1px solid #d1d1d1;border-bottom:1px solid #d1d1d1; display: table; width: 100%; background:url(../images/common/dot_gray.png) 100% 0 repeat-y}
+.board-detail-prevnext dl:nth-child(2){border-top:none}
+.board-detail-prevnext dl:after{display:block;clear:both;content:' '}
+.board-detail-prev-dt,.board-detail-next-dt, .board-detail-prev-dd,.board-detail-next-dd {display: table-cell; vertical-align: middle}
+.board-detail-prev-dt,.board-detail-next-dt{width:120px;font-size:1.05em;font-weight:700;text-align:center}
+.board-detail-prev-dt span,.board-detail-next-dt span{display:inline-block;padding:10px}
+.board-detail-prev-dd span,.board-detail-next-dd span{display:inline-block;padding:10px 10px 10px 20px}
+.board-detail-prevnext dt, .board-detail-prevnext dd{background:url(../images/common/dot_gray.png) 0 0 repeat-y}
+
+/* 占쎈�彛딉옙占썲칰�슣�뻻占쏙옙*/
+.board-webzine{display:table;width:100%}
+.board-webzine li:first-child{border-top:3px solid #6997ce}
+.board-webzine li{display:table;clear:both;width:100%;padding:1em 0;border-bottom:1px solid #d1d1d1}
+.board-webzine li:last-child{border-bottom:3px solid #959595}
+.board-webzine-no,.board-webzine-cate,.board-webzine-img,.board-webzine-title,.board-webzine-desc,.board-webzine-file{display:table-cell;text-align:center;vertical-align:middle}
+.board-webzine-no{width:8%}
+.board-webzine-cate{width:6%}
+.board-webzine-img{width:140px; overflow: hidden}
+.board-webzine-img img{width:100%; height: auto}
+.board-webzine-title{padding:0 1.4em;text-align:left; table-layout: fixed}
+.board-webzine-title h4{margin-bottom:.7em;font-weight:700}
+.board-webzine-desc{width:14%}
+.board-webzine-file{width:3%;text-align:left}
+.board-webzine-dept{margin-right:.5em}
+.board-webzine-date{display:block;clear:both}
+.board-total .board-webzine li:first-child{border-top:0}
+
+/* 揶쎼끇�쑎�뵳�뗭굨 野껊슣�뻻占쏙옙*/
+.board-gallery{float:left;position:relative;width:32.3333333%;margin:0 0.5% 24px 0.5%}
+.board-gallery:last-child{margin-right:0}
+.board-gallery-dt, .board-gallery-img, .board-gallery-dd {width:233px; margin:0 auto; overflow: hidden; display: block}
+.board-gallery-dt{clear:both;margin-top:195px;padding:.8em 0 .4em;font-size: 1em}
+.board-gallery-dt a {font-weight:700; margin:0 0.9em; display:block; word-wrap:normal; word-break: break-word; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.board-gallery-img{margin-top:-235px;height:200px;background:#ccc; text-align:center; overflow: hidden}
+.board-gallery-img img {width: auto; height: 100%}
+.board-gallery-dd{margin-top:30px;padding:0; font-size: 1em}
+.board-gallery-dd span {margin-left:0.9em; font-size: 12.5px; color: #757575}
+
+/* 占쎌꼷�뵠筌욑옙*/
+.pagenavi.board-gallery-pagenavi{margin-top:-3.5em}
+.pagenavi{clear:both;height:27px;margin-bottom:20px;text-align:center;vertical-align:top}
+.pagenavi a {display:inline-block;overflow:hidden;position:relative;width:25px;height:24px;line-height:24px;font-size:1em;font-weight:700;color:#757575;text-align:center; border:1px solid #e8e8e8;}
+.pagenavi strong.current{ display:inline-block;overflow:hidden;position:relative;width:27px;height:26px;line-height:26px;font-size:1em;font-weight:700;color:#757575;text-align:center;background:#8d8d8d; border:1px solid #8d8d8d8 !important;}
+.pagenavi a:hover {background:#8d8d8d; border:1px solid #8d8d8d8 !important;}
+.pagenavi a.first{/*background-position:-80px -40px*/ background:url(../images/cms2/bbs/page_btn_prev1.png)}
+.pagenavi a.previouspostslink{/*background-position:-120px -40px*/ background:url(../images/cms2/bbs/page_btn_prev2.png)}
+.pagenavi a.nextpostslink{/*background-position:-160px -40px*/ background:url(../images/cms2/bbs/page_btn_next2.png)}
+.pagenavi a.last{/*background-position:-200px -40px*/ background:url(../images/cms2/bbs/page_btn_next1.png)}
+.pagenavi a.first:hover,.pagenavi a.first:focus{background-position:-240px -40px}
+.pagenavi a.previouspostslink:hover,.pagenavi a.previouspostslink:focus{background-position:-280px -40px}
+.pagenavi a.nextpostslink:hover,.pagenavi a.nextpostslink:focus{background-position:-320px -40px}
+.pagenavi a.last:hover,.pagenavi a.last:focus{background-position:-360px -40px}
+.pagenavi a.page,.pagenavi strong.current{background-position:0 -40px}
+.pagenavi a.page:hover,.pagenavi a.page:focus,.pagenavi strong.current{background-position:-40px -40px;color:#fff}
+.pagenavi a span {text-indent: -9999em}
+
+/* 占쎌눖而꿨칰�슣�뻻占쏙옙- 疫꿸퀡�궚占쎌쥚�굨 */
+#contents table.bbs_default { border-collapse: collapse; width: 100%; margin: 0px 0 10px;border-top:2px solid #6997ce;border-bottom:1px solid #555555}
+#contents table.bbs_default th{ padding: 12px 4px;font-size:13px; color:#000; font-weight:bold;}
+#contents table.bbs_default thead th {border-bottom:1px solid #959595; text-align:center;}
+#contents table.bbs_default thead th, table.table_t1 tfoot th {/*border-top: 1px solid #c8c8c8;border-bottom: 1px solid #c8c8c8;*/}
+#contents table.bbs_default td{ padding: 5px 4px 4px 4px; border-top: 1px solid #e9e9e9; text-align:center;} 
+#contents table.bbs_default .notice td{background:#f9f9f9}
+#contents table.bbs_default.list td { padding: 10px 4px; font-size:13px; }
+#contents table.bbs_default.list td a {font-size:14px;}
+#contents table.bbs_default td.subject{text-align:left}
+
+/* 占쎌꼷�뵠筌욑옙*/
+#contents .pagination {position:relative;margin:30px 0;text-align:center}
+#contents .pagination a,.pagination strong{display:inline-block;width:27px;height:26px;line-height:26px;vertical-align:top;text-decoration:none;background:#fff; border:1px solid #dcdcdc;}
+#contents .pagination a img{vertical-align:middle}
+#contents .pagination strong{color:#fff;background:#8d8d8d; border:1px solid #7d7d7d;}
+
+/* �⑤벏�꽰 野껓옙源� 占쎄낯肉� 占쎌꼷�젟 */
+.board_search_new {margin:15px 0 15px 0;padding:17px 17px 17px 86px; border-radius:5px;background:#f7f7f7 url('../images/bbs/bbs_search_ico_new.png') no-repeat 25px 12px;border:1px solid #dfdfdf; color:#2a2a2a;}
+.board_search_new .select_list{height:28px;vertical-align:top}
+.board_search_new a.btnsearch {background:url(../images/bbs/bbs_btn_searchbg.png) no-repeat 7px 50% #b0b0b0; padding-left:27px; padding-right:10px; height:23px; line-height:20px; color:#fff; border:1px solid #9f9f9f; border-radius:4px; text-indent:0; font-size:13px; width:inherit; vertical-align:middle; margin-top:-2px; }
+.board_search_new .text{height:26px;padding-left:10px;line-height:24px;width:45%;}
+.board_search_new a{display:inline-block; padding-top:3px; text-indent:-9999px; width:31px; height:28px;  background:url(../images/bbs/bbs_btn_search.png) no-repeat 0 0;}
+.board_search_new .datetxt {padding:0 5px 0 20px; color:#2a2a2a; background:url(../images/contents/dot_dgray.gif) no-repeat 12px 6px;}
+.board_search_new a.btn_cal { vertical-align:top; padding:0 0 0 0; display:inline-block; width:23px; height:31px; background:url(../images/contents/btn_cal.gif) no-repeat; margin-top:1px;}
+
+.wordSearch {padding-top:5px;}
+.wordSearch ul:after {clear:both; display:block; content:'';}
+.wordSearch ul li {float:left; margin-right:14px;}
+.wordSearch ul li a {border-radius:50%; display:block; width:25px; height:25px; line-height:25px; text-align:center; font-weight:bold; background-image:none; background-color:#fff; border:1px solid #d1d1d1; text-indent:0; padding:0;}
+.wordSearch ul li a.on {background-color:#7ed1c9; border:1px solid #7ed1c9; color:#fff; text-decoration:none;}
+.wordSearch ul li a:hover {background-color:#7ed1c9; border:1px solid #7ed1c9; color:#fff; text-decoration:none;}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<contentIndex>
+	<chapter chpterNum="1">
+
+		<menu title="들어가기">
+			<subMenu title="마음열기">1</subMenu>
+		</menu>
+	
+		<menu title="학습하기">
+			<subMenu title="환경이란 무엇인가요?">1</subMenu>
+			<subMenu title="지구를 아프게 하는 원인에는 어떤 것들이 있나요?">1</subMenu>
+                        <subMenu title="오염된 자연환경은 사람들에게 어떤 영향을 미치나요?">1</subMenu>
+		</menu>
+
+		<menu title="정리하기">
+			<subMenu title="QUIZ">1</subMenu>
+			<subMenu title="학습정리">1</subMenu>
+			<subMenu title="다음시간에는">1</subMenu>
+		</menu>
+
+	</chapter>
+</contentIndex>

@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="recallBBSDAO">
+
+	<typeAlias  alias="RecallBBSVO" type="egovframework.com.kids.recall.vo.RecallBBSVO"/>
+	<typeAlias  alias="RecallMaterialVO" type="egovframework.com.kids.recall.vo.RecallMaterialVO"/>
+
+	<resultMap id="selectRecallBBSList" class="egovframework.com.kids.recall.vo.RecallBBSVO">
+		<result property="recallId" 		column="RECALL_ID"	 		/>
+		<result property="productName"		column="PRODUCT_NAME"       />   
+		<result property="productWhence"    column="PRODUCT_WHENCE"     />
+		<result property="domesticYn"       column="DOMESTIC_YN"        />
+		<result property="countryName"      column="COUNTRY_NAME"       />
+		<result property="productCn"        column="PRODUCT_CN"         />
+		<result property="recallCn"         column="RECALL_CN"          />
+		<result property="atchFileId"       column="ATCH_FILE_ID"       />
+		<result property="afterRecallCn"    column="AFTER_RECALL_CN"    />
+		<result property="frstRegistPnttm"  column="FRST_REGIST_PNTTM"  />
+		<result property="frstRegisterId"   column="FRST_REGISTER_ID"   />
+		<result property="lastUpdtPnttm"    column="LAST_UPDT_PNTTM"    />
+		<result property="lastUpdusrId"     column="LAST_UPDUSR_ID"     />
+		<result property="materialName"     column="MATERIAL_NAME"      />
+		<result property="productType"      column="PRODUCT_TYPE"      />
+		<result property="productCd"        column="PRODUCT_CD"      />
+		<result property="position"         column="POSITION"      />
+		<result property="publishDt"        column="PUBLISH_DT"      />
+		<result property="productTabCd"     column="PRODUCT_TAB_CD"      />
+	</resultMap>
+
+	<resultMap id="selectRecallBBSList2" class="egovframework.com.kids.recall.vo.RecallBBSVO">
+		<result property="recallId" 		column="RECALL_ID"	 		/>
+		<result property="productName"		column="PRODUCT_NAME"       />   
+		<result property="domesticYn"		column="DOMESTIC_YN"       />   
+		<result property="recallCn" 		column="RECALL_CN"	 		/>
+		<result property="atchFileId"       column="ATCH_FILE_ID"       />
+		<result property="afterRecallCn"    column="AFTER_RECALL_CN"    />
+		<result property="frstRegistPnttm"  column="FRST_REGIST_PNTTM"  />
+		<result property="productType"      column="PRODUCT_TYPE"      />
+	</resultMap>
+		
+	<select id="RecallBBSDAO.selectRecallBBSList" parameterClass="RecallBBSVO" resultMap="selectRecallBBSList">
+		/* RecallBBSDAO.selectRecallBBSList */
+		SELECT * FROM (SELECT ROWNUM AS RN, T.* FROM
+		(
+			SELECT
+				A.RECALL_ID
+				, A.PRODUCT_NAME
+				, A.PRODUCT_WHENCE
+				, A.DOMESTIC_YN
+				, A.COUNTRY_NAME
+				, A.PRODUCT_CN
+				, A.RECALL_CN
+				, A.ATCH_FILE_ID
+				, A.AFTER_RECALL_CN
+				, TO_CHAR(A.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM
+				, A.FRST_REGISTER_ID
+				, A.LAST_UPDT_PNTTM
+				, A.LAST_UPDUSR_ID
+				, (SELECT CODE_NM FROM TC_CMMN_DETAIL_CODE
+				WHERE CODE = A.PRODUCT_TYPE) PRODUCT_TYPE
+				, A.PRODUCT_CD
+				, A.POSITION
+				, WM_CONCAT (DISTINCT A.MATERIAL_NAME) AS MATERIAL_NAME
+				, A.PUBLISH_DT
+				, A.PRODUCT_TAB_CD
+			FROM
+			(
+				SELECT
+					TRB.RECALL_ID
+					, TRB.PRODUCT_NAME
+					, TRB.PRODUCT_WHENCE
+					, TRB.DOMESTIC_YN
+					, TRB.COUNTRY_NAME
+					, TRB.PRODUCT_CN
+					, TRB.RECALL_CN
+					, TRB.ATCH_FILE_ID
+					, TRB.AFTER_RECALL_CN
+					, TRB.FRST_REGIST_PNTTM
+					, TRB.FRST_REGISTER_ID
+					, TRB.LAST_UPDT_PNTTM
+					, TRB.LAST_UPDUSR_ID
+					, TRB.PRODUCT_TYPE
+					, TRB.PRODUCT_CD
+					, TRB.POSITION
+					, TM.M_KNAME AS MATERIAL_NAME	
+					, TRB.PUBLISH_DT
+					, TRB.PRODUCT_TAB_CD				
+				FROM
+					TT_RECALL_BBS TRB
+				LEFT OUTER JOIN
+					TT_RECALL_MATERIAL TRM
+				ON
+					TRB.RECALL_ID = TRM.RECALL_ID
+				LEFT OUTER JOIN
+					TT_MATERIAL TM
+				ON
+					TRM.M_IDX = TM.M_IDX
+				WHERE
+					1=1
+				<isNotEmpty property="searchKeyword">
+					<isEqual property="searchCondition" compareValue="nm">
+						<![CDATA[ AND	TRB.PRODUCT_NAME LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCondition" compareValue="type">
+						<![CDATA[ AND	TRB.PRODUCT_TYPE LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCondition" compareValue="material">
+						<![CDATA[ AND	TM.M_KNAME LIKE '%' || #searchKeyword# || '%' OR TRB.POSITION LIKE '%' || #searchKeyword# || '%' ]]>
+					</isEqual>
+				</isNotEmpty>
+				<isNotEmpty property="domesticYn">
+					<![CDATA[ AND	TRB.DOMESTIC_YN = #domesticYn# 		]]>
+				</isNotEmpty>
+				
+				<!-- 
+				2018.10.17 장재영 대리
+				국내어린이용품 환경유해인자 기준초과제품 탭 통합				
+				<isNotEmpty property="productTabCd">
+					<![CDATA[ AND TRB.PRODUCT_TAB_CD = #productTabCd# ]]>
+				</isNotEmpty>
+ 				-->				
+				<isNotEmpty property="productType">
+					<![CDATA[ AND	TRB.PRODUCT_TYPE = #productType# 		]]>
+				</isNotEmpty>
+			) A
+			GROUP BY
+				A.RECALL_ID
+				, A.PRODUCT_NAME
+				, A.PRODUCT_WHENCE
+				, A.DOMESTIC_YN
+				, A.COUNTRY_NAME
+				, A.PRODUCT_CN
+				, A.RECALL_CN
+				, A.ATCH_FILE_ID
+				, A.AFTER_RECALL_CN
+				, A.FRST_REGIST_PNTTM
+				, A.FRST_REGISTER_ID
+				, A.LAST_UPDT_PNTTM
+				, A.LAST_UPDUSR_ID
+				, A.PRODUCT_TYPE
+				, A.PRODUCT_CD
+				, A.POSITION
+				, A.PUBLISH_DT
+				, A.PRODUCT_TAB_CD
+			ORDER BY
+					A.FRST_REGIST_PNTTM DESC
+		) T ) Z WHERE RN BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	</select>
+
+	<select id="RecallBBSDAO.selectRecallBBSList2" parameterClass="RecallBBSVO" resultMap="selectRecallBBSList2">
+		/* RecallBBSDAO.selectRecallBBSList2 */
+		 SELECT   A.RECALL_ID AS RECALL_ID,
+		          A.PRODUCT_NAME AS PRODUCT_NAME,
+		          A.DOMESTIC_YN AS DOMESTIC_YN,
+		          A.RECALL_CN AS RECALL_CN,
+		          A.ATCH_FILE_ID AS ATCH_FILE_ID,
+		          A.AFTER_RECALL_CN AS AFTER_RECALL_CN,
+		          TO_CHAR(A.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM ,
+		          A.PRODUCT_TYPE ,
+		          A.PUBLISH_DT ,
+		          A.PRODUCT_TAB_CD
+		 FROM     ( SELECT TRB.RECALL_ID ,
+		                  TRB.PRODUCT_NAME ,
+		                  TRB.PRODUCT_WHENCE ,
+		                  TRB.DOMESTIC_YN ,
+		                  TRB.COUNTRY_NAME ,
+		                  TRB.PRODUCT_CN ,
+		                  TRB.RECALL_CN ,
+		                  TRB.ATCH_FILE_ID ,
+		                  TRB.AFTER_RECALL_CN ,
+		                  TRB.FRST_REGIST_PNTTM ,
+		                  TRB.FRST_REGISTER_ID ,
+		                  TRB.LAST_UPDT_PNTTM ,
+		                  TRB.LAST_UPDUSR_ID ,
+		                  TRB.PRODUCT_TYPE ,
+		                  TRB.PRODUCT_CD ,
+		                  TRB.POSITION ,
+		                  TM.M_KNAME AS MATERIAL_NAME ,
+		                  TRB.PUBLISH_DT ,
+		                  TRB.PRODUCT_TAB_CD
+		          FROM    TT_RECALL_BBS TRB
+		                  LEFT OUTER JOIN TT_RECALL_MATERIAL TRM
+		                  ON      TRB.RECALL_ID = TRM.RECALL_ID
+		                  LEFT OUTER JOIN TT_MATERIAL TM
+		                  ON      TRM.M_IDX = TM.M_IDX
+		          WHERE   1                 =1
+				<isNotEmpty property="searchKeyword">
+						<![CDATA[ AND	TRB.PRODUCT_NAME LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isNotEmpty>
+				<isNotEmpty property="productTabCd">
+					<![CDATA[  AND 	TRB.PRODUCT_TAB_CD = #productTabCd#	]]>
+				</isNotEmpty>
+				<isNotEmpty property="productType">
+					<![CDATA[ AND	TRB.PRODUCT_TYPE = #productType# 		]]>
+				</isNotEmpty>
+			) A
+			 GROUP BY A.RECALL_ID ,
+		          A.PRODUCT_NAME ,
+		          A.DOMESTIC_YN ,
+		          A.RECALL_CN ,
+		          A.ATCH_FILE_ID ,
+		          A.AFTER_RECALL_CN ,
+		          A.FRST_REGIST_PNTTM ,
+		          A.PRODUCT_TYPE ,
+		          A.PUBLISH_DT ,
+		          A.PRODUCT_TAB_CD
+		 ORDER BY A.FRST_REGIST_PNTTM DESC
+	</select>
+	
+
+	<select id="RecallBBSDAO.selectRecallBBSCount" parameterClass="RecallBBSVO" resultClass="java.lang.Integer">
+		/* RecallBBSDAO.selectRecallBBSCount */
+		SELECT 
+			COUNT(*)
+		FROM
+		(
+			SELECT
+				A.RECALL_ID
+				, A.PRODUCT_NAME
+				, A.PRODUCT_WHENCE
+				, A.DOMESTIC_YN
+				, A.COUNTRY_NAME
+				, A.PRODUCT_CN
+				, A.RECALL_CN
+				, A.ATCH_FILE_ID
+				, A.AFTER_RECALL_CN
+				, A.FRST_REGIST_PNTTM
+				, A.FRST_REGISTER_ID
+				, A.LAST_UPDT_PNTTM
+				, A.LAST_UPDUSR_ID
+				, WM_CONCAT (DISTINCT A.MATERIAL_NAME) AS MATERIAL_NAME
+				, A.PUBLISH_DT
+				, A.PRODUCT_TAB_CD
+			FROM
+			(
+				SELECT
+					TRB.RECALL_ID
+					, TRB.PRODUCT_NAME
+					, TRB.PRODUCT_WHENCE
+					, TRB.DOMESTIC_YN
+					, TRB.COUNTRY_NAME
+					, TRB.PRODUCT_CN
+					, TRB.RECALL_CN
+					, TRB.ATCH_FILE_ID
+					, TRB.AFTER_RECALL_CN
+					, TRB.FRST_REGIST_PNTTM
+					, TRB.FRST_REGISTER_ID
+					, TRB.LAST_UPDT_PNTTM
+					, TRB.LAST_UPDUSR_ID
+					, TM.M_KNAME AS MATERIAL_NAME
+					, TRB.PUBLISH_DT
+					, TRB.PRODUCT_TAB_CD
+				FROM
+					TT_RECALL_BBS TRB
+				LEFT OUTER JOIN
+					TT_RECALL_MATERIAL TRM
+				ON
+					TRB.RECALL_ID = TRM.RECALL_ID
+				LEFT OUTER JOIN
+					TT_MATERIAL TM
+				ON
+					TRM.M_IDX = TM.M_IDX
+				WHERE
+					1=1
+				<isNotEmpty property="searchKeyword">
+					<isEqual property="searchCondition" compareValue="nm">
+						<![CDATA[ AND	TRB.PRODUCT_NAME LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCondition" compareValue="whence">
+						<![CDATA[ AND	TRB.PRODUCT_WHENCE LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCondition" compareValue="material">
+						<![CDATA[ AND	TM.M_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+				</isNotEmpty>
+				<isNotEmpty property="domesticYn">
+					<![CDATA[ AND	TRB.DOMESTIC_YN = #domesticYn#		]]>
+				</isNotEmpty>
+				<!-- 
+				2018.10.17 장재영 대리
+				국내어린이용품 환경유해인자 기준초과제품 탭 통합				
+				<isNotEmpty property="productTabCd">
+					<![CDATA[ AND TRB.PRODUCT_TAB_CD = #productTabCd# ]]>
+				</isNotEmpty>
+ 				-->		
+				<isNotEmpty property="productType">
+					<![CDATA[ AND	TRB.PRODUCT_TYPE = #productType# 		]]>
+				</isNotEmpty>
+				
+			) A
+			GROUP BY
+				A.RECALL_ID
+				, A.PRODUCT_NAME
+				, A.PRODUCT_WHENCE
+				, A.DOMESTIC_YN
+				, A.COUNTRY_NAME
+				, A.PRODUCT_CN
+				, A.RECALL_CN
+				, A.ATCH_FILE_ID
+				, A.AFTER_RECALL_CN
+				, A.FRST_REGIST_PNTTM
+				, A.FRST_REGISTER_ID
+				, A.LAST_UPDT_PNTTM
+				, A.LAST_UPDUSR_ID
+				, A.PUBLISH_DT
+				, A.PRODUCT_TAB_CD
+		) T
+	</select>
+	
+	<resultMap id="selectRecallBBS" class="egovframework.com.kids.recall.vo.RecallBBSVO">
+		<result property="recallId" 		column="RECALL_ID"	 		/>
+		<result property="productName"		column="PRODUCT_NAME"       />   
+		<result property="productWhence"    column="PRODUCT_WHENCE"     />
+		<result property="domesticYn"       column="DOMESTIC_YN"        />
+		<result property="countryName"      column="COUNTRY_NAME"       />
+		<result property="productCn"        column="PRODUCT_CN"         />
+		<result property="recallCn"         column="RECALL_CN"          />
+		<result property="atchFileId"       column="ATCH_FILE_ID"       />
+		<result property="afterRecallCn"    column="AFTER_RECALL_CN"    />
+		<result property="frstRegistPnttm"  column="FRST_REGIST_PNTTM"  />
+		<result property="frstRegisterId"   column="FRST_REGISTER_ID"   />
+		<result property="lastUpdtPnttm"    column="LAST_UPDT_PNTTM"    />
+		<result property="lastUpdusrId"     column="LAST_UPDUSR_ID"     />
+		<result property="productType"      column="PRODUCT_TYPE"       />
+		<result property="productCd"        column="PRODUCT_CD"         />
+		<result property="position"         column="POSITION"           />
+		<result property="keywordTag"       column="KEYWORD_TAG"        />
+		<result property="materialList" 	column="RECALL_ID" javaType="List" select="RecallBBSDAO.selectRecallMaterialList"/>
+		<result property="publishDt"        column="PUBLISH_DT"      />
+		<result property="productTabCd"   	column="PRODUCT_TAB_CD"      />
+	</resultMap>
+	
+	<select id="RecallBBSDAO.selectRecallBBS" parameterClass="RecallBBSVO" resultMap="selectRecallBBS">
+		/* RecallBBSDAO.selectRecallBBS */
+		SELECT
+			TRB.RECALL_ID
+			, TRB.PRODUCT_NAME
+			, TRB.PRODUCT_WHENCE
+			, TRB.DOMESTIC_YN
+			, TRB.COUNTRY_NAME
+			, TRB.PRODUCT_CN
+			, TRB.RECALL_CN
+			, TRB.ATCH_FILE_ID
+			, TRB.AFTER_RECALL_CN
+			, TRB.FRST_REGIST_PNTTM
+			, TRB.FRST_REGISTER_ID
+			, TRB.LAST_UPDT_PNTTM
+			, TRB.LAST_UPDUSR_ID
+			, TRB.PRODUCT_TYPE
+			, TRB.PRODUCT_CD
+			, TRB.POSITION
+			,(
+				SELECT
+					WM_CONCAT (DISTINCT '##'||TBK.KEYWORD)
+				FROM
+				 	TN_BBS_KEYWORD TBK
+				 WHERE
+				 TBK.BBS_ID = #recallId#
+			) AS KEYWORD_TAG
+			, TRB.PUBLISH_DT
+			, TRB.PRODUCT_TAB_CD
+		FROM
+			TT_RECALL_BBS TRB
+		WHERE
+			TRB.RECALL_ID = #recallId#
+	</select>
+	
+	<resultMap id="selectRecallMaterialList" class="egovframework.com.kids.recall.vo.RecallMaterialVO">
+		<result property="recallId" 	column="RECALL_ID"	 	/>
+		<result property="mIdx" 		column="M_IDX"	 		/>
+		<result property="materialName" column="MATERIAL_NAME"	/>
+	</resultMap>
+	
+	<select id="RecallBBSDAO.selectRecallMaterialList" parameterClass="String" resultMap="selectRecallMaterialList">
+		/* RecallBBSDAO.selectRecallMaterialList */
+		SELECT
+			TRM.RECALL_ID
+			, TRM.M_IDX
+			, TM.M_KNAME AS MATERIAL_NAME
+		FROM
+			TT_RECALL_MATERIAL TRM
+		INNER JOIN
+			TT_MATERIAL TM
+		ON
+			TRM.M_IDX = TM.M_IDX
+		WHERE
+			TRM.RECALL_ID = #recallId#	
+	</select>
+	
+	<insert id="RecallBBSDAO.insertRecallBBS" parameterClass="RecallBBSVO">
+		/* RecallBBSDAO.insertRecallBBS */
+		INSERT INTO TT_RECALL_BBS
+		(
+			RECALL_ID
+			, PRODUCT_NAME     
+			, PRODUCT_WHENCE   
+			, PRODUCT_TYPE   
+			, DOMESTIC_YN      
+			, COUNTRY_NAME     
+			, PRODUCT_CN       
+			, RECALL_CN        
+			, ATCH_FILE_ID     
+			, AFTER_RECALL_CN  
+			, FRST_REGIST_PNTTM
+			, FRST_REGISTER_ID 
+			, LAST_UPDT_PNTTM  
+			, LAST_UPDUSR_ID   
+			, PUBLISH_DT
+			, PRODUCT_TAB_CD
+		)
+		VALUES
+		(
+			#recallId#
+			, #productName#     
+			, #productWhence#  
+			, #productType#  
+			, #domesticYn#      
+			, #countryName#     
+			, #productCn#       
+			, #recallCn#        
+			, #atchFileId#     
+			, #afterRecallCn#  
+			, SYSDATE
+			, #frstRegisterId# 
+			, SYSDATE  
+			, #frstRegisterId#
+			, #publishDt#
+			, #productTabCd#
+		)
+	</insert>
+	
+	<insert id="RecallBBSDAO.insertRecallMaterial" parameterClass="RecallMaterialVO">
+		/* RecallBBSDAO.insertRecallMaterial */
+		INSERT INTO TT_RECALL_MATERIAL
+		(
+			RECALL_ID
+			, M_IDX
+		)
+		VALUES
+		(
+			#recallId#
+			, #mIdx#
+		)
+	</insert>
+	
+	<update id="RecallBBSDAO.updateRecallBBS" parameterClass="RecallBBSVO">
+		/* RecallBBSDAO.updateRecallBBS */
+		UPDATE TT_RECALL_BBS
+		SET
+			PRODUCT_NAME = #productName#  
+			, PRODUCT_WHENCE = #productWhence#
+			, PRODUCT_TYPE = #productType#
+			, DOMESTIC_YN = #domesticYn#   
+			, COUNTRY_NAME = #countryName#  
+			, PRODUCT_CN = #productCn#    
+			, RECALL_CN = #recallCn#     
+			<isNotEmpty property="atchFileId">
+					<![CDATA[ , ATCH_FILE_ID = #atchFileId#  ]]>
+			</isNotEmpty>			
+			, AFTER_RECALL_CN = #afterRecallCn#
+			, LAST_UPDT_PNTTM = SYSDATE 
+			, LAST_UPDUSR_ID = #lastUpdusrId#
+			, PUBLISH_DT = #publishDt#
+			, PRODUCT_TAB_CD = #productTabCd#
+		WHERE
+			RECALL_ID = #recallId#
+	</update>
+	
+	<delete id="RecallBBSDAO.deleteRecallBBS" parameterClass="RecallBBSVO">
+		/* RecallBBSDAO.deleteRecallBBS */
+		DELETE
+		FROM
+			TT_RECALL_BBS
+		WHERE
+			RECALL_ID = #recallId#
+	</delete>
+	
+	<delete id="RecallBBSDAO.deleteRecallMaterialByRecallId" parameterClass="String">
+		/* RecallBBSDAO.deleteRecallMaterialByRecallId */
+		DELETE
+		FROM
+			TT_RECALL_MATERIAL
+		WHERE
+			RECALL_ID = #recallId#
+	</delete>
+	
+	<update id="RecallBBSDAO.deleteRecallBBSAtchFileId" parameterClass="RecallBBSVO">
+		/* RecallBBSDAO.deleteRecallBBSAtchFileId */
+		UPDATE TT_RECALL_BBS
+		SET
+			ATCH_FILE_ID = NULL
+		WHERE
+			ATCH_FILE_ID = #atchFileId#
+	</update>
+	
+	<update id="RecallBBSDAO.updateViewCount" parameterClass="RecallBBSVO">
+		/* RecallBBSDAO.updateViewCount */
+		UPDATE TT_RECALL_BBS
+		SET
+			RDCNT = (
+		  			SELECT
+		            	NVL(RDCNT, 0) + 1
+		            FROM
+		            	TT_RECALL_BBS TRB
+		            WHERE
+		            	TRB.RECALL_ID = #recallId#
+		  )
+		WHERE
+			RECALL_ID = #recallId#
+	</update>
+	
+</sqlMap>

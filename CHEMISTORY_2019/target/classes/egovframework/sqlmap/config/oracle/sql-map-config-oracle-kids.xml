@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>	
+	<sqlMap resource="egovframework/sqlmap/com/kids/quiz/Quiz_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/recall/RecallBBS_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/calender/Calender_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/lms/LmsCourse_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/lms/LmsChasi_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/lms/LmsQuestion_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/lms/lmsSugang_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/lms/MemberInformation_SQL_Oracle.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/kids/greenproduct/GreenProduct_SQL_Oracle.xml"/>
+</sqlMapConfig>

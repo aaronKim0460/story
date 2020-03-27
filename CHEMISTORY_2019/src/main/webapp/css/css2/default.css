@@ -1,0 +1,71 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+/* reset style [start] */
+html,body, iframe,h1, h2, h3, h4, h5, h6, p, blockquote,pre,
+q, s, dl, dt, dd, ol, ul, li, fieldset, form, input, table,tr, th ,td{ margin: 0; padding: 0; border:0; line-height: 1.5em; }
+img, fieldset{border:0 none;}
+
+
+body{
+    position:relative;
+    font-size:14px;line-height:1.8em;
+    color:#757575;
+    font-family:'Nanum Gothic','나눔고딕','돋움', Dotum, sans-serif;
+     letter-spacing:-1px;
+}
+
+
+strong{ font-weight: bold; }
+em,dfn,cite,address{ font-style: normal; }
+sup,sub{ font-size: .92em; }
+del{ text-decoration: line-through; }
+button{cursor:pointer;border:none;background:none;margin:0;padding:0}
+span.button,img.button,a.button {vertical-align:middle;}
+ol, ul, li { list-style:none;}
+table {border-collapse:collapse; border-spacing:0;}
+legend {position:absolute; visibility:hidden; overflow:hidden; width:0; height:0; font-size:0%;}
+table caption {display:none;}
+hr {display:none;}
+
+a:link { color:#636363; text-decoration:none; }
+a:visited { color:#636363; text-decoration:none; }
+a:hover { color:#636363; text-decoration:underline; }
+a:active { color:#636363; text-decoration:underline; }
+
+/* a:link,a:active{color:#494949;text-decoration:none}
+a:visited{color:#494949;text-decoration:none}
+a:hover{color:#3166a3;text-decoration:none} */
+
+.clearfix:after {display:block; clear:both; content:"."; visibility:hidden; height:0;}
+.clearfix {display: inline-block;}
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+.skip {position:absolute; overflow:hidden; height:0; width:0; font-size:0; visibility:hidden;}
+.clear{clear: both;}
+
+/* 입력 form */
+input{vertical-align:middle}
+input[type="text"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:'Nanum Gothic';}
+input[type="password"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:'Nanum Gothic';}
+input[type="file"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:'Nanum Gothic';}
+input[type="submit"]{font-size:12px;font-family:'Nanum Gothic';color:#666;background:none}
+select{padding:1px 3px;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:'Nanum Gothic';}
+textarea{padding:1px 3px;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:'Nanum Gothic';}
+input[disabled="disabled"]{background:#ebebeb;color:#959595}
+select[disabled="disabled"]{background:#ebebeb;color:#959595}
+
+.con2 { position:relative; padding-right:220px;}
+	.con2 .conR {position:fixed; top:40px; right:0px; width:200px;}
+	.con2 .conRList {margin-top:10px;}
+	.con2 .conRList > dt {background-color:#eee; padding:3px 0px 3px 10px; font-weight:bold;}
+	.con2 .conRList > dd {border-bottom:2px solid #ccc; padding:5px; background-color:#eee;}
+	.con2 .conRList > dd > dl > dt {font-weight:bold; color:#f26c4f; font-size:13px; border-bottom:1px dotted #ccc; padding-left:5px; background-color:#fff;}
+	.con2 .conRList > dd > dl > dd {font-size:12px; border-bottom:2px solid #ccc; padding:3px 0px 3px 5px; background-color:#fff;}
+
+.con3 { position:relative; padding-right:350px;}
+	.con3 .conR {position:fixed; top:40px; right:15px; width:320px;}
+	.con3 .conRList {margin-top:10px;}
+	.con3 .conRList > dt {background-color:#eee; padding:3px 0px 3px 10px; font-weight:bold;}
+	.con3 .conRList > dd {border-bottom:2px solid #ccc; padding:5px; background-color:#eee;}
+	.con3 .conRList > dd > dl > dt {font-weight:bold; font-size:13px; border-bottom:1px dotted #ccc; padding-left:5px; background-color:#fff;}
+	.con3 .conRList > dd > dl > dd {font-size:12px; border-bottom:2px solid #ccc; padding:3px 0px 3px 5px; background-color:#fff;}	

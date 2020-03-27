@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	수정일                 수정자                          수정내용
+  =========     =======    =================================================
+  2011.09.14   	서준식     	   selectBbsAvgCntStats문의 평균 구하는 구문 오류 수정	
+  2011.09.15    서준식            최고 게시자 조회를 위한 SQL 수정
+-->
+<sqlMap namespace="BbsStats">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="statsVO" type="egovframework.com.sts.com.StatsVO"/>
+	
+	<!-- 게시물 생성글수 조회 -->
+	<select id="BbsStatsDAO.selectBbsCretCntStats" parameterClass="statsVO" resultClass="StatsVO">
+		SELECT SUM(CREAT_CO) AS statsCo
+		     <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_BBS_SUMRY
+	 	 WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+		   AND STATS_SE = #statsKind#
+		   <isNotEmpty property="detailStatsKind">
+		   AND DETAIL_STATS_SE = #detailStatsKind#
+		   </isNotEmpty>
+		 <isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 </isEqual>
+	</select>
+	
+	<!-- 게시물 총조회수 조회 -->
+	<select id="BbsStatsDAO.selectBbsTotCntStats" parameterClass="statsVO" resultClass="StatsVO">
+		SELECT SUM(TOT_RDCNT) AS statsCo
+		     <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_BBS_SUMRY
+	 	 WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+		   AND STATS_SE = #statsKind#
+		   <isNotEmpty property="detailStatsKind">
+		   AND DETAIL_STATS_SE = #detailStatsKind#
+		   </isNotEmpty>
+		 <isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 </isEqual>
+	</select>
+	
+	<!-- 게시물 평균조회수 조회 -->
+	<select id="BbsStatsDAO.selectBbsAvgCntStats" parameterClass="statsVO" resultClass="StatsVO">
+		SELECT NVL(SUM(TOT_RDCNT) / (CASE SUM(CREAT_CO) WHEN 0 THEN 1 ELSE SUM(CREAT_CO) END), 0) AS avrgInqireCo
+		     <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_BBS_SUMRY
+	 	 WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+		   AND STATS_SE = #statsKind#
+		   <isNotEmpty property="detailStatsKind">
+		   AND DETAIL_STATS_SE = #detailStatsKind#
+		   </isNotEmpty>
+		 <isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 </isEqual>
+	</select>
+	
+	<!-- 최고조회수 게시물정보 조회 -->
+	<select id="BbsStatsDAO.selectBbsMaxCntStats" parameterClass="statsVO" resultClass="StatsVO">
+		SELECT a.OCCRRNC_DE AS statsDate
+		     , a.TOP_INQIRE_BBSCTT_ID AS mxmmInqireBbsId
+		     , b.NTT_SJ AS mxmmInqireBbsNm
+		     , b.RDCNT AS maxStatsCo
+		  FROM (
+			SELECT OCCRRNC_DE
+		         , TOP_INQIRE_BBSCTT_ID
+			  FROM TS_BBS_SUMRY
+			 WHERE 1 = 1
+			   AND OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+			   AND STATS_SE = #statsKind#
+			   <isNotEmpty property="detailStatsKind">
+			   AND DETAIL_STATS_SE = #detailStatsKind#
+			   </isNotEmpty>
+			) a, TN_BBS b
+		 WHERE a.TOP_INQIRE_BBSCTT_ID = b.NTT_ID
+		 ORDER BY a.OCCRRNC_DE
+	</select>
+	
+	<!-- 최소조회수 게시물정보 조회 -->
+	<select id="BbsStatsDAO.selectBbsMinCntStats" parameterClass="statsVO" resultClass="StatsVO">
+		SELECT a.OCCRRNC_DE AS statsDate
+		     , a.MUMM_INQIRE_BBSCTT_ID AS mummInqireBbsId
+		     , b.NTT_SJ AS mummInqireBbsNm
+		     , b.RDCNT AS minStatsCo
+		  FROM (
+			SELECT OCCRRNC_DE
+		         , MUMM_INQIRE_BBSCTT_ID
+			  FROM TS_BBS_SUMRY
+			 WHERE 1 = 1
+			   AND OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+			   AND STATS_SE = #statsKind#
+			   <isNotEmpty property="detailStatsKind">
+			   AND DETAIL_STATS_SE = #detailStatsKind#
+			   </isNotEmpty>
+			) a, TN_BBS b
+		 WHERE a.MUMM_INQIRE_BBSCTT_ID = b.NTT_ID
+		 ORDER BY a.OCCRRNC_DE
+	</select>
+	
+	<!-- 게시물 최고게시자 조회 -->
+	<select id="BbsStatsDAO.selectBbsMaxUserStats" parameterClass="statsVO" resultClass="StatsVO">
+		SELECT a.OCCRRNC_DE AS statsDate
+		     , a.TOP_NTCR_ID AS topNtcepersonId
+		     , COUNT(b.NTT_ID) AS topNtcepersonCo
+		  FROM (
+			SELECT OCCRRNC_DE
+		         , TOP_NTCR_ID
+			  FROM TS_BBS_SUMRY
+			 WHERE 1 = 1
+			   AND OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+			   AND STATS_SE = #statsKind#
+			   <isNotEmpty property="detailStatsKind">
+			   AND DETAIL_STATS_SE = #detailStatsKind#
+			   </isNotEmpty>
+			) a, TN_BBS b
+		 WHERE 1=1
+		   
+		   AND a.TOP_NTCR_ID IS NOT NULL
+		   AND b.NTCR_ID = a.TOP_NTCR_ID
+		   
+		   AND b.NTCR_ID IS NOT NULL
+		 GROUP BY a.OCCRRNC_DE, a.TOP_NTCR_ID    
+		 ORDER BY a.OCCRRNC_DE
+	</select>
+	
+	<!-- 게시물 집계 여부 조회 -->
+	<select id="BbsStatsDAO.selectBbsSummary" parameterClass="statsVO" resultClass="StatsVO">
+		<![CDATA[
+			SELECT a.STATS_SE AS statsKind
+			  FROM TS_BBS_SUMRY a
+			 WHERE a.OCCRRNC_DE = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND a.STATS_SE = #statsKind#
+			   AND a.DETAIL_STATS_SE = #detailStatsKind#
+		]]>
+	</select>
+	
+	<!-- 게시물 생성글수 조회 -->
+	<select id="BbsStatsDAO.selectBbsCreatCo" parameterClass="statsVO" resultClass="StatsVO">
+		<isEqual property="statsKind" compareValue="COM004">
+		<![CDATA[
+			SELECT COUNT(a.NTT_ID) AS creatCo
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_TY_CODE = #detailStatsKind#             
+		]]>			    
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM009">
+		<![CDATA[
+			SELECT COUNT(a.NTT_ID) AS creatCo
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_ATTRB_CODE = #detailStatsKind#             
+		]]>			    
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM005">
+		<![CDATA[
+			SELECT COUNT(a.NTT_ID) AS creatCo
+			  FROM TN_BBS a, TN_BBS_MASTR b, TN_TMPLAT_INFO c
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.TMPLAT_ID = c.TMPLAT_ID
+			   AND c.TMPLAT_SE_CODE = #detailStatsKind#             
+		]]>			    
+		</isEqual>
+	</select>
+	
+	<!-- 게시물 총조회수 조회 -->
+	<select id="BbsStatsDAO.selectBbsTotInqireCo" parameterClass="statsVO" resultClass="StatsVO">
+		<isEqual property="statsKind" compareValue="COM004">
+		<![CDATA[
+			SELECT NVL(SUM(a.RDCNT),0) AS totInqireCo
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_TY_CODE = #detailStatsKind#             
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM009">
+		<![CDATA[
+			SELECT NVL(SUM(a.RDCNT),0) AS totInqireCo
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_ATTRB_CODE = #detailStatsKind#             
+		]]>
+		</isEqual>	
+		<isEqual property="statsKind" compareValue="COM005">
+		<![CDATA[
+			SELECT NVL(SUM(a.RDCNT),0) AS totInqireCo
+			  FROM TN_BBS a, TN_BBS_MASTR b, TN_TMPLAT_INFO c
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.TMPLAT_ID = c.TMPLAT_ID
+			   AND c.TMPLAT_SE_CODE = #detailStatsKind#          
+		]]>
+		</isEqual>					    
+	</select>
+	
+	<!-- 게시물 평균조회수 조회 -->
+	<select id="BbsStatsDAO.selectBbsAvrgInqireCo" parameterClass="statsVO" resultClass="StatsVO">
+		<isEqual property="statsKind" compareValue="COM004">
+		<![CDATA[
+			SELECT NVL(NVL(SUM(a.RDCNT),0) / (CASE COUNT(a.NTT_ID) WHEN 0 THEN 1 END), 0) AS avrgInqireCo
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_TY_CODE = #detailStatsKind#          
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM009">
+		<![CDATA[
+			SELECT NVL(NVL(SUM(a.RDCNT),0) / (CASE COUNT(a.NTT_ID) WHEN 0 THEN 1 END), 0) AS avrgInqireCo
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_ATTRB_CODE = #detailStatsKind#          
+		]]>
+		</isEqual>	
+		<isEqual property="statsKind" compareValue="COM005">
+		<![CDATA[
+			SELECT NVL(NVL(SUM(a.RDCNT),0) / (CASE COUNT(a.NTT_ID) WHEN 0 THEN 1 END), 0) AS avrgInqireCo
+			  FROM TN_BBS a, TN_BBS_MASTR b, TN_TMPLAT_INFO c
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.TMPLAT_ID = c.TMPLAT_ID
+			   AND c.TMPLAT_SE_CODE = #detailStatsKind#     
+		]]>
+		</isEqual>		    
+	</select>
+	
+	<!-- 게시물 최고조회게시물ID 조회 -->
+	<select id="BbsStatsDAO.selectBbsMxmmInqireBbsId" parameterClass="statsVO" resultClass="StatsVO">
+		<isEqual property="statsKind" compareValue="COM004">
+		<![CDATA[
+			SELECT a.NTT_ID AS mxmmInqireBbsId
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND a.RDCNT = (SELECT MAX(c.RDCNT)
+								    FROM TN_BBS c, TN_BBS_MASTR d
+								   WHERE c.BBS_ID = d.BBS_ID
+								     AND c.RDCNT > 0
+								     AND TO_CHAR(c.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+									 AND d.BBS_TY_CODE = #detailStatsKind#)
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_TY_CODE = #detailStatsKind#
+			   AND rownum = 1       
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM009">
+		<![CDATA[
+			SELECT a.NTT_ID AS mxmmInqireBbsId
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND a.RDCNT = (SELECT MAX(c.RDCNT)
+								    FROM TN_BBS c, TN_BBS_MASTR d
+								   WHERE c.BBS_ID = d.BBS_ID
+								     AND c.RDCNT > 0
+								     AND TO_CHAR(c.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+									 AND d.BBS_ATTRB_CODE = #detailStatsKind#)
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_ATTRB_CODE = #detailStatsKind#    
+			   AND rownum = 1   
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM005">
+		<![CDATA[
+			SELECT a.NTT_ID AS mxmmInqireBbsId
+			  FROM TN_BBS a, TN_BBS_MASTR b, TN_TMPLAT_INFO c
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND a.RDCNT = (SELECT MAX(d.RDCNT)
+								    FROM TN_BBS d, TN_BBS_MASTR e, TN_TMPLAT_INFO f
+								   WHERE d.BBS_ID = e.BBS_ID
+								     AND d.RDCNT > 0
+								     AND TO_CHAR(d.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+									 AND e.TMPLAT_ID = f.TMPLAT_ID
+			   						 AND f.TMPLAT_SE_CODE = #detailStatsKind#)
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.TMPLAT_ID = c.TMPLAT_ID
+			   AND c.TMPLAT_SE_CODE = #detailStatsKind#
+			   AND rownum = 1      
+		]]>
+		</isEqual>
+	</select>	
+	
+	<!-- 게시물 최소조회게시물ID 조회 -->
+	<select id="BbsStatsDAO.selectBbsMummInqireBbsId" parameterClass="statsVO" resultClass="StatsVO">
+		<isEqual property="statsKind" compareValue="COM004">
+		<![CDATA[
+			SELECT a.NTT_ID AS mummInqireBbsId
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND a.RDCNT = (SELECT MIN(c.RDCNT)
+								    FROM TN_BBS c, TN_BBS_MASTR d
+								   WHERE c.BBS_ID = d.BBS_ID
+								     AND c.RDCNT > 0
+								     AND TO_CHAR(c.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+								     AND d.BBS_TY_CODE = #detailStatsKind#)
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_TY_CODE = #detailStatsKind#
+			   AND rownum = 1
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM009">
+		<![CDATA[
+			SELECT a.NTT_ID AS mummInqireBbsId
+			  FROM TN_BBS a, TN_BBS_MASTR b
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND a.RDCNT = (SELECT MIN(c.RDCNT)
+								    FROM TN_BBS c, TN_BBS_MASTR d
+								   WHERE c.BBS_ID = d.BBS_ID
+								     AND c.RDCNT > 0
+								     AND TO_CHAR(c.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+								     AND d.BBS_ATTRB_CODE = #detailStatsKind#)
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.BBS_ATTRB_CODE = #detailStatsKind#
+			   AND rownum = 1
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM005">
+		<![CDATA[
+			SELECT a.NTT_ID AS mummInqireBbsId
+			  FROM TN_BBS a, TN_BBS_MASTR b, TN_TMPLAT_INFO c
+			 WHERE a.BBS_ID = b.BBS_ID
+			   AND a.RDCNT = (SELECT MIN(d.RDCNT)
+								    FROM TN_BBS d, TN_BBS_MASTR e, TN_TMPLAT_INFO f
+								   WHERE d.BBS_ID = e.BBS_ID
+								     AND d.RDCNT > 0
+								     AND TO_CHAR(d.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+									 AND e.TMPLAT_ID = f.TMPLAT_ID
+			   						 AND f.TMPLAT_SE_CODE = #detailStatsKind#)
+			   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+			   AND b.TMPLAT_ID = c.TMPLAT_ID
+			   AND c.TMPLAT_SE_CODE = #detailStatsKind#
+			   AND rownum = 1      
+		]]>
+		</isEqual>
+	</select>	
+	
+	<!-- 게시물 최고게시자ID 조회 -->
+	<select id="BbsStatsDAO.selectBbsTopNtcepersonId" parameterClass="statsVO" resultClass="StatsVO">
+		<isEqual property="statsKind" compareValue="COM004">
+		<![CDATA[
+			SELECT c.topNtcepersonId
+			  FROM (SELECT COUNT(a.NTT_ID) AS topNtcepersonCo
+					     , a.NTCR_ID AS topNtcepersonId
+					  FROM TN_BBS a, TN_BBS_MASTR b
+					 WHERE a.BBS_ID = b.BBS_ID
+					   AND a.NTCR_ID IS NOT NULL
+					   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+					   AND b.BBS_TY_CODE = #detailStatsKind#
+					 GROUP BY a.NTCR_ID) c
+			  WHERE c.topNtcepersonCo = (SELECT MAX(f.topNtcepersonCo)
+									       FROM (SELECT COUNT(d.NTT_ID) AS topNtcepersonCo
+										          , d.NTCR_ID AS topNtcepersonId
+										       FROM TN_BBS d, TN_BBS_MASTR e
+										      WHERE d.BBS_ID = e.BBS_ID
+										        AND d.NTCR_ID IS NOT NULL
+										        AND TO_CHAR(d.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+										        AND e.BBS_TY_CODE = #detailStatsKind#
+										      GROUP BY d.NTCR_ID) f)
+				AND rownum = 1						      
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM009">
+		<![CDATA[
+			SELECT c.topNtcepersonId
+			  FROM (SELECT COUNT(a.NTT_ID) AS topNtcepersonCo
+					     , a.NTCR_ID AS topNtcepersonId
+					  FROM TN_BBS a, TN_BBS_MASTR b
+					 WHERE a.BBS_ID = b.BBS_ID
+					   AND a.NTCR_ID IS NOT NULL
+					   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+					   AND b.BBS_ATTRB_CODE = #detailStatsKind#
+					 GROUP BY a.NTCR_ID) c
+			  WHERE c.topNtcepersonCo = (SELECT MAX(f.topNtcepersonCo)
+									       FROM (SELECT COUNT(d.NTT_ID) AS topNtcepersonCo
+										          , d.NTCR_ID AS topNtcepersonId
+										       FROM TN_BBS d, TN_BBS_MASTR e
+										      WHERE d.BBS_ID = e.BBS_ID
+										        AND d.NTCR_ID IS NOT NULL
+										        AND TO_CHAR(d.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+										        AND e.BBS_ATTRB_CODE = #detailStatsKind#
+										      GROUP BY d.NTCR_ID) f)
+				AND rownum = 1						      
+		]]>
+		</isEqual>
+		<isEqual property="statsKind" compareValue="COM005">
+		<![CDATA[
+			SELECT c.topNtcepersonId
+			  FROM (SELECT COUNT(a.NTT_ID) AS topNtcepersonCo
+					     , a.NTCR_ID AS topNtcepersonId
+					  FROM TN_BBS a, TN_BBS_MASTR b, TN_TMPLAT_INFO t1
+					 WHERE a.BBS_ID = b.BBS_ID
+					   AND a.NTCR_ID IS NOT NULL
+					   AND TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+					   AND b.TMPLAT_ID = t1.TMPLAT_ID
+			           AND t1.TMPLAT_SE_CODE = #detailStatsKind#
+					 GROUP BY a.NTCR_ID) c
+			  WHERE c.topNtcepersonCo = (SELECT MAX(f.topNtcepersonCo)
+									       FROM (SELECT COUNT(d.NTT_ID) AS topNtcepersonCo
+										          , d.NTCR_ID AS topNtcepersonId
+										       FROM TN_BBS d, TN_BBS_MASTR e, TN_TMPLAT_INFO t2
+										      WHERE d.BBS_ID = e.BBS_ID
+										        AND d.NTCR_ID IS NOT NULL
+										        AND TO_CHAR(d.FRST_REGIST_PNTTM, 'YYYYMMDD') = TO_CHAR(SYSDATE - 1, 'YYYYMMDD')
+										        AND e.TMPLAT_ID = t2.TMPLAT_ID
+			           							AND t2.TMPLAT_SE_CODE = #detailStatsKind#
+										      GROUP BY d.NTCR_ID) f)
+				AND rownum = 1						      
+		]]>
+		</isEqual>
+	</select>
+	
+	<!-- 게시물 통계 집계 -->
+	<insert id="BbsStatsDAO.summaryBbsStats">
+		<![CDATA[
+			INSERT INTO TS_BBS_SUMRY (
+				OCCRRNC_DE,
+				STATS_SE,
+				DETAIL_STATS_SE,
+				CREAT_CO,
+				TOT_RDCNT,
+				AVRG_RDCNT,
+				TOP_INQIRE_BBSCTT_ID,
+				MUMM_INQIRE_BBSCTT_ID,
+				TOP_NTCR_ID
+			) VALUES (
+				TO_CHAR(SYSDATE - 1, 'YYYYMMDD'),
+				#statsKind#,
+				#detailStatsKind#,
+				#creatCo#,
+				#totInqireCo#,
+				#avrgInqireCo#,
+				#mxmmInqireBbsId#,
+				#mummInqireBbsId#,
+				#topNtcepersonId#
+			)	
+		]]>
+	</insert>	
+	
+	
+	<insert id="BbsStatsDAO.bbsAtchFileStats">
+		<![CDATA[
+			INSERT INTO TS_DTA_USE_STATS (
+				DTA_USE_STATS_ID,
+				BBS_ID,
+				NTT_ID,
+				ATCH_FILE_ID,
+				FILE_SN,
+				TOT_RDCNT
+			) VALUES (
+				#dtaUseStatsId#,
+				#bbsId#,
+				#nttId#,
+				#atchFileId#,
+				#fileSn#,
+				#totInqireCo#
+			)	
+		]]>
+	</insert>
+	
+	<select id="BbsStatsDAO.selectBbsStatsMax" parameterClass="statsVO" resultClass="java.lang.Integer">
+		<![CDATA[
+			SELECT NVL(MAX(a.TOT_RDCNT),0)+1   AS totInqireCo
+			  FROM TS_DTA_USE_STATS a
+			 WHERE a.DTA_USE_STATS_ID = #dtaUseStatsId#
+			   AND a.BBS_ID = #bbsId#
+			   AND a.NTT_ID = #nttId#
+			   AND a.ATCH_FILE_ID =  #atchFileId#
+			   AND a.FILE_SN = #fileSn#
+		]]>
+	</select>	
+	
+	<select id="BbsStatsDAO.selectBbsInf" parameterClass="statsVO" resultClass="StatsVO">
+		<![CDATA[
+			SELECT NTT_ID AS nttId, BBS_ID as bbsId
+			  FROM TN_BBS
+			  WHERE ATCH_FILE_ID = #atchFileId#
+		]]>
+	</select>
+	
+	<insert id="BbsStatsDAO.bbsAtchFileStats_U">
+		<![CDATA[
+			update  TS_DTA_USE_STATS set 
+				TOT_RDCNT = #totInqireCo#
+				where DTA_USE_STATS_ID = #dtaUseStatsId#
+				and BBS_ID = #bbsId#
+				and NTT_ID = #nttId#
+				and ATCH_FILE_ID = #atchFileId#
+				and FILE_SN = #fileSn#
+				
+		]]>
+	</insert>
+	
+	
+	<select id="BbsStatsDAO.selectBbsRdCntMax" parameterClass="statsVO" resultClass="java.lang.Integer">
+		/* BbsStatsDAO.selectBbsRdCntMax */
+		<![CDATA[
+			SELECT NVL(MAX(a.TOT_RDCNT),0)+1   AS totInqireCo
+			  FROM TS_BBS_SUMRY a
+			 WHERE a.OCCRRNC_DE = TO_CHAR(TO_DATE(#dtaUseStatsId#,'YYYY-MM-DD'), 'YYYY-MM-DD')
+			   AND a.BBS_ID = #bbsId#
+			   AND a.NTT_ID = #nttId#
+		]]>
+	</select>	
+	
+	<insert id="BbsStatsDAO.bbsRdCntStats">
+			/* BbsStatsDAO.bbsRdCntStats */
+		<![CDATA[
+			INSERT INTO TS_BBS_SUMRY (
+				OCCRRNC_DE,
+				DETAIL_STATS_SE,
+				STATS_SE,
+				BBS_ID,
+				NTT_ID,
+				TOT_RDCNT
+			) VALUES (
+				TO_CHAR(TO_DATE(#dtaUseStatsId#,'YYYY-MM-DD') ,'YYYY-MM-DD'),
+				#detailStatsKind#,
+				#statsKind#,
+				#bbsId#,
+				#nttId#,
+				#totInqireCo#
+			)	
+		]]>
+	</insert>
+	
+	<insert id="BbsStatsDAO.bbsRdCntStats_U">
+		/* "BbsStatsDAO.bbsRdCntStats_U" */
+		<![CDATA[
+			update TS_BBS_SUMRY set
+				TOT_RDCNT = #totInqireCo#
+			where OCCRRNC_DE = TO_DATE(#dtaUseStatsId#,'YYYYMMDD')
+			and DETAIL_STATS_SE = #detailStatsKind#
+			and	BBS_ID = #bbsId#
+			and	NTT_ID = #nttId#
+		]]>
+	</insert>
+	
+	<select id="BbsStatsDAO.selectBbsTotCntStats_A" parameterClass="statsVO" resultClass="StatsVO">
+		select * from (SELECT a.TOT_RDCNT AS statsCo  , a.bbs_id as bbsId, a.ntt_id as nttId , b.bbs_nm  as bbsNm  , c.ntt_sj as nttSj, d.orignl_file_nm           
+		     <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(a.DTA_USE_STATS_ID, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(a.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(a.DTA_USE_STATS_ID, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(a.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(a.DTA_USE_STATS_ID, 5, 2) || '-' || SUBSTR(a.DTA_USE_STATS_ID, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_DTA_USE_STATS a
+		  LEFT OUTER JOIN TN_BBS_MASTR b ON a.bbs_id = b.bbs_id  
+ 		  LEFT OUTER JOIN TN_BBS c ON a.ntt_id = c.ntt_id
+ 		  LEFT OUTER JOIN TN_FILE_DETAIL d ON a.atch_file_id = d.atch_file_id AND  a.file_sn=d.file_sn
+	 	  WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND a.DTA_USE_STATS_ID BETWEEN #fromDate# AND #toDate#
+		   GROUP BY a.BBS_ID, a.NTT_ID
+		 <isEqual property="pdKind" compareValue="Y">
+		 ORDER BY SUBSTR(a.DTA_USE_STATS_ID, 1, 4), a.TOT_RDCNT desc 
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 ORDER BY SUBSTR(a.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(a.DTA_USE_STATS_ID, 5, 2), a.TOT_RDCNT desc
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 ORDER BY SUBSTR(a.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(a.DTA_USE_STATS_ID, 5, 2) || '-' || SUBSTR(a.DTA_USE_STATS_ID, 7, 2), a.TOT_RDCNT desc
+		 </isEqual>
+		 ) limit #printLimit#
+	</select>
+	
+	<select id="BbsStatsDAO.selectBbsTotCntStats_N" parameterClass="statsVO" resultClass="StatsVO">
+		select * from (SELECT a.TOT_RDCNT AS statsCo  , a.bbs_id as bbsId, a.ntt_id as nttId , b.bbs_nm  as bbsNm  , c.ntt_sj as nttSj              
+		     <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_BBS_SUMRY a
+		  LEFT OUTER JOIN TN_BBS_MASTR b ON a.bbs_id = b.bbs_id  
+ 		  LEFT OUTER JOIN TN_BBS c ON a.ntt_id = c.ntt_id
+	 	  WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND a.OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+		   <isNotEmpty property="detailStatsKind">
+		   AND a.DETAIL_STATS_SE = #detailStatsKind#
+		   </isNotEmpty>
+		   GROUP BY a.BBS_ID, a.NTT_ID
+		 <isEqual property="pdKind" compareValue="Y">
+		 ORDER BY SUBSTR(a.OCCRRNC_DE, 1, 4), a.TOT_RDCNT desc 
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 ORDER BY SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2), a.TOT_RDCNT desc
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 ORDER BY SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2), a.TOT_RDCNT desc
+		 </isEqual>
+		 ) limit #printLimit#
+	</select>
+	
+	<select id="BbsStatsDAO.selectBbsReadList" parameterClass="statsVO" resultClass="egovMap">
+		/* BbsStatsDAO.selectBbsReadList */
+		SELECT SUM(A.TOT_RDCNT) AS STATS_CO
+		
+		<isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(A.OCCRRNC_DE, 1, 4) AS STATS_DATE
+		</isEqual>
+		<isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 6, 2) AS STATS_DATE
+		</isEqual>
+		<isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 6, 2) || '-' || SUBSTR(A.OCCRRNC_DE, 9, 2) AS STATS_DATE
+		</isEqual>
+		 FROM TS_BBS_SUMRY A
+		    , TN_BBS_MASTR 	B
+		    , TN_BBS 			C
+		    , TC_CMMN_DETAIL_CODE D
+	 	WHERE 1=1
+	 	  AND A.BBS_ID = B.BBS_ID
+	 	  AND A.BBS_ID = C.BBS_ID
+	 	  AND A.NTT_ID = C.NTT_ID
+	 	  AND A.BBS_ID IS NOT NULL
+	 	  AND A.BBS_ID != ' '
+	 	  AND A.NTT_ID IS NOT NULL
+	 	  AND A.NTT_ID != 0
+	 	  AND D.CODE_ID = 'COM078'
+	 	  AND B.BBS_SITE_CODE = D.CODE
+ 	 	<isNotEmpty property="siteType">
+ 	 		<![CDATA[
+				AND B.BBS_SITE_CODE = #siteType#
+ 	 		]]>
+ 	 	</isNotEmpty>
+	 	<isEmpty property="fromDate">
+	 	 	<isNotEmpty property="toDate">
+	 	 		<![CDATA[
+	 	   AND A.OCCRRNC_DE <= #toDate#
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+	 	   AND A.OCCRRNC_DE >= #fromDate#
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isNotEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+		   AND A.OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isNotEmpty>
+	 	 
+		<isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(A.OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(A.OCCRRNC_DE, 1, 4)
+		</isEqual>
+		<isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 6, 2)
+		 ORDER BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 6, 2)
+		</isEqual>
+		<isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 6, 2) || '-' || SUBSTR(A.OCCRRNC_DE, 9, 2)
+		 ORDER BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 6, 2) || '-' || SUBSTR(A.OCCRRNC_DE, 9, 2)
+		 </isEqual>
+	</select>
+	
+	<select id="BbsStatsDAO.selectBbsDownList" parameterClass="statsVO" resultClass="egovMap">
+	
+		SELECT SUM(A.TOT_RDCNT) AS STATS_CO
+		
+		<isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(A.DTA_USE_STATS_ID, 1, 4) AS STATS_DATE
+		</isEqual>
+		<isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(A.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 5, 2) AS STATS_DATE
+		</isEqual>
+		<isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(A.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 5, 2) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 7, 2) AS STATS_DATE
+		</isEqual>
+		 FROM TS_DTA_USE_STATS A
+		    , TN_BBS_MASTR 	B
+		    , TN_BBS 			C
+		    , TC_CMMN_DETAIL_CODE D
+	 	WHERE 1=1
+	 	  AND A.BBS_ID = B.BBS_ID
+	 	  AND A.BBS_ID = C.BBS_ID
+	 	  AND A.NTT_ID = C.NTT_ID
+	 	  AND A.BBS_ID IS NOT NULL
+	 	  AND A.BBS_ID != ' '
+	 	  AND A.NTT_ID IS NOT NULL
+	 	  AND A.NTT_ID != 0
+	 	  AND D.CODE_ID = 'COM078'
+	 	  AND B.BBS_SITE_CODE = D.CODE
+ 	 	<isNotEmpty property="siteType">
+ 	 		<![CDATA[
+				AND B.BBS_SITE_CODE = #siteType#
+ 	 		]]>
+ 	 	</isNotEmpty>
+	 	 <isEmpty property="fromDate">
+	 	 	<isNotEmpty property="toDate">
+	 	 		<![CDATA[
+	 	   AND A.DTA_USE_STATS_ID <= REPLACE(#toDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+	 	   AND A.DTA_USE_STATS_ID >= REPLACE(#fromDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isNotEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+		   AND A.DTA_USE_STATS_ID BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isNotEmpty>
+	 	 
+
+		<isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(A.DTA_USE_STATS_ID, 1, 4)
+		 ORDER BY SUBSTR(A.DTA_USE_STATS_ID, 1, 4)
+		</isEqual>
+		<isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(A.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 5, 2)
+		 ORDER BY SUBSTR(A.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 5, 2)
+		</isEqual>
+		<isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(A.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 5, 2) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 7, 2)
+		 ORDER BY SUBSTR(A.DTA_USE_STATS_ID, 1, 4) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 5, 2) || '-' || SUBSTR(A.DTA_USE_STATS_ID, 7, 2)
+		 </isEqual>
+	</select>
+	
+	<select id="BbsStatsDAO.selectBbsReadListData" parameterClass="statsVO" resultClass="egovMap">
+		SELECT T1.BBS_NM
+			 , T1.NTT_SJ
+			 , T1.TOT_RDCNT
+			 , T1.BBS_SITE_CODE
+			 , T1.SITE_NM
+		 FROM (SELECT B.BBS_NM
+		 			, C.NTT_SJ
+		 			, SUM(A.TOT_RDCNT) AS TOT_RDCNT
+		 			, B.BBS_SITE_CODE
+					, D.CODE_NM AS SITE_NM
+				 FROM TS_BBS_SUMRY 	A
+				    , TN_BBS_MASTR 	B
+				    , TN_BBS 			C
+				    , TC_CMMN_DETAIL_CODE D
+			 	WHERE 1=1
+			 	  AND A.BBS_ID = B.BBS_ID
+			 	  AND A.BBS_ID = C.BBS_ID
+			 	  AND A.NTT_ID = C.NTT_ID
+			 	  AND A.BBS_ID IS NOT NULL
+			 	  AND A.BBS_ID != ' '
+			 	  AND A.NTT_ID IS NOT NULL
+			 	  AND A.NTT_ID != 0
+			 	  AND D.CODE_ID = 'COM078'
+			 	  AND B.BBS_SITE_CODE = D.CODE
+		 	 	<isNotEmpty property="siteType">
+		 	 		<![CDATA[
+						AND B.BBS_SITE_CODE = #siteType#
+		 	 		]]>
+		 	 	</isNotEmpty>
+		 	 	<isEmpty property="fromDate">
+			 	 	<isNotEmpty property="toDate">
+			 	 		<![CDATA[
+			 	  AND A.OCCRRNC_DE <= #toDate#
+			 	 		]]>
+			 	 	</isNotEmpty>
+			 	 </isEmpty>
+			 	 
+			 	 <isEmpty property="toDate">
+			 	 	<isNotEmpty property="fromDate">
+			 	 		<![CDATA[
+			 	  AND A.OCCRRNC_DE >= #fromDate#
+			 	 		]]>
+			 	 	</isNotEmpty>
+			 	 </isEmpty>
+			 	 
+			 	 <isNotEmpty property="toDate">
+			 	 	<isNotEmpty property="fromDate">
+			 	 		<![CDATA[
+				  AND A.OCCRRNC_DE BETWEEN #fromDate# AND #toDate#
+			 	 		]]>
+			 	 	</isNotEmpty>
+			 	 </isNotEmpty> 
+			 	GROUP BY B.BBS_NM
+		 			, C.NTT_SJ
+		 			, B.BBS_SITE_CODE
+		 			, D.CODE_NM
+				ORDER BY TOT_RDCNT DESC
+		)
+		<![CDATA[	T1	   
+		WHERE rownum < #printLimit#	
+		]]>
+	</select>
+	
+	<select id="BbsStatsDAO.selectBbsDownListData" parameterClass="statsVO" resultClass="egovMap">
+		SELECT T1.BBS_NM
+			 , T1.NTT_SJ
+			 , T1.TOT_RDCNT
+			 , T1.BBS_SITE_CODE
+			 , T1.SITE_NM
+		 FROM (SELECT B.BBS_NM
+		 			, C.NTT_SJ
+		 			, SUM(A.TOT_RDCNT) AS TOT_RDCNT
+		 			, B.BBS_SITE_CODE
+					, D.CODE_NM AS SITE_NM
+				 FROM TS_DTA_USE_STATS 	A
+				    , TN_BBS_MASTR 	B
+				    , TN_BBS 			C
+				    , TC_CMMN_DETAIL_CODE D
+			 	WHERE 1=1
+			 	  AND A.BBS_ID = B.BBS_ID
+			 	  AND A.BBS_ID = C.BBS_ID
+			 	  AND A.NTT_ID = C.NTT_ID
+			 	  AND A.BBS_ID IS NOT NULL
+			 	  AND A.BBS_ID != ' '
+			 	  AND A.NTT_ID IS NOT NULL
+			 	  AND A.NTT_ID != 0
+			 	  AND D.CODE_ID = 'COM078'
+			 	  AND B.BBS_SITE_CODE = D.CODE
+			 	  
+		 	 	<isNotEmpty property="siteType">
+		 	 		<![CDATA[
+						AND B.BBS_SITE_CODE = #siteType#
+		 	 		]]>
+		 	 	</isNotEmpty>
+			 	  <isEmpty property="fromDate">
+			 	 	<isNotEmpty property="toDate">
+			 	 		<![CDATA[
+			 	  AND A.DTA_USE_STATS_ID <= REPLACE(#toDate#, '-', '')
+			 	 		]]>
+			 	 	</isNotEmpty>
+			 	 </isEmpty>
+			 	 
+			 	 <isEmpty property="toDate">
+			 	 	<isNotEmpty property="fromDate">
+			 	 		<![CDATA[
+			 	  AND A.DTA_USE_STATS_ID >= REPLACE(#fromDate#, '-', '')
+			 	 		]]>
+			 	 	</isNotEmpty>
+			 	 </isEmpty>
+			 	 
+			 	 <isNotEmpty property="toDate">
+			 	 	<isNotEmpty property="fromDate">
+			 	 		<![CDATA[
+				  AND A.DTA_USE_STATS_ID BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '')
+			 	 		]]>
+			 	 	</isNotEmpty>
+			 	 </isNotEmpty> 
+			 	 
+			 	GROUP BY B.BBS_NM
+		 			, C.NTT_SJ
+		 			, B.BBS_SITE_CODE
+		 			, D.CODE_NM
+				ORDER BY TOT_RDCNT DESC
+		)	T1
+		<![CDATA[	   
+		WHERE rownum < #printLimit#	
+		]]>
+	</select>
+	
+	<select id="BbsStatsDAO.selectBbsRegistListData" parameterClass="statsVO" resultClass="egovMap">
+		/* BbsStatsDAO.selectBbsRegistListData */
+		SELECT 
+			TB.BBS_ID
+		  , COUNT(*) AS TOTAL_COUNT
+		  , M.MENU_NM
+		FROM 
+			TN_BBS TB
+		INNER JOIN
+			(
+		  	SELECT
+		    	SUBSTR(TPL.URL,(INSTR(TPL.URL,'=')+1),20) AS BBS_ID
+		      , TMI.MENU_NM
+		      , TMI.MENU_ID
+		    FROM
+		    	TN_MENU_INFO TMI
+		    INNER JOIN
+		    	TN_PROGRM_LIST TPL
+		    ON
+		    	TMI.PROGRM_FILE_NM = TPL.PROGRM_FILE_NM
+		    AND TMI.MENU_SITE_CODE ='SITE0001'
+		    AND TPL.URL LIKE ('%BBSMSTR%')
+		    AND TMI.UPPER_MENU_ID != 0
+		  ) M
+		ON
+			TB.BBS_ID = M.BBS_ID
+		WHERE
+   			TB.USE_AT = 'Y'
+   			AND TB.CONFM_STTUS_CODE = 'C'
+   			<isNotEmpty property="toDate">
+		 	 	<isNotEmpty property="fromDate">
+		 	 		<![CDATA[
+			  AND TO_CHAR(NTCE_DT, 'YYYYMMDD') BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '')
+		 	 		]]>
+		 	 	</isNotEmpty>
+		 	 </isNotEmpty> 
+		AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN TO_CHAR(TB.NTCE_BGNDE,'YYYYMMDD') AND TO_CHAR(TB.NTCE_ENDDE,'YYYYMMDD')
+		GROUP BY
+			TB.BBS_ID
+		  , M.MENU_NM
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="GreenProduct">
+	
+	<typeAlias  alias="egovMap" 	type = "egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="greenVo" 	type="egovframework.com.kids.common.vo.GreenProductVo"/>
+	
+	<select id="greenProductDao.selectProductList" parameterClass="greenVo" resultClass="egovMap">
+	/* GreenProductDAO.selectProductList */
+		SELECT * FROM(
+			SELECT
+				IDX
+				, PROD_PROD
+				, PROD_PRNM
+				, ECOL_ECOL
+				, ECOL_CLNM
+				, ECOM_ECOM
+				, ECOM_CLNM
+				, ECOS_ECOS
+				, ECOS_CLNM
+				, PROD_MDEL
+				, PROD_GTIN
+				, PROD_SPEC
+				, PROD_RSID
+				, PROD_RSDT
+				, PROD_REDT
+				, PROD_GRID
+				, PROD_GSDT
+				, PROD_GEDT
+				, PROD_G2SN
+				, PROD_RSST
+				, PROD_RSSTNM
+				, PROD_GRST
+				, PERF_GRSTNM
+				, PROD_RSON
+				, ELST_RSON
+				, VEND_VCOD
+				, VEND_VCNM
+				, VEND_CEO
+				, VEND_ADDR
+				, VEND_DETA
+				, VEND_TEL
+				, VEND_FAX
+				, VEND_SALE
+				, VEND_STEL
+				, VEND_ASEP
+				, VEND_ASTL
+				, VEND_ASTM
+				, ROW_NUMBER() OVER(ORDER BY IDX DESC) RNUM
+                , COUNT(IDX) OVER() TOTAL
+			FROM TC_GREENPRODUCT
+			WHERE 1=1
+			<isNotEmpty property="searchKeyword">
+				<!-- 			/*상표명*/ -->
+				<isEqual prepend="AND" property="searchCnd" compareValue="prodMdel">
+					<![CDATA[PROD_MDEL LIKE '%' || #searchKeyword# || '%']]>
+				</isEqual>
+				<!-- 			/*인증번호*/ -->
+				<isEqual prepend="AND" property="searchCnd" compareValue="prodRsid">
+					<![CDATA[PROD_RSID LIKE '%' || #searchKeyword# || '%']]>
+				</isEqual>
+				<!-- 			/*용도*/ -->
+				<isEqual prepend="AND" property="searchCnd" compareValue="prodPrnm">
+					<![CDATA[PROD_PRNM LIKE '%' || #searchKeyword# || '%']]>
+				</isEqual>
+			</isNotEmpty>
+			<!-- 			/*업체명*/ -->
+			<isNotEmpty prepend="AND" property="vendVcnm">
+				<![CDATA[VEND_VCNM LIKE '%' || #vendVcnm# || '%']]>
+			</isNotEmpty>
+			<!-- 			/*중분류*/ -->
+			<isNotEmpty prepend="AND" property="ecomEcom">
+				<![CDATA[ECOM_ECOM LIKE '%' || #ecomEcom# || '%']]>
+			</isNotEmpty>
+			<!-- 			/*지역*/ -->
+			<isNotEmpty prepend="AND" property="vendAddr">
+				<![CDATA[VEND_ADDR LIKE '%' || #vendAddr# || '%']]>
+			</isNotEmpty>
+			<!-- 			/*G2B식별번호*/ -->
+			<isNotEmpty prepend="AND" property="prodG2sn">
+				<![CDATA[PROD_G2SN LIKE '%' || #prodG2sn# || '%']]>
+			</isNotEmpty>
+			ORDER BY IDX DESC
+		)
+		WHERE 1=1		
+		AND RNUM BETWEEN (#firstIndex# + 1) AND (#firstIndex# + #recordCountPerPage#)  
+	</select>
+	
+	<select id="greenProductDao.selectProductListCnt" parameterClass="greenVo" resultClass="int">
+	/* GreenProductDAO.selectProductListCnt */
+		SELECT COUNT(IDX)
+		FROM TC_GREENPRODUCT
+		WHERE 1=1
+		<isNotEmpty property="searchKeyword">
+			<!-- 			/*상표명*/ -->
+			<isEqual prepend="AND" property="searchCnd" compareValue="prodMdel">
+				<![CDATA[PROD_MDEL LIKE '%' || #searchKeyword# || '%']]>
+			</isEqual>
+			<!-- 			/*인증번호*/ -->
+			<isEqual prepend="AND" property="searchCnd" compareValue="prodRsid">
+				<![CDATA[PROD_RSID LIKE '%' || #searchKeyword# || '%']]>
+			</isEqual>
+			<!-- 			/*용도*/ -->
+			<isEqual prepend="AND" property="searchCnd" compareValue="prodPrnm">
+				<![CDATA[PROD_PRNM LIKE '%' || #searchKeyword# || '%']]>
+			</isEqual>
+		</isNotEmpty>
+		<!-- 			/*업체명*/ -->
+		<isNotEmpty prepend="AND" property="vendVcnm">
+			<![CDATA[VEND_VCNM LIKE '%' || #vendVcnm# || '%']]>
+		</isNotEmpty>
+		<!-- 			/*중분류*/ -->
+		<isNotEmpty prepend="AND" property="ecomEcom">
+			<![CDATA[ECOM_ECOM LIKE '%' || #ecomEcom# || '%']]>
+		</isNotEmpty>
+		<!-- 			/*지역*/ -->
+		<isNotEmpty prepend="AND" property="vendAddr">
+			<![CDATA[VEND_ADDR LIKE '%' || #vendAddr# || '%']]>
+		</isNotEmpty>
+		<!-- 			/*G2B식별번호*/ -->
+		<isNotEmpty prepend="AND" property="prodG2sn">
+			<![CDATA[PROD_G2SN LIKE '%' || #prodG2sn# || '%']]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="greenProductDao.selectMiddleCategoryList" parameterClass="greenVo" resultClass="egovMap">
+		SELECT ECOM_CLNM, ECOM_ECOM FROM TC_GREENPRODUCT
+		WHERE ECOL_ECOL = #ecolEcol#
+		GROUP BY ECOM_CLNM, ECOM_ECOM
+		ORDER BY ECOM_ECOM
+	</select>
+	
+</sqlMap>

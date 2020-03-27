@@ -1,0 +1,320 @@
+@charset "utf-8";
+
+body {
+	width: 100%;
+	line-height: 18px;
+	letter-spacing: -1px;
+	-webkit-text-size-adjust: none;
+	color: #252525
+}
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video
+	{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 14px;
+	vertical-align: baseline;
+	text-decoration: none;
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #252525
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
+	{
+	display: block;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 0 none;
+}
+
+table.click_ta {
+	border-collapse: inherit
+}
+
+.cboth:before,.cboth:after {
+	content: "";
+	display: table;
+}
+
+.cboth:after {
+	clear: both;
+}
+
+* html .cboth {
+	zoom: 1;
+}
+
+.cboth {
+	zoom: 1;
+}
+
+
+
+
+
+.icons {
+	background-color: #DCDEE3;
+	overflow: hidden
+}
+
+.icons ul {
+	overflow: hidden;
+	padding: 15px 0
+}
+
+.icons ul li {
+	float: left;
+	width: 33%;
+	text-align: center
+}
+
+.icons ul li a {
+	display: block;
+	font-size: 14px;
+	color: #255CAF;
+	padding: 15px 0;
+	font-weight: bold;
+	text-shadow: #fff 0px 1px 0px
+}
+
+.icons ul li a span {
+	display: block
+}
+
+.gis {
+	position: relative;
+	overflow: hidden;
+}
+@media \0screen {
+
+   .gis {border-bottom:1px solid #d1d1d1;}
+   .mainBnrWrap .maintit {border-top:1px solid #d1d1d1;}
+
+}/*IE8 only*/
+
+
+.gis h2 {
+	background-color: #B6BBC6
+}
+
+.gis h2 span {
+	display: block;
+	padding: 10px;
+}
+
+.gis h2 span em {
+	background: url(/assets/kor/images/main/water/icon001.png) no-repeat;
+	background-size: 17px 17px;
+	padding: 0 0 0 16px;
+	height: 20px;
+	display: inline-block;
+	text-shadow: #fff 1px 1px 0px;
+	font-size: 16px;
+	color: #255CAF;
+	font-weight: bold;
+}
+
+/*
+.gis h2 span {display:block;width:55%;text-align:center;padding:10px;}
+.gis h2 span em {background:url(/assets/kor/images/main/water/icon001.png) no-repeat;background-size:17px 17px;padding:0 20% 0 16px;height:20px;display:inline-block;text-shadow:#fff 1px 1px 0px;font-size:16px;color:#255CAF;font-weight:bold;}
+*/
+.gis .gis_search {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	width: 45%;
+	text-align: center;
+	padding: 10px;
+	background-color: #C7CBD3
+}
+
+.gis .gis_search span {
+	background: url(/assets/kor/images/main/water/icon002.png) no-repeat;
+	background-size: 20px 20px;
+	padding: 0 10% 0 20px;
+	height: 20px;
+	display: inline-block;
+	text-shadow: #DADDE3 1px 1px 0px;
+	font-size: 14px;
+	color: #5E5E5E;
+	font-weight: bold;
+}
+
+.gis .gis_map {
+	position: relative;
+	background-color: #fff;
+	overflow: hidden;
+	border-radius:0 0 10px 10px;
+}
+
+.gis .gis_map .map {
+	float: right;
+	width: 50%;
+	min-width: 192px;
+	height: 239px;
+	text-align: center;
+	border-radius:0 0 10px 6px;
+}
+
+.gis .gis_map .map ul {
+	position: relative;
+	margin: 10px 20px;
+	background: url(/assets/kor/images/main/water/map.png) no-repeat;
+	background-size: 192px 268px;
+	width: 192px;
+	height: 268px
+}
+
+.gis .gis_map .map ul li {
+	position: absolute;
+	font-size: 11px;
+	line-height: 11px;
+	text-shadow: #fff 0px 0px 1px;
+	color: #353535;
+	background: url(/assets/kor/images/main/water/blit01.png) no-repeat 0 1px;
+	background-size: 10px 10px;
+	padding-left: 10px;
+	display: none;
+	line-height: 12px
+}
+
+.gis .gis_map .map ul li.on {
+	display: block
+}
+
+.gis .gis_map .map ul li.on span {
+	background-color: rgba(255, 255, 255, 0.7)
+}
+
+.gis .gis_map .gis_info {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	width: 50%;
+	height: 277px;
+	padding-top: 10px;
+	text-align: center
+}
+
+.gis .gis_map .gis_info .gis_info_detile {
+	padding: 0 4px;
+	display: inline-block;
+	position: relative;
+	margin-left:8px;
+}
+
+.gis .gis_map .gis_info .gis_info_detile span.left {
+	display: inline-block;
+	width: 8px;
+	height: 220px;
+	background: url(/assets/kor/images/main/water/gis_detile_bg01.png) no-repeat;
+	background-size: 8px 220px;
+	position: absolute;
+	top: 0;
+	left: 0
+}
+
+.gis .gis_map .gis_info .gis_info_detile span.right {
+	display: inline-block;
+	width: 8px;
+	height: 220px;
+	background: url(/assets/kor/images/main/water/gis_detile_bg03.png) no-repeat;
+	background-size: 8px 220px;
+	position: absolute;
+	top: 0;
+	right: 0
+}
+
+.gis .gis_map .gis_info .gis_info_detile .cont {
+	position: relative;
+	height: 224px;
+	padding: 10px;
+	background: url(/assets/kor/images/main/water/gis_detile_bg02.png) repeat-x;
+	background-size: 1px 220px
+}
+
+.gis .gis_map .gis_info .gis_info_detile .cont dl {
+	display: none
+}
+
+.gis .gis_map .gis_info .gis_info_detile .cont dl.on {
+	display: block
+}
+
+.gis .gis_map .gis_info .gis_info_detile .cont dl dt {
+	font-size: 15px;
+	color: #2A6CC4;
+	font-weight: bold;
+	margin-bottom: 5px;
+	letter-spacing: 0
+}
+
+.gis .gis_map .gis_info .gis_info_detile .cont dl dd {
+	font-size: 11px;
+	text-align: left;
+	color: #666;
+	letter-spacing: 0;
+	line-height: 17px
+}
+.gis .gis_map .gis_info .gis_info_detile .cont dl dd img {position:absolute; top:140px; left:60px;}
+.gis .gis_map .gis_info .gis_info_detile .cont dl dd span {
+	color: #000
+}
+
+.gis .gis_map .gis_info .gis_info_detile .cont .info_prev {
+	position: absolute;
+	top: 10px;
+	left: 5px
+}
+
+
+.gis .gis_map .gis_info .gis_info_detile .cont .info_next {
+	position: absolute;
+	top: 10px;
+	right: 5px
+}
+
+
+/* 2014-11-21 추가내용 */
+.my_area {margin:15px;border:2px solid #d0d0d0;background:#fff url(/assets/kor/images/main/water/my_area_bg01.png);border-radius:10px; box-shadow:0 2px 5px #ddd;padding:10px;position:relative}
+.my_area h2 {font-size:16px;color:#2a6cc4;margin-bottom:10px;background-color: transparent;}
+.my_area .img_area {width:70px;height:70px;background-color:#fff;border:1px #ddd solid;text-align:center;padding:10px 0;float:left;margin-right:10px}
+.my_area .img_area img {width:50px;height:auto}
+.my_area .distance {position:absolute;top:10px;right:10px}
+.my_area .distance img {width:22px;vertical-align:middle;margin-right:2px}
+.my_area ul {padding:10px}
+.my_area ul li {padding:8px 4px;color:#585858}

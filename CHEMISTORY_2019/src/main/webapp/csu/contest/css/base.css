@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+/* default  style */
+html, body {width:100%; height:100% !important; margin:0; padding:0; font-family:"돋움",Arial, Dotum,sans-serif; font-size:12px; color:#666666; line-height:18px;}
+p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,form,legend,input,textarea,button,img{margin:0; padding:0;}
+table,th,td {margin:0; padding:0; line-height:17px;}
+legend,fieldset{border:none;}
+legend,caption {clear:both; width:0; height:0; font:0/0 "굴림"; visibility:hidden;}
+hr {clear:both; display:none;}
+em, address, cite {font-style:normal;}
+ul, ol, li {list-style:none; padding:0 0;}
+img {border:0; vertical-align:middle;}
+table {border-collapse:collapse;}
+a:link,a:active, a:visited {text-decoration:none;}
+a:hover {text-decoration:none;}
+em,address {font-style:normal;}
+
+/* common style */
+.clear {clear:both; width:0; height:0; font-size:0; line-height:0;}
+.f11{font-size:11px}
+.hand {cursor:pointer;}
+.accessibility {visibility: hidden; width:0; height:0; margin: 0; padding: 0; font-size: 0; line-height: 0; overflow: hidden;}
+.txt_c {text-align:center !important;}
+.txt_l {text-align:left !important;}
+.txt_r {text-align:right !important;}
+.f_bold {font-weight:bold !important;}
+.float_l {float:left !important;}
+.float_r {float:right !important;}
+.f_normal {font-weight:normal !important;}
+.bgNone {background:url('none') !important;}
+.vabottom {vertical-align:bottom;}
+.dp_none {display:none !important;}
+.dp_in {display:inline !important;}
+.btn_r {margin:10px 0 0 0; text-align:right;}
+.btn_r img {margin:0 0 0 0;}
+.blind{display:block; position:absolute; left:0; top:-5000px; overflow:hidden;}
+
+
+
+/* form style */
+input {font-family:Dotum, "돋움", sans-serif; font-size:12px; color:#575757;}
+input.text {height:15px; padding:3px 0 0 2px; font-family:Dotum, "돋움", sans-serif;font-size:12px; color:#666; border:1px solid #d9dce1; background-color:#fff;}
+textarea {padding:4px 4px; border:1px solid #ccc; font-size:12px; color:#575757; font-family:Dotum, "돋움"}
+select {color:#575757; font-family:Dotum, "돋움"; font-size:12px; height:19px;}
+input.chk {width:13px; height:13px; vertical-align:middle;}
+input.ra {width:15px; height:15px; vertical-align:middle; margin-bottom:5px;}
+input.input {height:15px; border:1px solid #d9dade; padding-left:3px; padding-top:4px;}
+
+table {border-collapse:collapse; width:100%; float:left;}

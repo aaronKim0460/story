@@ -1,0 +1,494 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="케미스토리,">
+	<title></title>
+	
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/board.css">
+	<link rel="stylesheet" type="text/css" href="css/quizGame.css">
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body id="section1" class="ui-mobile">
+	<div style="position:relative; width:835px; margin:10px auto;">
+		
+			<!-- 케미스토리 가로세로 퀴즈 컨텐츠 리뉴얼 -->
+			<div class="qBox"><div class="qBoxCount"><span>0</span>초</div>
+				<ul class="qList">	
+					<li>
+						<div class="qListBox">
+							<div class="qListIn">
+							
+								<!-- 가로세로 퀴즈 영역 -->
+								<div class="quizIcon">
+									<div class="qListTxt01">낱말카드의<span></span>부분을<br/>클릭하여 퀴즈를 풀어주세요.</div>
+									<ul class="qIcoList">
+										<!-- 1번째 줄 -->
+										<li data-num="c_1 r_1"><span class="qIn"></span></li>
+										<li data-num="c_1"><span class="qIn"><span class="col_num">1</span></span></li>
+										<li><span></span></li>
+										<li data-num="r_2"><span class="qIn"><span class="row_num">2</span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_3"><span class="qIn"><span class="row_num">3</span></span></li>
+										
+										<!-- 2번째 줄 -->
+										<li data-num="r_1"><span class="qIn"><span class="row_num">1</span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_2"><span class="qIn"></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_3"><span class="qIn"></span></li>
+										
+										<!-- 3번째 줄 -->
+										<li><span></span></li>
+										<li data-num="c_2"><span class="qIn"><span class="col_num">2</span></span></li>
+										<li data-num="c_2 r_4"><span class="qIn"><span class="row_num">4</span></span></li>
+										<li data-num="c_2 r_2"><span class="qIn"></span></li>
+										<li data-num="c_2"><span class="qIn"></span></li>
+										<li data-num="c_2"><span class="qIn"></span></li>
+										<li><span></span></li>
+
+										<!-- 4번째 줄 -->
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"></li>
+										<li data-num="r_2"><span class="qIn"></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_5"><span class="qIn"><span class="row_num">5</span></span></li>
+										
+										<!-- 5번째 줄 -->
+										<li data-num="r_6"><span class="qIn"><span class="row_num">6</span></span></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="c_3 r_7"><span class="qIn"><span class="row_num">7</span></span></li>
+										<li data-num="c_3 r_5"><span class="qIn"><span class="col_num">3</span></span></li>
+
+										<!-- 6번째 줄 -->
+										<li data-num="r_6"><span class="qIn"></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_7"><span class="qIn"></li>
+										<li><span></span></li>
+										
+										<!-- 7번째 줄 -->
+										<li data-num="c_4 r_6"><span class="qIn"><span class="col_num">4</span></span></li>
+										<li data-num="c_4"><span class="qIn"></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_7"><span class="qIn"></li>
+										<li><span></span></li>																										
+									</ul>
+								</div>
+								<!-- EOD : 가로세로 퀴즈 영역 -->
+								
+								<!-- 힌트 영역 -->
+								<div class="quizHint">
+									<p class="hintHead">힌트 정보<button><img src="images/hintIcon01.png"/></button></p>
+									<div class="hintInfo">
+										새집증후군은 새 집이나 새 건물에서 나오는
+										나쁜 물질로 인해 몸이 좋지 않은 것을
+										표현하는말입니다. 새집을 꾸미기 위해
+										사용되는 페인트, 벽지, 장판,  가구 등에
+										몸에 좋지 않은 물질이 들어 있을 수 있습니다.
+										이러한 몸에 좋지 않은 물질은 창문을 자주
+										열어서 집 밖으로 날아가도록 하는 것이 좋습니다.
+										<br/><br/>
+										새집증후군은 새 집이나 새 건물에서 나오는
+										나쁜 물질로 인해 몸이 좋지 않은 것을
+										표현하는말입니다. 새집을 꾸미기 위해
+										사용되는 페인트, 벽지, 장판,  가구 등에
+										몸에 좋지 않은 물질이 들어 있을 수 있습니다.
+										이러한 몸에 좋지 않은 물질은 창문을 자주
+										열어서 집 밖으로 날아가도록 하는 것이 좋습니다.
+									</div>
+									<div class="qHintBox">
+									</div>
+								</div>
+								<!-- EOD : 힌트 영역 -->
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="qListBox">
+							<div class="qListIn">
+								<div class="quizStart">
+									<div class="qListTxt01">왼쪽의 낱말카드를 클릭하면<br/>낱말 맞추기 퀴즈가 시작됩니다.</div>
+								
+								</div>
+								<div class="quizMain">
+									<div class="hori_keyBox">
+										<div class="hori_key">
+											<p><span>2</span>가로열쇠</p>
+											<button class="hintBtn" onclick="">힌트</button>
+										</div>
+										<div class="qListInfo">
+											<p class="infoTxt">나무를 태워서 만드는 것으로 집안에 있는 안 좋은 물질을 없애는데 도움을 주는 이것은 무엇일까요?</p>
+											<div class="infoAnswer">
+												<input type="text" maxlength="6" placeholder="답변을 입력해 주세요."/>
+											</div>
+											<button class="answerBtn" id="answerBtn01">정답</button>
+										</div>
+									</div>
+									<div class="verti_keyBox">
+										<div class="verti_key">
+											<p><span>1</span>세로열쇠</p>
+											<button class="hintBtn" onclick="">힌트</button>
+										</div>
+										<div class="qListInfo">
+											<p class="infoTxt">과자나 음료수를 더 맛있게 보이도록 넣는 물질로 빨간색, 파란색 등의 색을 띠고 있는 것은 무엇일까요?</p>
+											<div class="infoAnswer">
+												<input type="text" maxlength="6" placeholder="답변을 입력해 주세요."/>
+											</div>
+											<button class="answerBtn" id="answerBtn02">정답</button>
+										</div>
+									</div>
+								</div>
+							</div>						
+						</div>
+					</li>
+				</ul>
+				<div class="popBox">
+					<div class="popIn">
+						<!-- 총점 팝업 -->
+						<div class="popScore" style="display:none;">
+							<img src="images/scoreBg01.png" />
+							<div class="popScoreIn">
+								<div class="popScoreCon">
+									<img src="images/scoreImg.png"/>
+									<p>모든 낱말을 풀었습니다</p>
+									<span class="time"><strong>567</strong>초 <span>성공</span></span>
+									<button class="popScoreBtn2">확인</button>
+								</div>
+							</div>
+						</div>
+						<!-- EOD : 총점 팝업 -->		
+
+						<!-- 정답 팝업 -->
+						
+						<div class="popAnswer" style="display:none;">
+							<div class="popAnswerIn">
+								<div class="popAnswerImg">
+									<img class="popAnswerIco" src="images/popAnswerIco.png"/>
+									<img class="popAnswerBg02" src="images/popAnswerBg02.png">
+									<img class="popAnswerIco01" src="images/popAnswerIco01.png"/>
+									<img class="popAnswerIco02" src="images/popAnswerIco02.png"/>
+									<img class="popAnswerIco03" src="images/popAnswerIco03.png"/>
+									<img class="popAnswerIco04" src="images/popAnswerIco04.png"/>
+									<span class="answerBtn">정답입니다</span>
+									<p><button class="popScoreBtn">확인</button></p>
+								</div>
+							</div>
+						</div>
+						
+						<!-- EOD : 정답 팝업 -->
+						
+						<!-- 오답 팝업 -->
+						<div class="popWrong" style="display:none;">
+							<div class="popWrongIn">
+								<div class="popWrongImg">
+									<img class="popWrongIco01" src="images/popWrongIco01.png"/>
+									<img class="popWrongIco02" src="images/popWrongIco02.png"/>
+									<img class="popWrongIco03" src="images/popWrongIco03.png"/>
+									<img class="popWrongIco04" src="images/popWrongIco04.png"/>
+									<span class="answerBtn">오답입니다</span>
+									<p><button class="popScoreBtn">확인</button></p>
+								</div>
+							</div>
+						</div>
+						<!-- EOD : 오답 팝업 -->
+					</div>
+				</div>
+				
+
+			</div>
+			<!-- EOD : 케미스토리 가로세로 퀴즈 컨텐츠 리뉴얼 -->
+
+
+
+			<form id="detailForm" name="detailForm" method="post">
+				<input type="hidden" id="idx" name="idx" />
+				<input type="hidden" id="medium" name="medium" />
+				<input type="hidden" id="noxiousLevel" name="noxiousLevel" />
+			</form>
+<script type="text/javascript">
+		doDetail = function(idx){
+			$("#idx").val(idx);
+			var newPop = document.detailForm;
+			newPop.target="result";
+			newPop.action =  "http://www.chemistory.go.kr/kor/contents/noxiousmaterial/detailNoxiousMaterialKor.do";
+			newPop.method="post";
+			popup = window.open("","result","width=600, height=650, top=30, left=60 , resizable=yes");
+			popup.focus();
+			newPop.submit();
+		};
+		
+		
+		$(document).ready(function(){
+			quizS();			 
+		});
+
+		quizQ = new Object();
+
+		quizQ.c_1 = new Object();
+		quizQ.c_1.quiz = "인간이나 동식물에게 영향을 미치는 자연적·사회적 조건이나 상황은 뭐라고 할까요?";
+		quizQ.c_1.hintInfo = '<span>총 두글자에요. 첫글자는 환!</span>환경이란, 우리주변을 둘러싸고 있는 사람을 비롯해 지구에 있는 모든 생물의 주위를 둘러싸고 영향을 주고받는 모든 것을 말합니다. 좁은 의미로는 자연환경을 뜻하며 우리 주변에서 볼 수 있는 공기, 물, 토양, 식물, 동물, 바람, 구름, 비와 같은 자연 현상도 모두 자연환경에 속한답니다.';
+		quizQ.c_1.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_home"><p class="movieTxt01">케미스토리</p><p class="movieTxt02">홈페이지 바로가기</p></div></div>';
+		quizQ.c_1.hintLink = 'window.open("http://www.chemistory.go.kr","hint");';
+		quizQ.c_1.key = '환경';
+
+		quizQ.c_2 = new Object();
+		quizQ.c_2.quiz = "어린이 여러분의 환경과 건강에 관련된 유익한 지식을 전달하고 다양한 환경 관련 뉴스 및 유해물질 등에 대해 친절히 알려주는 우리 사이트의 이름은 무엇일까요?";
+		quizQ.c_2.hintInfo = "<span>총 다섯글자에요. 첫글자는 케!</span>케미스토리는 어린이 여러분의 환경과 건강에 관련된 포털사이트로 생활 속의 유해물질, 어린이 안심 활동 공간, 어린이 건강 관련 예방지식 및 교육과 홍보 등 다양한 환경 보건 정보를 알려주기 위해 운영되고 있습니다. 또한, 쉽고 재미있는 각종 퀴즈 및 게임을 통해 즐겁게 정보를 전달하고 있습니다! 우리의 친구 케미스토리! 많이 사랑해주세요!";
+		quizQ.c_2.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_home"><p class="movieTxt01">케미스토리</p><p class="movieTxt02">홈페이지 바로가기</p></div></div>';
+		quizQ.c_2.hintLink = 'window.open("http://www.chemistory.go.kr","hint");';
+		quizQ.c_2.key = '케미스토리';
+
+		quizQ.c_3 = new Object();
+		quizQ.c_3.quiz = "나무제품에 사용하는 방부제 중 하나로 페인트, 염료, 농약에 첨가되며 우리 몸속으로 들어오면 호흡곤란, 소화기관 장애, 현기증 등을 일으키는 이 독성물질은 뭘까요?";
+		quizQ.c_3.hintInfo = "<span>총 두글자에요. 첫글자는 비!</span>비소는 자연적으로 발생하거나 산업 활동으로 생성되는 회색의 반짝이는 물질입니다. 일부 페인트, 염료, 농약에 첨가되거나 주성분으로 사용되는 경우도 있고 우리나라에서는 얼마 전까지 나무가 썩지 않도록 비소화합물이 방부제로 사용되었습니다. 오염된 흙이나 물에는 종종 비소가 들어 있으며 비소가 든 방부제를 사용한 나무제품을 태울 때 나오는 연기나 제품을 만들 때 나오는 톱밥 등에서 비소성분이 나올 수 있습니다. 따라서 외부에서 놀고 들어온 후에는 반드시 손, 발을 씻는 습관을 들이도록 하며 더러운 손을 입에 대거나 음식을 먹지 않도록 해야 합니다. 또한, 집안을 자주 청소하여 외부에서 묻어 들어온 흙이나 먼지가 없도록 관리하고 비소로 가공 처리한 목재는 함부로 태우지 않도록 해야 한답니다.";
+		quizQ.c_3.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_data"><p class="movieTxt01">물질 상세정보</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.c_3.hintLink = 'doDetail("23");';
+		quizQ.c_3.key = '비소';
+
+		quizQ.c_4 = new Object();
+		quizQ.c_4.quiz = "물처럼 투명한 액체인데, 휘발유 같은 냄새가 나며 매우 빠르게 기체로 변화할 수 있고 우리 몸의 심각한 어지럼증, 암을 일으키는 이 물질은 무엇일까요?";
+		quizQ.c_4.hintInfo = "<span>총 두글자에요. 첫글자는 벤!</span>벤젠은 우리가 숨을 쉴 때 공기 속에 섞여 몸속에 들어올 수 있습니다. 지금은 드물게 사용되지만 플라스틱, 고무, 합성수지, 염료, 세제 등 제조에 사용되었었으며, 일반적으로 담배연기, 휘발유 및 자동차 배기가스로부터 벤젠에 노출될 수 있습니다. 최근에는 많은 나라에서 일반 소비자 제품(가정용, 어린이용품 등)에 사용하는 것에 대해 경고를 하거나 금지하는 등 위험물질로 분류하여 관리하고 있답니다.";
+		quizQ.c_4.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_home"><p class="movieTxt01">물질 상세정보</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.c_4.hintLink = 'doDetail("20");';
+		quizQ.c_4.key = '벤젠';
+
+		quizQ.r_1 = new Object();
+		quizQ.r_1.quiz = "실내의 탁한 공기를 맑은 공기로 바꾸는 것을 뭐라고 할까요? 주로 새 가구를  구입 한 후, 부엌에서 가스를 사용한 후 등 행하는 행동이며, 이것을 통해 기관지염 발생 등을 줄일 수 있습니다.";
+		quizQ.r_1.hintInfo = "<span>총 두글자에요. 첫글자는 환!</span>하루의 90%를 실내에서 생활하고 있는 어린이들에게 환기를 통한 공기질 관리는 매우 중요합니다. 새로운 가구에서 나는 화학물질의 냄새나 조리할 때 발생되는 이산화탄소, 이산화질소 등의 실내공기 오염물질은 호흡기, 피부에 유해한 영향을 주며 특히 영유아에게 해로운 영향을 많이 줍니다. 따라서 주기적인 환기를 통해 오염물질을 관리할 필요성이 있습니다.";
+		quizQ.r_1.hintText = null;
+		quizQ.r_1.key = '환기';
+
+		quizQ.r_2 = new Object();
+		quizQ.r_2.quiz = "합성수지로 만들어져 잘 썩거나 분해되지 않고, 일회용품 등에 많이 쓰이며 우리생활을 편리하게 해주기 위해 많이 쓰이는 이것은 무엇일까요?";
+		quizQ.r_2.hintInfo = "<span>총 네글자에요. 첫글자는 플!</span>플라스틱은 합성수지로 만들어져 포장용기, 장난감, 전자제품 등 우리 생활 전반에 쓰이고 있습니다. 하지만 잘 썩지 않고 분해되지 않는 특성 때문에 환경오염의 주범이 되기도 하는데요. 게다가 플라스틱에 들어있는 프탈레이트, 납 등의 유해화학물질들은 우리 인체에 치명적인 영향을 줄 수 있습니다. 따라서 최근에는 플라스틱의 사용을 줄이고 종이제품을 사용하는 등의 환경 운동도 많이 하고 있습니다.";
+		quizQ.r_2.hintText = null;
+		quizQ.r_2.key = '플라스틱';
+
+		quizQ.r_3 = new Object();
+		quizQ.r_3.quiz = "보이지 않고 냄새도 없어 ‘침묵의 살인자’라고 불리며, 바위, 토양, 물, 일부 건축자재 우리가 사는 집 주변에서 노출될 수 있으며 폐암을 유발시키는 이 물질은 뭘까요?";
+		quizQ.r_3.hintInfo = "<span>총 두글자에요. 첫글자는 라!</span>방사성 물질인 라돈은 지하 암반이나 토양 등에서 자연적으로 존재하는 비활성 기체입니다. 무색, 무취, 무미로 사람의 감각기관으로는 감지가 불가능하지요. 특히 바닥이나 벽에 갈라진 틈을 통해 유입이 많이 되고 고농도의 라돈이 인체에 들어오면 폐암등을 일으킬 수 있는 무시무시한 물질입니다. 따라서 환기를 통해 실내 라돈을 배출하고 갈라진 틈새에 보강제를 발라 유입을 막는 등 라돈에 노출되는 환경을 적극적으로 예방해야 한답니다.  ";
+		quizQ.r_3.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_img"><p class="movieTxt01">멀티미디어자료</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.r_3.hintLink = 'window.open("http://www.chemistory.go.kr/user/cop/bbs/selectBoardArticle.do?nttId=74&bbsId=BBSMSTR_000000000660&menuNo=12004","hint")';
+		quizQ.r_3.key = '라돈';
+
+		quizQ.r_4 = new Object();
+		quizQ.r_4.quiz = "2.5um 크기의의 아주 작은 먼지로 대기오염, 황사 등의 영향에 의해 나타나며 장기간 흡입할 때는 천식, 폐질환, 알레르기 등의 질환이 나타날 수 있는 이것은 무엇일까요?";
+		quizQ.r_4.hintInfo = "<span>총 네글자에요. 첫글자는 미!</span>미세먼지는 주요 대기오염 물질 중 한 가지로 자동차, 발전소, 화재 등 다양한 곳에서 발생하고 대기 중에 장시간 떠다니는 크기가 작은 먼지입니다. 미세먼지의 입자의 크기가 10㎛ 이하의 것을 PM10 이라 하고, 2.5㎛ 이하인 경우는 극미세먼지(PM2.5)라고 부른답니다. 특히, 기관지와 폐에 쌓인 미세먼지는 페암 및 각종 호흡기 질환의 직접 원인이 되며, 몸의 면역 기능을 떨어뜨리기도 하지요.";
+		quizQ.r_4.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_data"><p class="movieTxt01">화학물질 상식</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.r_4.hintLink = 'window.open("http://www.chemistory.go.kr/user/cop/bbs/selectBoardArticle.do?nttId=20049&bbsId=BBSMSTR_000000000640&menuNo=12005","hint")';
+		quizQ.r_4.key = '미세먼지';
+
+		quizQ.r_5 = new Object();
+		quizQ.r_5.quiz = "자극적인 냄새가 나며 금속 등이 삭거나, 녹이 슬도록 만들고 피부와 눈에 심각한 자극 또는 화상을 유발할 수 있는 이 화학물질은 무엇일까요?";
+		quizQ.r_5.hintInfo = "<span>총 두글자에요. 첫글자는 염!</span>염소는 농약,  표백제, 소독제, 수돗물 소독 등에 사용됩니다. 염소는 유독한 물질을 만들어내기 때문에 인체에 노출될 경우 위험한 화학물질이랍니다. 염소를 흡입할 경우에는 기침, 숨 막힘, 가슴 통증, 만성 및 급성 기관지염 등을 포함한 호흡기계의 문제를 유발할 수 있습니다. 어른들이 보관한 표백제를 포함한 세정제 등의 제품은 함부로 만지지 않도록 해야 하며 특히, 투명한 세제제품은 물로 오인하여 어린이가 삼킬 수 있으므로 겉포장을 꼭 확인해야 한답니다.";
+		quizQ.r_5.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_data"><p class="movieTxt01">물질 상세정보</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.r_5.hintLink = 'doDetail("27");';
+		quizQ.r_5.key = '염소';
+
+		quizQ.r_6= new Object();
+		quizQ.r_6.quiz = "일부 화장품, 샴푸, 린스 등의 제품에 들어있어 어린이의 피부와 두피를 통과하면 발진, 피부염등의 알레르기 반응을 나타낼 수 있는 이것을 무엇일까요?";
+		quizQ.r_6.hintInfo = "<span>총 세글자에요. 첫글자는 파!</span>파라벤은 베이비 로션, 샴푸, 기타 어린이용품 등의 성분으로 들어갈 수 있습니다. 이러한 파라벤이 포함되어 있는 일부 화장품, 샴푸, 린스, 헤어 젤 등의 제품은 어린이의 피부와 두피를 통과할 수 있으며 있으며 피부염 등의 알레르기 반응을 일으킬 수도 있습니다. ";
+		quizQ.r_6.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_data"><p class="movieTxt01">물질 상세정보</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.r_6.hintLink = 'doDetail("69");';
+		quizQ.r_6.key = '파라벤';
+
+		quizQ.r_7= new Object();
+		quizQ.r_7.quiz = "매우 적은 양으로 물질 대사나 생리 기능을 조절하는 필수적인 영양소이며 지용성과 수용성으로 나뉘고 종류에는 A, B, C, D, E, F, K 등이 있는 이 물질은 무엇일까요?";
+		quizQ.r_7.hintInfo = "<span>총 세글자에요. 첫글자는 비!</span>비타민은 소량으로 신체기능을 조절한다는 점에서 호르몬과 비슷하지만 신체의 내분비기관에서 합성되는 호르몬과 달리 외부로부터 섭취되어야 합니다. 또한 비타민은 탄수화물, 지방, 단백질과는 달리 에너지를 생성하지 못하지만 몸의 여러 기능을 조절하는 역할을 하는데 대부분은 효소나 또는 효소의 역할을 보조하는 조효소의 구성성분이 되며 탄수화물, 지방, 단백질, 무기질의 원활한 대사에 관여한답니다.";
+		quizQ.r_7.hintText = null;
+		quizQ.r_7.key = '비타민';
+		
+
+
+		function quizS(){
+			var totalN = 0;
+			var maxN = 11;
+			var qHoverN,qRow,qCol,qHoverNsub;	//quiz over
+			var qCN,qCNLink,qCNum,iL;			//click
+			var keyN,keyLink,keyN2,keyL,totalN;	//key
+			var qStart = 0;						// start
+			var second,secondN,timer;			// time
+
+			$(".answerBtn").click(function(){
+				keyN = $(this).parent().parent().attr("data-num")
+				keyLink = eval("quizQ."+keyN+".key");
+				console.log(keyLink);
+				if($(this).parent().find("input").attr("value") == keyLink){
+					totalN++;
+					console.log(totalN);
+					if(totalN == maxN){
+						secondN = second/60;
+						clearInterval(timer);
+						$(".popScore").fadeIn(400,function(){
+							if(second > 60){
+								$(".popScoreCon .time").html("<strong>"+parseInt(secondN)+"</strong>분 <strong>"+(second-(parseInt(secondN)*60))+"</strong>초 <span>성공</span>");
+							}else{
+								$(".popScoreCon .time").html("<strong>"+second+"</strong>초 <span>성공</span>");
+							}
+						});
+						
+						$(".popScore .time").html($("qBoxCount").html());
+						$(".popBox").fadeIn(400);
+						
+
+					}else{
+						$(".popBox").fadeIn(400);
+						$(".popAnswer").fadeIn(400);
+						$(this).parent().parent().removeClass("on");
+					}
+					keyL = 0;
+					$(".qIcoList > li").each(function(n){
+						keyN2 = $(this).attr("data-num")
+						if(keyN2 !== undefined && keyN2.indexOf(keyN) > -1){	
+							$(this).html('<span class="icoText">'+keyLink.substr(keyL,1)+'</span>');
+							keyL++;
+						}
+						
+					});
+					
+				}else{
+					$(".popBox").fadeIn(400);
+					$(".popWrong").fadeIn(400);
+				}
+
+			});
+			
+			$(".popScoreBtn").click(function(){
+				$(".popBox").fadeOut(400);
+				$(".popScore").fadeOut(400);
+				$(".popAnswer").fadeOut(400);
+				$(".popWrong").fadeOut(400);
+			});
+			$(".popScoreBtn2").click(function(){
+				window.location.reload();
+			});
+
+			$(".hintBtn").click(function(){
+				keyN = $(this).parent().parent().attr("data-num")
+				keyLink = eval("quizQ."+keyN+".hintInfo");
+				$(".quizHint").addClass("on");
+				$(".quizHint .hintInfo").html(keyLink);
+				keyLink = eval("quizQ."+keyN+".hintText");
+				if(keyLink !== null){
+					$(".quizHint .hintInfo").after(keyLink);
+					keyLink = eval("quizQ."+keyN+".hintLink");
+					$(".qHintBox").attr("onclick",keyLink);
+				}else{
+					$(".qHintBox").remove();
+				}
+				
+			});
+			//힌트 hide
+			$(".hintHead button").click(function(){
+				$(".quizHint").removeClass("on");
+			});
+			
+			$(".qIcoList > li > .qIn").click(function(){
+				
+				//시간제어
+				if(qStart == 0){
+					$(".qBoxCount").addClass("on");
+					qStart = 1;
+
+					second = 0;
+					//time
+					$(".qBoxCount span").html(second);
+					timer = setInterval(function (){
+						second++;
+						secondN = second/60;
+						if(second > 60){
+							$(".qBoxCount").html("<span>"+parseInt(secondN)+"</span>분 <span>"+(second-(parseInt(secondN)*60))+"</span>초");
+						}else{
+							$(".qBoxCount span").html(second);
+						}
+					}, 1000);
+					$(".quizStart").fadeOut(150);
+
+					$(".quizMain").fadeIn(800);
+				}
+				//문제제어
+				$(".hori_keyBox").removeClass("on");
+				$(".verti_keyBox").removeClass("on");
+				qCN = $(this).parent().attr("data-num");
+				qCN = qCN.split(" ");
+				
+				$(".hori_keyBox .infoAnswer input").attr("value","");
+				$(".verti_keyBox .infoAnswer input").attr("value","");
+				
+				if(qCN.length == 2){
+					iL = 1;
+				}else{
+					iL = 0;
+				}
+				for(i=0; i <= iL; i++){
+					qCNLink = "quizQ."+qCN[i]+".quiz";
+					qCNum = qHoverN[i].split("_");
+					if(qHoverN[i].indexOf("c") > -1){
+						$(".hori_keyBox").addClass("on");
+						$(".hori_keyBox").attr("data-num",qHoverN[i]);
+						$(".hori_keyBox .infoTxt").text(eval(qCNLink));
+						$(".hori_key p span").text(qCNum[1]);				
+					}
+					if(qHoverN[i].indexOf("r") > -1){
+						$(".verti_keyBox").addClass("on");
+						$(".verti_keyBox").attr("data-num",qHoverN[i]);
+						$(".verti_keyBox .infoTxt").text(eval(qCNLink));
+						$(".verti_key p span").text(qCNum[1]);	
+					}
+				}
+			});
+
+			//over
+			$(".qIcoList > li").mouseenter(function(){
+				$(".qIcoList > li > span").removeClass("qRowHover");
+				$(".qIcoList > li > span").removeClass("qColHover");
+				qHoverN = $(this).attr("data-num");
+				if(qHoverN !== undefined){
+					qHoverN = qHoverN.split(" ");
+					$(".qIcoList > li").each(function(n){
+						qHoverNsub = $(this).attr("data-num");
+						if(qHoverNsub !== undefined){
+							if(qHoverNsub.indexOf(qHoverN[0]) > -1){
+								if(qHoverN[0].indexOf("r") > -1){
+									$(this).children("span").addClass("qRowHover");
+								}else{
+									$(this).children("span").addClass("qColHover");
+								}
+							}
+							if(qHoverN.length == 2 && qHoverNsub.indexOf(qHoverN[1]) > -1){
+								if(qHoverN[1].indexOf("r") > -1){
+									$(this).children("span").addClass("qRowHover");
+								}else{
+									$(this).children("span").addClass("qColHover");
+								}
+							}
+						}
+					});
+				}
+			});
+
+			// leave
+			$(".qIcoList").mouseleave(function(){
+				$(this).find("li > span").removeClass("qRowHover");
+				$(this).find("li > span").removeClass("qColHover");
+			});
+		}
+	</script>
+
+</body>
+</html>

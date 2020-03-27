@@ -1,0 +1,194 @@
+.qBox { overflow:hidden; height:760px; background:url(../images/qListBg.png) no-repeat; position:relative;} 
+	.qBox:after { content:''; position:absolute; height:95px; bottom:0; left:0; width:100%; background:url(../images/bottomBg.png) no-repeat; z-index:4; }
+	.qList { overflow:hidden; padding:153px 30px 0 30px; }
+		.qList > li { float:left; width:50%; }
+		.qList > li > .qListBox { padding:0 0 0 10px; }
+		.qList > li:first-child > .qListBox { padding:0 10px 0 0; }
+	.qBox .qBoxCount { position:absolute; top:160px; right:30px; font-size:20px; font-weight:bold; color:#000; letter-spacing:1px; line-height:1; transition:all 0.9s ease;}
+	.qBox .qBoxCount.on {top:95px;}
+		.qBox .qBoxCount span { font-size:50px; color:#cf0000; font-family:arial; }
+	
+	.qListIn .quizStart { height:100%; background:url(../images/quizStart.png) no-repeat 50% 70%; }
+	.qListIn .quizStart .qListTxt01 { padding:27px 0 0 0; height:83px; }
+	
+	.quizHint { position:absolute; top:0; left:0; transition:0.533s ease-in-out; opacity:0; height:100%; width:100%; background:#fff; transform:scale(0); z-index:3; border-radius:0 0 5px 5px; }
+	.quizHint.on { left:0%; opacity:1; transform:scale(1); }
+		.quizHint .hintHead { position:relative; margin:0; background:#c7dc18; height:58px; line-height:58px; color:#fff; font-weight:bold; text-align:center; font-size:20px;  }
+			.quizHint .hintHead button { position:absolute; width:29px; height:29px; border-radius:29px; background:#fff; right:20px; top:14px; transition:0.233s ease-in-out; }
+			.quizHint .hintHead button:hover { background:#ffcd54;  }
+		.quizHint .hintInfo { height:290px; overflow-x:hidden; overflow-y:auto; padding:30px 30px 0 30px; word-break:keep-all; font-size:16px; letter-spacing:-1px; color:#4e4e4e; line-height:1.6; font-weight:600; }
+		.quizHint .hintInfo span {display:block; color: #008475; font-size: 18px; padding-left:10px;}
+		.quizHint .hintInfo span:before {content:"";position: absolute; margin: 7px 0px 0px -10px; height:14px; width:3px; background-color:#008475;}
+		
+		.quizHint .qHintBox { margin:40px 20px 0 20px; padding:15px 30px; background:#f1f1f1; position:relative; z-index:15; border-radius:5px; cursor:pointer;}
+		.quizHint .qHintBox p { font-size:16px; color:#6c6c6c; letter-spacing:-1px; font-weight:bold; margin:0; }
+		.quizHint .qHintBox div p.movieTxt01 { margin:0; font-weight:bold; font-size:16px; color:#3d3d3d; padding:0 0 6px 0;}
+		.quizHint .qHintBox div p.movieTxt02 { margin:0; font-size:14px; color:#3d3d3d; }
+		.quizHint .qHintBox .qIcon_home { background:url(../images/qIcon_home.png) no-repeat 0 9px; padding:12px 0 6px 70px; }
+		.quizHint .qHintBox .qIcon_data { background:url(../images/qIcon_data.png) no-repeat 0 9px; padding:12px 0 6px 70px; }
+		.quizHint .qHintBox .qIcon_img { background:url(../images/qIcon_img.png) no-repeat 0 9px; padding:12px 0 6px 70px; }
+		.quizHint .qHintBox .qIcon_map { background:url(../images/qIcon_map.png) no-repeat 0 9px; padding:12px 0 6px 70px; }
+		.quizHint .qHintBox .qIcon_movie { background:url(../images/qIcon_movie.png) no-repeat 0 9px; padding:12px 0 6px 70px; }
+	.quizMain { display:none; overflow-x:hidden; overflow-y:auto; height:100%;}
+		.qListIn { height:550px; background:#fff; border-radius:5px; position:relative; }
+			.qListIn .qListTxt01 { height:95px; padding:15px 0 0 0; margin:0 0 30px; text-align:center; font-size:18px; font-weight:bold; color:#3d3d3d; line-height:1.45; background:url(../images/titbg01.png) no-repeat; border-radius:8px 8px 0 0; }
+				.qListIn .qListTxt01 span { display:inline-block; width:19px; height:33px; margin:0 8px 0 15px; background:url(../images/tit01.png) no-repeat;  }
+			.hori_keyBox {display:none; opacity:0; transition:all 0.3s ease;}
+			.hori_keyBox.on {display:block; opacity:1;}
+			.hori_keyBox .hori_key { background:#fff8ce; border-radius:5px 5px 0 0; text-align:center; }
+			.hori_keyBox .hori_key p { display:inline-block; padding:0 0 0 20px; width:121px; margin:12px 0; height:32px; line-height:32px; background:#313e88; font-size:16px; color:#fff; border-radius:20px; font-weight:bold; text-align:center; position:relative; }			
+			.hori_keyBox .hori_key p span { display:inline-block; width:33px; height:33px; line-height:33px; text-align:center; background:#fff; border-radius:50px; color:#313e88; font-size:22px; border:3px solid #313e88; position:absolute; left:0; top:-4px; }			
+			.hori_keyBox .hori_key button { animation:hint 1s infinite linear; display:inline-block; width:50px; height:36px; background:#92c908; border-radius:50px; font-size:16px; color:#fff; font-weight:bold; float:right; position:relative; top:10px; right:10px; transition:0.233s ease-in-out;}
+			.hori_keyBox .hori_key button:hover { border:2px solid #92c908; color:#92c908; background:#fff; }			
+			.verti_keyBox {display:none; opacity:0; transition:all 0.3s ease;}
+			.verti_keyBox.on {display:block; opacity:1;}
+			.verti_keyBox .verti_key { background:#fff8ce; border-radius:5px 5px 0 0; text-align:center;}
+			.verti_keyBox .verti_key p { display:inline-block; padding:0 0 0 20px; width:121px; margin:12px 0; height:32px; line-height:32px; background:#cd4d48; font-size:16px; color:#fff; border-radius:20px; font-weight:bold; text-align:center; position:relative; }			
+			.verti_keyBox .verti_key p span { display:inline-block; width:33px; height:33px; line-height:33px; text-align:center; background:#fff; border-radius:50px; color:#cd4d48; font-size:22px; border:3px solid #cd4d48; position:absolute; left:0; top:-4px; }			
+			.verti_keyBox .verti_key button { animation:hint 1s infinite linear; display:inline-block; width:50px; height:36px; background:#92c908; border-radius:50px; font-size:16px; color:#fff; font-weight:bold; float:right; position:relative; top:10px; right:10px; transition:0.233s ease-in-out; }			
+			.verti_keyBox .verti_key button:hover { border:2px solid #92c908; color:#92c908; background:#fff; }			
+				@keyframes hint {
+					0%  {transform:scale(1);}
+					50% {transform:scale(1.1);}
+					100% {transform:scale(1);}
+				}
+
+			.qListIn .qListInfo { text-align:center; position:relative; z-index:5; }
+				.qListIn .qListInfo .infoTxt {text-align:left; font-size:16px; margin:0; padding:16px 20px; word-break:keep-all; color:#000; line-height:1.4; font-weight:600; letter-spacing:-1px; }	
+				.qListIn .qListInfo .infoAnswer {display:block;}	
+				.qListIn .qListInfo .infoAnswer input {text-indent:10px; background:#e8e8e8; border-radius:4px; border:none; width:300px; height:40px; font-weight:bold; color:#555; font-size:16px; ime-mode:active;}	
+				.qListIn .answerBtn { width:121px; height:36px; border-radius:5px; background:#00baff; color:#fff; font-size:18px; font-weight:bold; letter-spacing:-1.5px; margin:15px 0 25px 0; transition:0.233s ease-in-out; }
+				.qListIn .answerBtn:hover { background:#fff; color:#00baff; border:2px solid #00baff }
+			
+			
+			.qListScroll {  padding:20px 20px 0 20px; height:349px; overflow-y:auto; overflow-x:hidden; border-bottom:2px solid #16b9dc;  }
+			.qIcoList { overflow:hidden; padding:0 25px 0 16px; }
+				.qIcoList li {float:left; width:39px; height:40px; margin:9px 0 0 9px; }
+				.qIcoList li > span {display:block; height:34px; border:3px solid #e8e8e8; background:#e8e8e8; border-radius:4px; line-height:34px; font-weight:bold; text-align:center; font-size:26px; color:#fff; position:relative; cursor:pointer; transition:all 0.3s ease;}
+				.qIcoList li .qIn {border:3px solid #ffb400; background:#ffb400;}
+				.qIcoList li .qIn:before { content:'?'; }
+				.qIcoList li .qRowHover {border:3px solid #cd4d48 !important; background:#ff8c87;}
+				.qIcoList li .qColHover {border:3px solid #313e88 !important; background:#7c85b7;}
+				.qIcoList li .icoText {border:3px solid #ffb400; background:#fff; color:#333;}
+					span.row_num { position:absolute;border:1px solid #fff; top:-11px; left:-11px; display:inline-block; width:25px; height:25px; background:#ff8c87; border-radius:25px; text-align:center; line-height:25px; color:#fff; font-weight:bold; font-size:15px; }
+					span.col_num { position:absolute;border:1px solid #fff; top:-11px; left:-11px; display:inline-block; width:25px; height:25px; background:#7c85b7; border-radius:25px; text-align:center; line-height:25px; color:#fff; font-weight:bold; font-size:15px; }
+				
+						
+	.popBox { display:none; z-index:30; position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; background:url(../images/trans02.png); }
+	.popIn { display:table; width:100%; height:100%; }
+		
+		.popScore { display:table-cell; vertical-align:middle; transition:0.6s ease-in-out; width:100%; height:100%; }
+		.popScore > img { animation:spin 3.8s infinite linear; position:absolute; width:200%; left:-50%; top:-66%; }
+		@keyframes spin {
+			0%  {transform: rotate(0deg); }
+			100% {transform: rotate(360deg); }
+		}
+		.popScore .popScoreIn { width:316px; margin:0 auto; min-height:361px; background:url(../images/scoreBg.png) no-repeat; position:relative; z-index:50; }
+			.popScore .popScoreIn .popScoreCon { padding:100px 0 0 0; text-align:center; }
+				.popScore .popScoreIn .popScoreCon p { margin:20px 0; font-size:20px; font-weight:bold; color:#676767; letter-spacing:-1.5px; }
+				.popScore .popScoreIn .popScoreCon span.time {display:block; margin:0 auto; width:130px; padding:0 32px; background:#fff195; height:39px; line-height:39px; border-radius:30px; text-align:left; font-size:20px; color:#353535; font-weight:bold; letter-spacing:-1.5px; }
+				.popScore .popScoreIn .popScoreCon span.time strong {font-size:30px;}
+				.popScore .popScoreIn .popScoreCon span.time span { color:#ff0000; float:right; }
+				.popScore .popScoreIn .popScoreCon img.spin { width:100%; position:absolute; top:0; left:0; }
+			.popScoreBtn { width:104px; height:39px; font-size:19px; color:#fff; font-weight:bold; background:#00baff; border-radius:4px; margin:53px 0 0 0; letter-spacing:-1.5px; transition:0.233s ease-in-out; }
+			.popScoreBtn:hover { background:#fff; border:1px solid #00baff; color:#00baff; }
+			.popScoreBtn2 { width:104px; height:39px; font-size:19px; color:#fff; font-weight:bold; background:#00baff; border-radius:4px; margin:53px 0 0 0; letter-spacing:-1.5px; transition:0.233s ease-in-out; }
+			.popScoreBtn2:hover { background:#fff; border:1px solid #00baff; color:#00baff; }
+			
+		.popAnswer { display:table-cell; vertical-align:middle; transition:0.6s ease-in-out; width:100%; height:100%; text-align:center; }
+			.popAnswer .popAnswerIn { width:355px; margin:0 auto; min-height:281px; background:url(../images/popAnswerBg.png) no-repeat; position:relative; z-index:50; }
+			.popAnswer .popAnswerIn .popAnswerImg { padding:158px 0 0 0; position:relative; }
+			.popAnswer .popAnswerIn .popAnswerImg img.popAnswerIco { position:absolute; top:-18px; left:50px; animation:popAnswerIn 0.9321s infinite ease-in-out; transform:scale(0.1); }
+			@keyframes popAnswerIn {
+				55%  { transform:scale(1); }
+				55.01% { transform:scale(0); }
+				100% { transform:scale(0); }
+			}			
+			.popAnswer .popAnswerIn .popAnswerImg img.popAnswerIco01 { position:absolute; top:85px; left:40px; animation:popAnswerIn01 1.933s infinite ease-in-out; }
+			@keyframes popAnswerIn01 {
+				0%  { top:85px; }
+				50% { top:88px;}
+				100% { top:85px;}
+			}			
+			.popAnswer .popAnswerIn .popAnswerImg img.popAnswerIco02 { position:absolute; top:140px; left:290px; animation:popAnswerIn02 2.332s infinite ease-in-out; transition-delay: 1.332s; }
+			@keyframes popAnswerIn02 {
+				0%  { top:140px;  }
+				50% { top:146px; }
+				100% { top:140px;}
+			}		
+			
+			.popAnswer .popAnswerIn .popAnswerImg img.popAnswerIco03 { position:absolute; top:85px; left:230px; animation:popAnswerIn03 0.735s infinite linear; transform:scale(0.8); animation-delay:0.175s; }
+			@keyframes popAnswerIn03 {
+				35% { transform:scale(1.8);  }
+				35% { transform:scale(1.8);  }
+				35.01% { transform:scale(0); }
+				100% { transform:scale(0); }
+			}		
+			.popAnswer .popAnswerIn .popAnswerImg img.popAnswerIco04 { position:absolute; top:130px; left:65px; animation:popAnswerIn04 1.075s infinite linear; transform:scale(0.1); }
+			@keyframes popAnswerIn04 {
+				45% { transform:scale(1.8);  }
+				50% { transform:scale(1.8);  }
+				50.01% { transform:scale(0); }
+				100% { transform:scale(0); }
+			}	
+			.popAnswer .popAnswerIn .popAnswerImg img.popAnswerBg02 { position:absolute; top:70px; left:125px; animation:popAnswerBg02 0.9321s infinite ease-in-out; transform:scale(1); }
+			@keyframes popAnswerBg02 {
+				0% { transform:scale(1); margin:0 0 0 0; }
+				50% { transform:scale(1.2); margin:5px 0 0 5px; }
+				100% { transform:scale(1); margin:0; }
+			}	
+			.popAnswer .popAnswerIn .answerBtn { display:inline-block; line-height:56px; width:175px; height:56px; background:#ff7200; color:#fff; font-size:24px; letter-spacing:-1px; font-weight:bold; position:relative; margin:0 0 0 20px; }
+			/*
+			@keyframes answerBtn {
+				20% { transform:scale(1.6);  }
+				25% { transform:scale(1.6);  }
+				25.01% { transform:scale(0); }
+				100% { transform:scale(0); }
+			}
+			*/			
+			.popAnswer .popAnswerIn .popScoreBtn { margin:60px 0 0 10px; }
+			
+		.popWrong { display:table-cell; vertical-align:middle; transition:0.6s ease-in-out; width:100%; height:100%; text-align:center; }
+			.popWrong .popWrongIn { width:355px; margin:0 auto; min-height:281px; background:url(../images/popAnswerBg.png) no-repeat; position:relative; z-index:50; }
+			.popWrong .popWrongIn .popWrongImg { position:relative; padding:158px 0 0 20px; }
+			.popWrong .popWrongIn .popWrongImg img.popWrongIco01 { position:absolute; top:-48px; left:10px; transform:scale(0); opacity:0; animation:popWrongIco01 3s linear;  }
+			@keyframes popWrongIco01 {
+				0% {opacity:0; transform:scale(0);  }
+				90% {opacity:0; transform:scale(0);  }
+				100% {opacity:1;  transform:scale(2);}
+			}
+			.popWrong .popWrongIn .popWrongImg img.popWrongIco02 { position:absolute; top:80px; left:140px; animation:popWrongIco02 3s linear; z-index:3; }
+			@keyframes popWrongIco02 {
+				0% {margin-left:0px; opacity:0.8; }
+				5% {margin-left:10px;}
+				10% {margin-left:0px; opacity:0.8; }
+				15% {margin-left:10px;}
+				20% {margin-left:0px; opacity:0.8; }
+				25% {margin-left:10px;}
+				30% {margin-left:0px; opacity:0.8; }
+				35% {margin-left:10px;}
+				40% {margin-left:0px; opacity:0.8; }
+				45% {margin-left:10px;}
+				50% {margin-left:0px; opacity:0.8; }
+				55% {margin-left:10px;}
+				60% {margin-left:0px; opacity:0.8; }
+				65% {margin-left:10px;}
+				70% {margin-left:0px; opacity:0.8; }
+				75% {margin-left:10px;}
+				80% {margin-left:0px; opacity:0.8; }
+				85% {margin-left:10px;}
+				90% { left:137px; opacity:1; transform:scale(1); }
+				100% { left:143px; opacity:0; transform:scale(3);}
+			}
+			.popWrong .popWrongIn .popWrongImg img.popWrongIco03 { position:absolute; top:6px; left:126px; animation:popWrongIco03 3s linear;  z-index:3; margin:0 0 0 3px; }
+			@keyframes popWrongIco03 {
+				0% { top:6px; left:126px;  }
+				25% { top:12px; left:130px; transform:rotate(-15deg);}
+				50% { top:18px; left:126px;  }
+				90% { top:24px; left:132px; opacity:1; transform:rotate(0deg);}
+				100% { top:30px; left:125px; opacity:0; transform:scale(3);  }
+			}
+			.popWrong .popWrongIn .popWrongImg img.popWrongIco04 { position:absolute; top:45px; left:149px; z-index:2; animation:popWrongIco02 3s linear;}
+			.popWrong .popWrongIn .answerBtn { display:inline-block; line-height:56px; width:175px; height:56px; background:#ff7200; color:#fff; font-size:24px; letter-spacing:-1px; font-weight:bold; position:relative; z-index:5; }
+			.popWrong .popWrongIn .popScoreBtn { margin:60px 0 0 10px; }
+			

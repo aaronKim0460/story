@@ -1,0 +1,40 @@
+/* CSS Document */
+
+select,option,input,textarea {font-family:µ¸¿ò,Tahoma,Verdana; font-size:10pt; color:#176398;}
+
+
+td a      {color:#554722; text-decoration:none;}
+td a:link  {color:#554722; text-decoration:none;}
+td a:visited  {color:#AF867B; text-decoration:none;}
+td a:hover  {color:#FF9900; text-decoration:bold;}
+
+/*Ã»¼Ò³â´ë»óÅ×ÀÌºíÅØ½ºÆ®*/
+ .env_t1 {background-color:#F8F8F8;}
+ .env_t2 {background-color:#9CD93D;}
+ .env_t3 {background-color:#4EC8F7;}
+ .env_t4 {background-color:#C0DCF0;font-size:10pt;font-family:µ¸¿ò;color:#0079c6;font-weight: bold;}
+ .env_t5 {background-color:#EFEFEF;font-size:10pt;font-family:µ¸¿ò;color:#757575;font-weight: bold;}
+ .env_t6 {background-color:#EFEFEF;font-size:10pt;font-family:µ¸¿ò;color:#176398;}
+ .env_t7 {font-size:8pt;font-family:µ¸¿ò;color:#9D9E96;}
+ .env_t8 {background-color:#8E7DE5;}
+ .env_t9 {background-color:#FF8BA2;}
+ .env_t10 {background-color:#FFAE00;}
+ .env_td {line-height:150%; font-family:µ¸¿ò,Tahoma,Verdana,Arial; font-size:10pt; color:#111111;}
+ .env_tdpadding {padding:0 15 20 15 }
+
+ 
+/*ÇÐºÎ¸ð´ë»óÅ×ÀÌºíÅØ½ºÆ®*/
+ .par_td1 {line-height:150%;font-family:µ¸¿ò,Tahoma,Verdana,Arial;font-size:10pt;color:#111111;padding:0px 15px 0px 15px;width: 598px;}
+ .par_td2 {line-height:150%;font-family:µ¸¿ò,Tahoma,Verdana,Arial;font-size:10pt;color:#111111;padding:10px;width: 608px;}
+ .par_td3 {font-size:10pt;font-family:µ¸¿ò;font-weight:bold;color:#FFFFFF;}
+ .par_t1 {padding:4px 0px 0px 0px;font-size:10pt;font-family:µ¸¿ò;font-weight:bold;color:#000000;}
+ .par_t3 {background-color:#EFEFEF;font-size:10pt;font-family:µ¸¿ò;color:#554722;}
+ .par_t2 {background-color:#D5CAAE;font-size:10pt;font-family:µ¸¿ò;font-weight:bold;color:#554722;}
+ .par_t4 {background-color:#554722;}
+ .par_t5 {background-color:#9C8F6E;font-size:10pt;font-family:µ¸¿ò;font-weight:bold;color:#FFFFFF;}
+ .par_tt {border:0px;padding-left: 15px;}
+ 
+/*¼­¿ï½º¸ð±×ÀÇ ÇÏ´Ã¿©Çà*/
+ .smog01 {font-family:µ¸¿ò,Tahoma,Verdana,Arial;font-size:10pt;color:#554722;}
+ .smog02 {line-height:150%;font-family:µ¸¿ò,Tahoma,Verdana,Arial;font-size:10pt;color:#2489B0;}
+

@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+	수정일                 수정자                          수정내용
+  =========     =======    =================================================
+  2011.8.22  	서준식     	 	상위 메뉴번호 존재여부 조회 menuManageDAO.selectUpperMenuNoByPk 추가
+
+
+-->
+<sqlMap namespace="MenuManage">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="menuManageVO" type="egovframework.com.sym.mnu.mpm.service.MenuManageVO"/>
+    <typeAlias  alias="menuSearchVO" type="egovframework.com.sym.mnu.mpm.service.MenuManageVO"/>
+    <typeAlias  alias="menu" type="egovframework.com.sym.mnu.mpm.service.MenuManage"/>
+	<typeAlias  alias="comDefaultVO" type="egovframework.com.cmm.ComDefaultVO"/>
+
+	<select id="menuManageDAO.selectMenuManageList_D" parameterClass="comDefaultVO" resultClass="egovMap">
+		<![CDATA[
+		       SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+					SELECT
+						  MENU_ID           AS "menuNo"
+						, MENU_ORDR         AS "menuOrdr"
+						, MENU_NM           AS "menuNm"
+						, UPPER_MENU_ID     AS "upperMenuId"
+						, MENU_DC           AS "menuDc"
+						, RELATE_IMAGE_PATH AS "relateImagePath"
+						, RELATE_IMAGE_NM   AS "relateImageNm"
+						, PROGRM_FILE_NM    AS "progrmFileNm"
+						, PUBLIC_NURI_TY_CODE    AS "publicNuriTy"
+						
+						, TAB_MENU_CONT     AS  "tabMenuCont"
+		                , TAB_MENU_USE_AT 	AS  "tabMenuUseAt"
+		                , TAB_MENU_TEXT 	AS  "tabMenuText"	
+		                , SYS_MENU_AT 		AS  "sysMenuAt"					
+					 FROM TN_MENU_INFO
+					WHERE 1=1
+			 ]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+			    <![CDATA[ MENU_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[ MENU_ID LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>	
+			<isEqual prepend="AND" property="searchCnd" compareValue="2">
+				<![CDATA[ PROGRM_FILE_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>
+			<isNotEmpty prepend="AND" property="searchSiteType">
+				<![CDATA[ MENU_SITE_CODE= #searchSiteType# 		]]>
+			</isNotEmpty>					
+				
+				   ORDER BY MENU_SITE_CODE
+						  , MENU_ID
+		       ) TB ) Z 
+		       WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	</select>
+
+	<!-- 총건수 조회 -->
+	<select id="menuManageDAO.selectMenuManageListTotCnt_S" parameterClass="comDefaultVO" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(MENU_ID) AS "totcnt"
+		  	FROM 
+		  		TN_MENU_INFO
+		 	WHERE 
+		 		1=1  
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+			    <![CDATA[ MENU_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[ MENU_ID LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>	
+			<isEqual prepend="AND" property="searchCnd" compareValue="2">
+				<![CDATA[ PROGRM_FILE_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>
+			<isNotEmpty prepend="AND" property="searchSiteType">
+				<![CDATA[ MENU_SITE_CODE= #searchSiteType# 		]]>
+			</isNotEmpty>	
+	</select>
+
+
+	<select id="menuManageDAO.selectMenuManage_D" parameterClass="comDefaultVO" resultClass="menuManageVO">
+		<![CDATA[
+			SELECT
+				  MENU_ID           AS "menuNo"
+				, MENU_ORDR         AS "menuOrdr"
+				, MENU_NM           AS "menuNm"
+				, UPPER_MENU_ID     AS "upperMenuId"
+				, MENU_DC           AS "menuDc"
+				, RELATE_IMAGE_PATH AS "relateImagePath"
+				, RELATE_IMAGE_NM   AS "relateImageNm"
+				, PROGRM_FILE_NM    AS "progrmFileNm"
+				, (SELECT CODE_NM FROM TC_CMMN_DETAIL_CODE WHERE CODE_ID='COM078' AND CODE = MENU_SITE_CODE )		AS "siteType"
+				, MENU_TY_CODE			AS 	"menuType"
+				, PUBLIC_NURI_TY_CODE    AS  "publicNuriTy"
+				, CN_EXPSR_TY_CODE   AS  "contentViewTy"
+				, DECODE((SELECT COUNT(1) 
+			     		    FROM TN_PROGRM_LIST S2
+			      		   WHERE S2.progrm_file_nm = progrm_file_nm
+			      		     ), 0, 'N', 'Y') AS dbUseYn
+			    , (SELECT CNTNTS FROM TN_MENU_CNTNTS S1 WHERE S1.MENU_ID = #searchKeyword#) AS progrmContent
+			    , (SELECT USE_AT FROM TN_MENU_CNTNTS S1 WHERE S1.MENU_ID = #searchKeyword#) AS useAt
+			    , SORT_ORDR         AS "orderNum"
+			    
+				, TAB_MENU_CONT     AS  "tabMenuCont"
+                , TAB_MENU_USE_AT 	AS  "tabMenuUseAt"
+                , TAB_MENU_TEXT 	AS  "tabMenuText"
+                , SYS_MENU_AT 		AS  "sysMenuAt"	    
+			FROM TN_MENU_INFO
+			WHERE MENU_ID = #searchKeyword#
+		]]>
+	</select>
+
+	<insert id="menuManageDAO.insertMenuManage_S">
+		<![CDATA[
+			INSERT INTO TN_MENU_INFO
+				( MENU_ID
+            , MENU_ORDR
+            , MENU_NM
+            , UPPER_MENU_ID
+            , MENU_DC
+            , RELATE_IMAGE_PATH
+            , RELATE_IMAGE_NM
+            , PROGRM_FILE_NM
+            , MENU_SITE_CODE
+            , MENU_TY_CODE
+            , PUBLIC_NURI_TY_CODE 
+            , CN_EXPSR_TY_CODE
+            , SORT_ORDR
+            
+            , TAB_MENU_CONT
+            , TAB_MENU_USE_AT
+            , TAB_MENU_TEXT
+            )
+			VALUES (   #menuNo#
+                  , #menuOrdr#
+                  , #menuNm#
+                  , #upperMenuId#
+                  , #menuDc#
+                  , #relateImagePath#
+                  , #relateImageNm#
+                  , #progrmFileNm#
+                  , #siteType#
+                  , #menuType#
+                  , #publicNuriTy# 
+                  , #contentViewTy#
+                  , #orderNum#
+                  
+                  , #tabMenuCont:CLOB#
+                  , #tabMenuUseAt#
+                  , #tabMenuText# 
+                  
+                  )
+		]]>
+	</insert>
+
+	<update id="menuManageDAO.updateMenuManage_S">
+		<![CDATA[
+			UPDATE TN_MENU_INFO
+			SET  MENU_ORDR         = #menuOrdr#
+            , MENU_NM           = #menuNm#
+            , UPPER_MENU_ID     = #upperMenuId#
+            , MENU_DC           = #menuDc#
+            , RELATE_IMAGE_PATH = #relateImagePath#
+            , RELATE_IMAGE_NM   = #relateImageNm#
+            , PROGRM_FILE_NM    = #progrmFileNm#
+            , MENU_SITE_CODE = #siteType#
+            , MENU_TY_CODE = #menuType#
+            , PUBLIC_NURI_TY_CODE = #publicNuriTy#
+            , CN_EXPSR_TY_CODE = #contentViewTy#
+            , SORT_ORDR = #orderNum#
+            
+            , TAB_MENU_CONT = #tabMenuCont:CLOB#
+            , TAB_MENU_USE_AT = #tabMenuUseAt#
+            , TAB_MENU_TEXT = #tabMenuText#
+            
+			WHERE MENU_ID=#menuNo#
+		]]>
+	</update>
+
+	<delete id="menuManageDAO.deleteMenuManage_S">
+		<![CDATA[
+			DELETE FROM TN_MENU_INFO
+			WHERE MENU_ID=#menuNo#
+		]]>
+	</delete>
+
+	<!-- 메뉴번호 존재여부 조회 -->
+	<select id="menuManageDAO.selectMenuNoByPk" parameterClass="menuManageVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(MENU_ID) AS "totcnt"
+		  FROM TN_MENU_INFO
+		 WHERE MENU_ID = #menuNo#
+		]]>
+	</select>
+
+	<!-- 상위 메뉴번호 존재여부 조회 -->
+	<select id="menuManageDAO.selectUpperMenuNoByPk" parameterClass="menuManageVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(MENU_ID) AS totcnt
+		  FROM TN_MENU_INFO
+		 WHERE UPPER_MENU_ID = #menuNo#
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectMenuListT_D" parameterClass="comDefaultVO" resultClass="egovMap">
+		<![CDATA[
+            SELECT
+			      MENU_ID           AS "menuNo"
+				, MENU_ORDR         AS "menuOrdr"
+				, MENU_NM           AS "menuNm"
+				, UPPER_MENU_ID     AS "upperMenuId"
+				, MENU_DC           AS "menuDc"
+				, RELATE_IMAGE_PATH AS "relateImagePath"
+				, RELATE_IMAGE_NM   AS "relateImageNm"
+				, PROGRM_FILE_NM    AS "progrmFileNm"
+				, PUBLIC_NURI_TY_CODE    AS  "publicNuriTy"
+				
+				, TAB_MENU_CONT     AS  "tabMenuCont"
+                , TAB_MENU_USE_AT 	AS  "tabMenuUseAt"
+                , TAB_MENU_TEXT 	AS  "tabMenuText"
+			FROM TN_MENU_INFO
+			WHERE MENU_ID > 0
+		]]>
+			<isNotEmpty prepend="AND" property="searchKeyword">
+				  MENU_SITE_CODE = #searchKeyword#
+			</isNotEmpty>
+			ORDER BY MENU_ORDR
+	</select>
+
+	<delete id="menuManageDAO.deleteAllMenuList" >
+		<![CDATA[
+			DELETE FROM TN_MENU_INFO
+		]]>
+	</delete>
+
+	<!-- 메뉴정보 총건수 조회 -->
+	<select id="menuManageDAO.selectMenuListTotCnt" parameterClass="menuManageVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(MENU_ID) AS totcnt
+		  FROM TN_MENU_INFO
+		]]>
+	</select>
+
+
+	<select id="menuManageDAO.selectAuthorMenuInfo_Prgm" parameterClass="menuSearchVO" resultClass="menuManageVO">
+		<![CDATA[
+			SELECT
+				  A.MENU_ID           AS "menuNo"
+				, A.MENU_ORDR         AS "menuOrdr"
+				, A.MENU_NM           AS "menuNm"
+				, A.MENU_DC           AS "menuDc"
+				, A.RELATE_IMAGE_PATH AS "relateImagePath"
+				, A.RELATE_IMAGE_NM   AS "relateImageNm"
+				, A.PROGRM_FILE_NM    AS "progrmFileNm"
+				, A.PUBLIC_NURI_TY_CODE    AS  "publicNuriTy"
+			    , (SELECT URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM) AS "menuUrl"
+			    , B.MENU_ID			AS "upperMenuId"
+				, B.MENU_NM			 AS "upMenuNm"
+				, (SELECT URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = B.PROGRM_FILE_NM) AS "upMenuUrl"
+                , T.MENU_ID AS "topMenuNo"
+                , T.MENU_NM AS "topMenuNm"
+                , T.PROGRM_FILE_NM AS "topMenuUrl"
+		        , (SELECT IFRME_URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM ) AS "iframeUrl"
+		        , A.MENU_TY_CODE AS "menuType"
+		        , (SELECT CODE_NM FROM TC_CMMN_DETAIL_CODE WHERE CODE_ID='COM078' AND CODE = A.MENU_SITE_CODE) AS siteType
+		        , A.CN_EXPSR_TY_CODE   AS  "contentViewTy"
+		        , DECODE((SELECT COUNT(1) 
+			     		    FROM TN_PROGRM_LIST S2
+			      		   WHERE S2.PROGRM_FILE_NM = A.PROGRM_FILE_NM
+			      		     ), 0, 'N', 'Y') AS dbUseYn
+			    , (SELECT CNTNTS FROM TN_MENU_CNTNTS S1 WHERE S1.MENU_ID = A.MENU_ID) AS progrmContent
+			    , (SELECT USE_AT FROM TN_MENU_CNTNTS S1 WHERE S1.MENU_ID = A.MENU_ID) AS useAt
+                , A.TAB_MENU_USE_AT 	AS  "tabMenuUseAt"
+                , A.TAB_MENU_TEXT 	AS  "tabMenuText"	
+                , TM.TAB_MENU_ID     AS  "tabMenuCont"		    
+		      FROM TN_MENU_INFO A
+			      INNER JOIN TN_AUTHOR_MENU AM ON A.MENU_ID=AM.MENU_ID AND AM.AUTHOR_CODE=#authorCode#
+			      INNER JOIN ( SELECT MENU_ID
+			                        , ROW_NUMBER() OVER(ORDER BY MENU_ID DESC, MENU_ORDR DESC) RN
+			                     FROM TN_MENU_INFO
+			                    WHERE PROGRM_FILE_NM = ( SELECT PROGRM_FILE_NM
+			                                               FROM TN_MENU_INFO
+			                                              WHERE MENU_ID = #menuNo#)) D
+			              ON A.MENU_ID = D.MENU_ID
+			      LEFT OUTER JOIN  TN_MENU_INFO B ON A.UPPER_MENU_ID = B.MENU_ID
+			      LEFT OUTER JOIN (
+			      		SELECT
+                        	B.MENU_ID, B.MENU_NM, B.PROGRM_FILE_NM
+                        FROM
+	                        (
+	                            SELECT 
+	                                 MENU_ID, UPPER_MENU_ID
+	                                ,CASE 
+	                                	WHEN UPPER_MENU_ID<>'0' THEN (
+                                            SELECT
+                                                UPPER_MENU_ID
+                                            FROM
+                                                TN_MENU_INFO
+                                            WHERE LEVEL=1
+                                            START WITH MENU_ID=A.UPPER_MENU_ID
+                                            CONNECT BY PRIOR MENU_ID=UPPER_MENU_ID
+                                     	) ELSE MENU_ID 
+                                     END TOP_MENU_ID
+	                            FROM 
+	                                TN_MENU_INFO A
+	                            WHERE
+	                                LEVEL=1
+	                            START WITH 
+	                                MENU_ID = (SELECT CASE WHEN UPPER_MENU_ID='0' THEN MENU_ID ELSE UPPER_MENU_ID END FROM TN_MENU_INFO WHERE MENU_ID=#menuNo#)
+	                            CONNECT BY PRIOR 
+	                                MENU_ID=UPPER_MENU_ID
+	                        ) A INNER JOIN TN_MENU_INFO B
+                        ON
+                            B.MENU_ID=CASE 
+                            			WHEN NVL(A.UPPER_MENU_ID,'0')='0' THEN A.MENU_ID 
+                            			WHEN NVL(A.TOP_MENU_ID,'0')='0' THEN A.UPPER_MENU_ID
+                            			ELSE A.TOP_MENU_ID 
+                            		  END
+					) T
+						ON 1=1
+			      LEFT OUTER JOIN (
+						SELECT 
+		                    WM_CONCAT (DISTINCT MI2.MENU_ID||'!@'||MI2.MENU_NM) AS TAB_MENU_ID
+		                FROM 
+		                    TN_MENU_INFO MI1 INNER JOIN TN_MENU_INFO MI2 
+		                    ON MI1.UPPER_MENU_ID=MI2.UPPER_MENU_ID
+		                WHERE
+		                    MI1.MENU_ID= #menuNo# 
+		                    AND MI2.TAB_MENU_USE_AT='Y'
+		            ) TM
+		              	ON 1=1
+		      WHERE D.RN = 1
+		]]>
+	</select>
+	
+	<select id="menuManageDAO.selectMenuInfo_Prgm" parameterClass="comDefaultVO" resultClass="menuManageVO">
+		<![CDATA[
+			SELECT
+				  A.MENU_ID           AS "menuNo"
+				, A.MENU_ORDR         AS "menuOrdr"
+				, A.MENU_NM           AS "menuNm"
+				, A.MENU_DC           AS "menuDc"
+				, A.RELATE_IMAGE_PATH AS "relateImagePath"
+				, A.RELATE_IMAGE_NM   AS "relateImageNm"
+				, A.PROGRM_FILE_NM    AS "progrmFileNm"
+				, A.PUBLIC_NURI_TY_CODE    AS  "publicNuriTy"
+			    , (SELECT URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM) AS "menuUrl"
+			    , B.MENU_ID			AS "upperMenuId"
+				, B.MENU_NM			 AS "upMenuNm"
+				, (SELECT URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = B.PROGRM_FILE_NM) AS "upMenuUrl"
+				, C.MENU_ID			AS "topMenuNo"
+		        , C.MENU_NM 		AS "topMenuNm"
+		        , (SELECT URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "topMenuUrl"
+		        , (SELECT IFRME_URL FROM TN_PROGRM_LIST WHERE PROGRM_FILE_NM = A.PROGRM_FILE_NM ) AS "iframeUrl"
+		        , A.MENU_TY_CODE AS "menuType"
+		        , (SELECT CODE_NM FROM TC_CMMN_DETAIL_CODE WHERE CODE_ID='COM078' AND CODE = A.MENU_SITE_CODE) AS siteType
+		        , A.CN_EXPSR_TY_CODE   AS  "contentViewTy"
+		        , DECODE((SELECT COUNT(1) 
+			     		    FROM TN_PROGRM_LIST S2
+			      		   WHERE S2.PROGRM_FILE_NM = A.PROGRM_FILE_NM
+			      		     ), 0, 'N', 'Y') AS dbUseYn
+			    , (SELECT CNTNTS FROM TN_MENU_CNTNTS S1 WHERE S1.MENU_ID = A.MENU_ID) AS progrmContent
+			    , (SELECT USE_AT FROM TN_MENU_CNTNTS S1 WHERE S1.MENU_ID = A.MENU_ID) AS useAt
+				, A.TAB_MENU_USE_AT 	AS  "tabMenuUseAt"
+                , A.TAB_MENU_TEXT 	AS  "tabMenuText"
+                , TM.TAB_MENU_ID 	AS  "tabMenuCont"
+		      FROM TN_MENU_INFO A
+			      INNER JOIN ( SELECT MENU_ID
+			                        , ROW_NUMBER() OVER(ORDER BY MENU_ID DESC, MENU_ORDR DESC) RN
+			                     FROM TN_MENU_INFO
+			                    WHERE PROGRM_FILE_NM = ( SELECT PROGRM_FILE_NM
+			                                               FROM TN_MENU_INFO
+			                                              WHERE MENU_ID = TO_CHAR(#menuLongId#))) D
+			              ON A.MENU_ID = D.MENU_ID
+			      LEFT OUTER JOIN  TN_MENU_INFO B ON A.UPPER_MENU_ID = B.MENU_ID
+			      LEFT OUTER JOIN TN_MENU_INFO C ON B.UPPER_MENU_ID = C.MENU_ID
+			      LEFT OUTER JOIN (
+					SELECT 
+	                    WM_CONCAT (DISTINCT MI2.MENU_ID||'!@'||MI2.MENU_NM) AS TAB_MENU_ID
+	                FROM 
+	                    TN_MENU_INFO MI1 INNER JOIN TN_MENU_INFO MI2 
+	                    ON MI1.UPPER_MENU_ID=MI2.UPPER_MENU_ID
+	                WHERE
+	                    MI1.MENU_ID= TO_CHAR(#menuLongId#) 
+	                    AND MI2.TAB_MENU_USE_AT='Y'
+	              ) TM
+	              	ON 1=1
+		      WHERE D.RN = 1
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectMenuAdminManage" parameterClass="comDefaultVO" resultClass="menuManageVO">
+		<![CDATA[
+			SELECT
+				  MENU_ID        as "menuNo"
+				, CHRG_DEPT      as "menuAdmDpt"
+				, TELNO    as "menuCttpc"
+				, TO_CHAR(LAST_UPDT_PNTTM, 'YYYY-MM-DD' )  as "menuLastup"
+			FROM TN_MENU_CHARGER
+			WHERE MENU_ID = #searchKeyword#
+		]]>
+	</select>
+
+	<update id="menuManageDAO.updateMenuAdminManage">
+		<![CDATA[
+			UPDATE TN_MENU_CHARGER
+			SET  CHRG_DEPT         = #menuAdmDpt#
+            , TELNO           = #menuCttpc#
+            , LAST_UPDT_PNTTM     = SYSDATE
+			WHERE MENU_ID=#menuNo#
+		]]>
+	</update>
+
+	<insert id="menuManageDAO.insertMenuAdminManage">
+		<![CDATA[
+			INSERT INTO TN_MENU_CHARGER
+				( MENU_ID
+            , CHRG_DEPT
+            , TELNO
+            , LAST_UPDT_PNTTM  )
+			VALUES (   #menuNo#
+                  , #menuAdmDpt#
+                  , #menuCttpc#
+                  , SYSDATE )
+		]]>
+	</insert>
+	
+	<select id="menuManageDAO.selectSiteMenuTree" parameterClass="comDefaultVO" resultClass="egovMap">
+	
+		<![CDATA[
+		
+		SELECT
+			 	  MENU_ID           AS "menuNo"
+				, MENU_ORDR         AS "menuOrdr"
+				, MENU_NM           AS "menuNm"
+				, UPPER_MENU_ID     AS "upperMenuNo"
+				, MENU_DC           AS "menuDc"
+				, RELATE_IMAGE_PATH AS "relateImagePath"
+				, RELATE_IMAGE_NM   AS "relateImageNm"
+				, PROGRM_FILE_NM    AS "progrmFileNm"
+				, PUBLIC_NURI_TY_CODE    AS  "publicNuriTy"
+		 FROM TN_MENU_INFO
+		 WHERE MENU_ID > 0
+		]]>
+		 <isNotEmpty prepend="AND" property="searchKeyword">
+			   MENU_SITE_CODE = #searchKeyword#
+		 </isNotEmpty>
+		 
+		 ORDER BY MENU_ID
+		 
+	</select> 
+	
+	<select id="menuManageDAO.selectContentYN" parameterClass="menuManageVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(1)
+          FROM TN_PROGRM_LIST A
+         WHERE A.PROGRM_FILE_NM = #progrmFileNm#
+		]]>
+	</select>
+	
+	<update id="menuManageDAO.mergeProgrmContant">
+		<![CDATA[
+		MERGE INTO TN_MENU_CNTNTS A
+		USING (
+			SELECT 
+				B.MENU_ID 
+			FROM 
+				TN_MENU_INFO A LEFT OUTER JOIN TN_MENU_CNTNTS B 
+				ON A.MENU_ID=B.MENU_ID 
+			WHERE A.MENU_ID = #menuNo#
+		) B ON (A.MENU_ID=B.MENU_ID)
+		 WHEN MATCHED THEN
+	   UPDATE SET CNTNTS = #progrmContent:CLOB#,
+	   			  LAST_UPDT_PNTTM = SYSDATE,
+	   			  LAST_UPDUSR_ID = #lastUpdusrId#,
+	   			  USE_AT = #useAt#
+		 WHEN NOT MATCHED THEN
+	   INSERT (MENU_ID, 
+	   		   CNTNTS,
+	   		   FRST_REGIST_PNTTM,
+	   		   FRST_REGISTER_ID,
+	   		   LAST_UPDT_PNTTM,
+	   		   LAST_UPDUSR_ID,
+	   		   USE_AT) 
+	   VALUES (#menuNo#, 
+	   		   #progrmContent:CLOB#,
+	   		   SYSDATE,
+	   		   #frstRegisterId#,
+	   		   SYSDATE,
+	   		   #lastUpdusrId#,
+	   		   #useAt#)
+		]]>
+	</update>
+	
+	<select id="menuManageDAO.getAlreadyContentsInsert" parameterClass="menuManageVO" resultClass="int">
+		<![CDATA[
+			SELECT 
+				COUNT(*) AS CNT 
+			FROM 
+				TN_MENU_INFO A INNER JOIN TN_MENU_CNTNTS B 
+				ON A.MENU_ID = B.MENU_ID 
+			WHERE A.MENU_ID = #menuNo#
+		]]>
+	</select>
+	
+	<insert id="menuManageDAO.insertProgrmContant">
+		/* menuManageDAO.insertProgrmContant */
+		<![CDATA[
+	   INSERT  INTO TN_MENU_CNTNTS
+			(MENU_ID, 
+	   		   CNTNTS,
+	   		   FRST_REGIST_PNTTM,
+	   		   FRST_REGISTER_ID,
+	   		   LAST_UPDT_PNTTM,
+	   		   LAST_UPDUSR_ID,
+	   		   USE_AT) 
+	   VALUES (#menuNo#, 
+	   		   #progrmContent:CLOB#,
+	   		   SYSDATE,
+	   		   #frstRegisterId#,
+	   		   SYSDATE,
+	   		   #lastUpdusrId#,
+	   		   #useAt#)
+
+		]]>
+	</insert>
+	
+	<update id="menuManageDAO.updateProgrmContant">
+		<![CDATA[
+	   UPDATE TN_MENU_CNTNTS SET 
+			CNTNTS = #progrmContent:CLOB#,
+			LAST_UPDT_PNTTM = SYSDATE,
+			LAST_UPDUSR_ID = #lastUpdusrId#,
+			USE_AT = #useAt#
+		WHERE MENU_ID = #menuNo#
+		]]>
+	</update>
+	
+	<select id="menuManageDAO.chkContentInsertFlag" parameterClass="menuManageVO" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(1)
+		  FROM TN_MENU_INFO A
+		 WHERE A.MENU_ID = #menuNo#
+		   AND A.CN_EXPSR_TY_CODE = 'D'
+		   AND EXISTS (SELECT 1 
+		                 FROM TN_PROGRM_LIST S1 
+		                WHERE S1.PROGRM_FILE_NM = A.PROGRM_FILE_NM 
+		                 )
+		]]>
+	</select>
+	
+	<select id="menuManageDAO.selectContentDBHistory" parameterClass="menuManageVO" resultClass="menu" >
+	
+		SELECT MENU_ID 				AS menuNo
+			 , CNTNTS_SN 			AS contentSn
+			 , CNTNTS 		AS progrmContent
+			 , FRST_REGIST_PNTTM 	AS frstRegistPnttm
+			 , FRST_REGISTER_ID 	AS frstRegisterId 
+			 , TO_CHAR(LAST_UPDT_PNTTM, 'YYYY-MM-DD HH24:MI') AS lastUpdtPnttm
+			 , LAST_UPDUSR_ID 		AS lastUpdusrId
+			 , (SELECT USER_NM FROM TN_EMPLYR_INFO S1 WHERE S1.EMPLYR_ID = LAST_UPDUSR_ID) AS lastUpdusrNm
+			 , USE_AT 				AS useAt
+			 , ACTION_TY_CODE 			AS actionTy
+		  FROM TH_CNTNTS_LOG
+		 WHERE MENU_ID = #menuNo#
+		 ORDER BY CNTNTS_SN DESC
+		 
+	</select>
+	
+	<select id="menuManageDAO.selectContentDBHistoryPreview" parameterClass="menuManageVO" resultClass="menu" >
+	
+		SELECT MENU_ID 				AS menuNo
+			 , CNTNTS_SN 			AS contentSn
+			 , CNTNTS 		AS progrmContent
+			 , FRST_REGIST_PNTTM 	AS frstRegistPnttm
+			 , FRST_REGISTER_ID 	AS frstRegisterId 
+			 , TO_CHAR(LAST_UPDT_PNTTM, 'YYYY-MM-DD HH24:MI') AS lastUpdtPnttm
+			 , LAST_UPDUSR_ID 		AS lastUpdusrId
+			 , (SELECT USER_NM FROM TN_EMPLYR_INFO S1 WHERE S1.EMPLYR_ID = LAST_UPDUSR_ID) AS lastUpdusrNm
+			 , USE_AT 				AS useAt
+			 , ACTION_TY_CODE 			AS actionTy
+		  FROM TH_CNTNTS_LOG
+		 WHERE MENU_ID = #menuNo#
+		   AND CNTNTS_SN = #contentSn#
+		   
+	</select>
+	
+	<update id="menuManageDAO.updateDBContentHistory" parameterClass="menuManageVO">
+	
+		UPDATE TN_MENU_CNTNTS A
+		   SET (MENU_ID, 
+	   		   CNTNTS,
+	   		   FRST_REGIST_PNTTM,
+	   		   FRST_REGISTER_ID,
+	   		   LAST_UPDT_PNTTM,
+	   		   LAST_UPDUSR_ID,
+	   		   USE_AT) = (SELECT MENU_ID
+	   		   				   , CNTNTS
+							   , FRST_REGIST_PNTTM
+							   , FRST_REGISTER_ID
+							   , LAST_UPDT_PNTTM
+							   , LAST_UPDUSR_ID
+							   , 'Y'
+							FROM TH_CNTNTS_LOG S1
+						   WHERE S1.MENU_ID = A.MENU_ID
+							 AND S1.CNTNTS_SN = #contentSn#)
+		 WHERE A.MENU_ID = #menuNo#
+		   
+	</update>
+	
+	<insert id="menuManageDAO.insertProgrmContantLog" parameterClass="menuManageVO">
+		<selectKey resultClass="java.lang.Integer" keyProperty="contentSn">
+			SELECT NVL(MAX(CNTNTS_SN), 0) + 1 
+			  FROM TH_CNTNTS_LOG S1 
+			 WHERE S1.MENU_ID = #menuNo# 
+		</selectKey>
+		
+		INSERT INTO TH_CNTNTS_LOG(
+			   MENU_ID
+			 , CNTNTS_SN
+			 , CNTNTS
+			 , FRST_REGIST_PNTTM
+			 , FRST_REGISTER_ID
+			 , LAST_UPDT_PNTTM
+			 , LAST_UPDUSR_ID
+			 , USE_AT
+			 , ACTION_TY_CODE
+		)
+		SELECT MENU_ID
+			 , #contentSn#
+			 , CNTNTS
+			 , FRST_REGIST_PNTTM
+			 , FRST_REGISTER_ID
+			 , LAST_UPDT_PNTTM
+			 , LAST_UPDUSR_ID
+			 , USE_AT
+			 , #actionTy#
+		  FROM TN_MENU_CNTNTS	
+		 WHERE MENU_ID = #menuNo#
+		
+	</insert>
+	
+	<select id="menuManageDAO.selectMenuActionTy" parameterClass="menuManageVO" resultClass="java.lang.String">
+	
+		SELECT DECODE(COUNT(1), 0, 'C', 'U') AS MENU_YN
+		  FROM TN_MENU_CNTNTS
+		 WHERE MENU_ID = #menuNo#
+
+	</select>
+	
+</sqlMap>

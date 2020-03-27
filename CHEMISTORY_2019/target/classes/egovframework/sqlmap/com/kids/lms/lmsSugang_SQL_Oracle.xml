@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="lmsSugangDAO">
+
+	<typeAlias  alias="LmsSugangVO" type="egovframework.com.kids.lms.vo.LmsSugangVO"/>
+	<typeAlias  alias="LmsSugangChasiResultVO" type="egovframework.com.kids.lms.vo.LmsSugangChasiResultVO"/>
+	
+	<resultMap id="selectLmsSugang" class="egovframework.com.kids.lms.vo.LmsSugangVO">
+		<result property="sugangId" 	column="SUGANG_ID"		/>
+		<result property="memberId" 	column="MEMBER_ID"		/>
+		<result property="sugangState" 	column="SUGANG_STATE"	/>
+		<result property="sugangAppDt" 	column="SUGANG_APP_DT"	/>
+		<result property="suryoDt" 		column="SURYO_DT"		/>
+		<result property="courseId" 	column="COURSE_ID"		/>
+		<result property="testPoint" 	column="TEST_POINT"		/>
+		<result property="testDt" 		column="TEST_DT"		/>
+		<result property="userEmail" 		column="EMAIL"		/>
+<!-- 		<result property="memberName" 	column="MEMBER_NAME"	/> -->
+		<result property="completenum" 	column="COMPLETENUM"	/>
+		<result property="endDate" 		column="END_DATE"		/>
+	</resultMap>
+	
+	<select id="LmsSugangDAO.selectLmsSugang" parameterClass="LmsSugangVO" resultMap="selectLmsSugang">
+		/* LmsSugangDAO.selectLmsSugang */
+		SELECT
+			LS.SUGANG_ID 
+			, LS.MEMBER_ID 
+			, LS.SUGANG_STATE 
+			, TO_CHAR(LS.SUGANG_APP_DT, 'YYYY.MM.DD') AS SUGANG_APP_DT 
+			, LS.SURYO_DT 
+			, LS.COURSE_ID 
+			, LS.TEST_POINT 
+			, TO_CHAR(LS.TEST_DT, 'YYYY.MM.DD') AS TEST_DT
+			, TMI.EMAIL 
+<!-- 			, LS.MEMBER_NAME  -->
+			, LS.COMPLETENUM
+			, (
+		      	SELECT
+		        	TO_CHAR(MAX(LSCR.CHASI_STUDY_DT), 'YYYY.MM.DD')
+		        FROM
+		        	LMS_SUGANG_CHASI_RESULT LSCR
+		        WHERE
+		        	LS.SUGANG_ID = LSCR.SUGANG_ID
+		    )  AS END_DATE
+		FROM
+			LMS_SUGANG LS
+		INNER JOIN
+			TC_MEMBER_INFORMATION TMI
+		ON
+			LS.MEMBER_ID = TMI.MEMBER_ID
+		AND LS.COURSE_ID = #courseId#
+		AND TMI.EMAIL = #userEmail#
+	</select>
+	
+	<insert id="LmsSugangDAO.insertLmsSugang" parameterClass="LmsSugangVO">
+		<selectKey resultClass="java.lang.Long" keyProperty="sugangId">
+			SELECT SEQ_SUGANG.NEXTVAL FROM dual
+		</selectKey>
+		/* LmsSugangDAO.insertLmsSugang */
+		INSERT INTO LMS_SUGANG
+		(
+			SUGANG_ID 
+			, MEMBER_ID 
+			, SUGANG_STATE 
+			, SUGANG_APP_DT 
+			, COURSE_ID 
+		)
+		VALUES
+		(
+			#sugangId# 
+			, (
+				SELECT
+					MAX(MEMBER_ID)
+				FROM
+					TC_MEMBER_INFORMATION TMI
+				WHERE
+					TMI.EMAIL = #userEmail#
+			) 
+			, 'SUGANG' 
+			, SYSDATE 
+			, #courseId# 
+		)
+	</insert>
+	
+	<update id="LmsSugangDAO.updateLmsSugangTestPoint" parameterClass="LmsSugangVO">
+		/* LmsSugangDAO.updateLmsSugangTestPoint */
+		UPDATE LMS_SUGANG
+		SET
+			TEST_POINT = #testPoint#
+			, TEST_DT = SYSDATE
+		WHERE
+			SUGANG_ID = #sugangId#
+	</update>
+	
+	<insert id="LmsSugangDAO.updateLmsSugangSuryo" parameterClass="LmsSugangVO">
+		<selectKey resultClass="java.lang.Long" keyProperty="completenum">
+			SELECT SEQ_COMPLETENUM.NEXTVAL FROM dual
+		</selectKey>
+		/* LmsSugangDAO.updateLmsSugangSuryo */
+		UPDATE LMS_SUGANG
+		SET
+			SURYO_DT = SYSDATE
+			, COMPLETENUM = #completenum#
+<!-- 			, MEMBER_NAME = #memberName# -->
+		WHERE
+			SUGANG_ID = #sugangId#
+	</insert>
+	
+	<insert id="LmsSugangDAO.insertLmsSugangChasiResult" parameterClass="LmsSugangChasiResultVO">
+		/* LmsSugangDAO.insertLmsSugangChasiResult */
+		INSERT INTO LMS_SUGANG_CHASI_RESULT
+		(
+			SUGANG_ID
+			, CHASI_ID
+			, CHASI_STUDY_DT
+		)
+		VALUES
+		(
+			#sugangId#
+			, #chasiId#
+			, SYSDATE
+		)
+	</insert>
+	
+	<select id="LmsSugangDAO.selectLmsSugangChasiResultCount" parameterClass="LmsSugangChasiResultVO" resultClass="java.lang.Integer">
+		/* LmsSugangDAO.selectLmsSugangChasiResultCount */
+		SELECT
+			COUNT(*)
+		FROM
+			LMS_SUGANG_CHASI_RESULT
+		WHERE
+			SUGANG_ID = #sugangId#
+		AND CHASI_ID = #chasiId#
+	</select>
+
+</sqlMap>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="lmsQuestionDAO">
+	<typeAlias  alias="LmsQuestionVO" type="egovframework.com.kids.lms.vo.LmsQuestionVO"/>
+	<typeAlias  alias="LmsTestResultVO" type="egovframework.com.kids.lms.vo.LmsTestResultVO"/>
+	
+	<resultMap id="selectLmsQuestionListByCourseId" class="egovframework.com.kids.lms.vo.LmsQuestionVO">
+		<result property="questionId" 		column="QUESTION_ID"	/>
+		<result property="questionType" 	column="QUESTION_TYPE"	/>
+		<result property="questionNum" 		column="QUESTION_NUM"	/>
+		<result property="questionTitle" 	column="QUESTION_TITLE"	/>
+		<result property="item1" 			column="ITEM_1"			/>
+		<result property="item2" 			column="ITEM_2"			/>
+		<result property="item3" 			column="ITEM_3"			/>
+		<result property="item4" 			column="ITEM_4"			/>
+		<result property="courseId" 		column="COURSE_ID"		/>
+		<result property="rightAnswer" 		column="RIGHT_ANSWER"	/>
+		<result property="useCount" 		column="USE_COUNT"		/>
+	</resultMap>
+	
+	<select id="LmsQuestionDAO.selectLmsQuestionListByCourseId" parameterClass="LmsQuestionVO" resultMap="selectLmsQuestionListByCourseId">
+		/* LmsQuestionDAO.selectLmsQuestionListByCourseId */
+		SELECT
+			LQ.QUESTION_ID 
+			, LQ.QUESTION_TYPE 
+			, LQ.QUESTION_NUM 
+			, LQ.QUESTION_TITLE 
+			, LQ.ITEM_1 
+			, LQ.ITEM_2 
+			, LQ.ITEM_3 
+			, LQ.ITEM_4 
+			, LQ.COURSE_ID 
+			, LQ.RIGHT_ANSWER
+			, (
+				SELECT
+					COUNT(*)
+				FROM
+					LMS_TEST_RESULT LTR
+				WHERE
+					LTR.QUESTION_ID = LQ.QUESTION_ID
+			) AS USE_COUNT
+		FROM
+			LMS_QUESTION LQ
+		WHERE
+			LQ.COURSE_ID = #courseId#
+		ORDER BY
+			LQ.QUESTION_NUM ASC
+	</select>
+	
+	<resultMap id="selectLmsQuestion" class="egovframework.com.kids.lms.vo.LmsQuestionVO">
+		<result property="questionId" 		column="QUESTION_ID"	/>
+		<result property="questionType" 	column="QUESTION_TYPE"	/>
+		<result property="questionNum" 		column="QUESTION_NUM"	/>
+		<result property="questionTitle" 	column="QUESTION_TITLE"	/>
+		<result property="item1" 			column="ITEM_1"			/>
+		<result property="item2" 			column="ITEM_2"			/>
+		<result property="item3" 			column="ITEM_3"			/>
+		<result property="item4" 			column="ITEM_4"			/>
+		<result property="courseId" 		column="COURSE_ID"		/>
+		<result property="rightAnswer" 		column="RIGHT_ANSWER"	/>
+	</resultMap>
+	
+	<select id="LmsQuestionDAO.selectLmsQuestion" parameterClass="LmsQuestionVO" resultMap="selectLmsQuestion">
+		/* LmsQuestionDAO.selectLmsQuestion */
+		SELECT
+			LQ.QUESTION_ID 
+			, LQ.QUESTION_TYPE 
+			, LQ.QUESTION_NUM 
+			, LQ.QUESTION_TITLE 
+			, LQ.ITEM_1 
+			, LQ.ITEM_2 
+			, LQ.ITEM_3 
+			, LQ.ITEM_4 
+			, LQ.COURSE_ID 
+			, LQ.RIGHT_ANSWER
+		FROM
+			LMS_QUESTION LQ
+		WHERE
+			LQ.QUESTION_ID = #questionId#
+	</select>
+	
+	<insert id="LmsQuestionDAO.insertLmsQuestion" parameterClass="LmsQuestionVO">
+		<selectKey resultClass="java.lang.Long" keyProperty="questionId">
+			SELECT SEQ_QUESTION.NEXTVAL FROM dual
+		</selectKey>
+		/* LmsQuestionDAO.insertLmsQuestion */
+		INSERT INTO LMS_QUESTION
+		(
+			QUESTION_ID 
+			, QUESTION_TYPE 
+			, QUESTION_NUM 
+			, QUESTION_TITLE 
+			, ITEM_1 
+			, ITEM_2 
+			, ITEM_3 
+			, ITEM_4 
+			, COURSE_ID 
+			, RIGHT_ANSWER
+		)
+		VALUES
+		(
+			#questionId#
+			, #questionType#
+			, #questionNum#
+			, #questionTitle#
+			, #item1#
+			, #item2#
+			, #item3#
+			, #item4#
+			, #courseId#
+			, #rightAnswer#
+		)
+	</insert>
+	
+	<update id="LmsQuestionDAO.updateLmsQuestion" parameterClass="LmsQuestionVO">
+		/* LmsQuestionDAO.updateLmsQuestion */
+		UPDATE LMS_QUESTION
+		SET
+			QUESTION_TYPE = #questionType# 
+			, QUESTION_NUM = #questionNum# 
+			, QUESTION_TITLE = #questionTitle# 
+			, ITEM_1 = #item1#
+			, ITEM_2 = #item2#
+			, ITEM_3 = #item3#
+			, ITEM_4 = #item4#
+			, RIGHT_ANSWER = #rightAnswer#
+		WHERE
+			QUESTION_ID = #questionId#
+	</update>
+	
+	<delete id="LmsQuestionDAO.deleteLmsQuestion" parameterClass="LmsQuestionVO">
+		/* LmsQuestionDAO.deleteLmsQuestion */
+		DELETE
+		FROM
+			LMS_QUESTION
+		WHERE
+			QUESTION_ID = #questionId#
+	</delete>
+	
+	<delete id="LmsQuestionDAO.deleteLmsQuestionAllByCourseId" parameterClass="LmsQuestionVO">
+		/* LmsQuestionDAO.deleteLmsQuestionAllByCourseId */
+		DELETE
+		FROM
+			LMS_QUESTION
+		WHERE
+			COURSE_ID = #courseId#
+	</delete>
+	
+	<insert id="LmsQuestionDAO.insertLmsTestResult" parameterClass="LmsTestResultVO">
+		/* LmsQuestionDAO.insertLmsTestResult */
+		INSERT INTO LMS_TEST_RESULT
+		(
+			QUESTION_ID
+			, SUGANG_ID
+			, CHOICE_QUESTION
+		)
+		VALUES
+		(
+			#questionId#
+			, #sugangId#
+			, #choiceQuestion#
+		)
+	</insert>
+	
+	<resultMap id="selectLmsQuestionResult" class="egovframework.com.kids.lms.vo.LmsQuestionVO">
+		<result property="questionType" 	column="QUESTION_TYPE"		/>
+		<result property="questionNum" 		column="QUESTION_NUM"		/>
+		<result property="questionTitle" 	column="QUESTION_TITLE"		/>
+		<result property="item1" 			column="ITEM_1"				/>
+		<result property="item2" 			column="ITEM_2"				/>
+		<result property="item3" 			column="ITEM_3"				/>
+		<result property="item4" 			column="ITEM_4"				/>
+		<result property="rightAnswer" 		column="RIGHT_ANSWER"		/>
+		<result property="choiceQuestion" 	column="CHOICE_QUESTION"	/>
+	</resultMap>
+	
+	<select id="LmsQuestionDAO.selectLmsQuestionResult" parameterClass="LmsQuestionVO" resultMap="selectLmsQuestionResult">
+		/* LmsQuestionDAO.selectLmsQuestionResult */
+		SELECT
+			QUESTION_TYPE 
+			, QUESTION_NUM 
+			, QUESTION_TITLE 
+			, ITEM_1 
+			, ITEM_2 
+			, ITEM_3 
+			, ITEM_4 
+			, RIGHT_ANSWER
+			, LTR.CHOICE_QUESTION
+		FROM
+			LMS_TEST_RESULT LTR
+		INNER JOIN
+			LMS_QUESTION LQ
+		ON
+			LTR.QUESTION_ID = LQ.QUESTION_ID
+		WHERE
+			LTR.SUGANG_ID = #sugangId#
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,58 @@
+<head>
+<script language="JavaScript" src="../common/js/embed.js"></script>
+<script>document.write('<TITLE>'+course_name+'</TITLE>');</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+
+<script language="JavaScript" type="TEXT/JAVASCRIPT" src="../common/js/link.js"></script>
+<script type="text/javascript">
+
+
+function save_txt(a,b) {
+		var fso,folder
+		var folderexist;
+        var folder="C:\\윤리경영";
+        var filename="C:\\윤리경영\\"+a+"차시.txt";
+		var fso=new ActiveXObject("Scripting.FileSystemObject");
+		
+	    folderexist=false;
+
+		 if(!fso.FolderExists(folder)){
+			fso.CreateFolder(folder);
+		  }
+
+		if (!fso.FileExists(filename)) {
+            fso.CreateTextFile(filename,true);
+        }
+        var f=fso.OpenTextFile(filename,2,true);
+        f.Write(b);
+		alert(filename+"에 저장되었습니다.");
+        f.Close();
+    }
+
+</script>
+
+</head>
+
+<body>
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="580" height="800" id="variable_load_test" align="middle">
+<param name="allowScriptAccess" value="Always" />
+<param name="movie" value="swf/print.swf"/>
+<param name="quality" value="high" />
+<param name="bgcolor" value="#ffffff" />
+<embed src="swf/print.swf" quality="high" bgcolor="#ffffff" width="580" height="800" name="variable_load_test" align="middle" allowScriptAccess="Always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+</object>
+<!-- <script>pupup_js()</script> -->
+<iframe name="note" border="0"></iframe>
+</body>
+</html>

@@ -1,0 +1,22 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+td, BODY {
+	SCROLLBAR-FACE-COLOR: #f6f6f6; SCROLLBAR-HIGHLIGHT-COLOR: #f6f6f6; SCROLLBAR-SHADOW-COLOR: #D7D7D7; SCROLLBAR-3DLIGHT-COLOR: #B2B2B2; SCROLLBAR-ARROW-COLOR: #666666; SCROLLBAR-TRACK-COLOR:#D7D7D7 ; SCROLLBAR-DARKSHADOW-COLOR: #D7D7D7;
+}
+
+a:link{text-decoration:none; color:#006666; font-family: "±¼¸²";}
+a:visited{text-decoration:none; color:#000000; font-family: "±¼¸²";}
+a:active {text-decoration:none; COLOR: #006666; TEXT-DECORATION: none}
+a:hover { text-decoration:underline; color:#545A6A; font-family: "±¼¸²"; }
+td{font-family:±¼¸²; font-size:12px; line-height:15px; color:#545A6A;}
+
+.small {font-family: "µ¸¿ò"; font-size: 11px;  line-height:15px; color: #666666; text-decoration: none}
+.layer {font-family: "±¼¸²"; font-size: 11px;  line-height:13px; color: #00185B; text-decoration: none}
+.title {font-family: "±¼¸²"; font-size: 14px;  line-height:17px; color: #00185B; text-decoration: none}
+
+body {font-family:±¼¸²; font-size:9pt; color:#000000; line-height:14pt}
+.htext {font-family:±¼¸²; font-size:9pt; color:#000000; line-height:14pt}

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<script language="javascript" src="resources/common/courseconfig.js"></script>
+<script>document.write('<TITLE>'+course_name+'</TITLE>');</script>
+<link href="setting/main.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+<!--
+
+function itostr(inum){
+	return inum<10 ? "0"+inum : inum;
+}
+
+function go_intro(num){
+	url = "resources/"+itostr(num)+"/index_cd.html";
+	authwin = window.open(url, "", "menubar=no,toolbar=no,location=no,status=yes,scrollbars=no, width=1020, height=667,top=0,left=0");
+}
+
+function open_ppt(num){
+	url = "ppt/"+itostr(num)+".ppt";
+	pptwin = window.open(url, "study", "menubar=no,toolbar=no,location=no,status=yes,scrollbars=no, width=1000, height=680,top=0,left=0");
+}
+
+function view(){
+	settingWin="setting/open.html";
+	authwin = window.open(settingWin, "setting", "menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=600");
+}
+
+function WinClose(){
+	window.close();
+}
+//-->
+</script>
+</head>
+
+
+<body>
+<table width ="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td align="center">
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td class="top_bg" align="center" valign="top">
+		<table width="94%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td height="74" align="right" valign="top">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+			<td height="22" colspan="3"></td>
+			</tr>
+			<tr>
+			<td width="20"></td>
+			<script>document.write('<td align="left" class="title_text">'+course_name+'</td>');</script>
+			<td align="right"><img src="./setting/images/btn_05.gif" width="50" height="19" style="cursor:hand" onclick="WinClose()"></td>
+			</tr>
+			</table>
+		</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	<tr>
+	<td class="middle_bg" align="center">
+		<table width="650" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td height="25" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+		<td>
+			<table width="100%" border="1" cellspacing="3" cellpadding="3">
+			<tr>
+			<td class="ListTitleSmall"></td>
+			</tr>
+			<tr>
+			<td>
+				<table border="0" cellspacing="0" cellpadding="0" id="LecList">
+				<tr height="28"> 
+				<script>
+					for(var i=0 ; i<ch_name[0].length ; i++){
+						document.write('<td width="">'+ch_name[0][i]+'</td>');
+						if(i==ch_name[0].length-1){
+
+						}else{
+							document.write('<td class="ListSeperator"></td>');
+						}
+					}
+				</script>
+				</tr>
+				<tr>
+				<td colspan="5" class="list_line"></td>
+				</tr>
+				<tr> 
+				<td colspan="5" height="1"></td>
+				</tr>
+				<tr> 
+				<td colspan="5" class="list_line"></td>
+				</tr>
+
+				<script>
+					for(var i=0 ; i<ch_name[1].length ; i++){
+						if(ch_name[1][i]){
+							document.write('<tr class="list_color_02"> ');
+							document.write('<td>'+i+'</td>');
+							document.write('<td></td>');
+							document.write('<td class="text_04">'+ch_name[1][i]+'</td>');
+							document.write('<td></td>');
+							document.write('<td class="text_03">');
+							if(ch_name[2][i]=="완료"){
+								document.write('<a href=javascript:go_intro('+i+');><img src="setting/images/btn_02.gif" border="0"></a></td>');
+							}else if(ch_name[2][i]=="개발중"){
+								document.write('<a href=javascript:go_intro('+i+');><img src="setting/images/btn_04.gif" alt="" width="43" height="16" border="0"></td>');
+							}else{
+								document.write('<img src="setting/images/btn_03.gif" alt="" width="43" height="16" border="0"></td>');
+							}
+							/*document.write('<td></td>');
+							if(ch_name[3][i]=="완료"){
+								document.write('<td class="text_03"><a href=javascript:open_ppt('+i+');><img src="setting/images/btn_07.gif" alt="" width="43" height="16" border="0"></a></td>');
+							}else{
+								document.write('<td class="text_03"><img src="setting/images/btn_06.gif" alt="" width="43" height="16" border="0"></td>');
+							}*/
+							document.write('</tr>');
+							document.write('<tr> ');
+							document.write('<td colspan="5" class="list_line"></td>');
+							document.write('</tr>');
+						}
+					}
+				</script>
+
+				<tr> 
+				<td colspan='5' class='list_line'></td>
+				</tr>
+				<tr> 
+				<td colspan='5' class='' height="250" align="" style="padding-left:32"> 
+				<div align="left" style="font: 12px;"> <br>
+				<br>
+				<b>[유의사항]</b><br>
+				<br>
+				<script>var setName="setting/pop.swf"; var setWidth=495; var setHeight=120; var setID="swfcontent";var setInfo="";</script>
+				<script src="setting/Set_ie.js"></script>
+				<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:view();">- 
+				자세히 보기 <- 클릭</a><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.macromedia.com/support/documentation/kr/flashplayer/help/settings_manager04.html" target="_blank">- 
+				adobe 사이트의 설정 관리자의 전역 보안 설정 패널로 이동하신후 <font style="color:red">[항상 
+				허용]</font>탭을 클릭하여 주시기 바랍니다. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.macromedia.com/support/documentation/kr/flashplayer/help/settings_manager04.html</a> 
+				<p style="padding:0 0 0 50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="setting/settings/let_comm_local_1.jpg" alt="" width="452" height="206" border="0"></p>
+				</div></td>
+				</tr>
+				<tr> 
+				<td class='list_line' colspan='5'></td>
+				</tr>
+				<tr> 
+				<td colspan='5' class='list_line'></td>
+				</tr>
+				<tr> 
+				<td colspan="5" height="1"></td>
+				</tr>
+				<tr> 
+				<td colspan="5" class="list_line"></td>
+				</tr>
+				<tr> 
+				<td colspan="5" class="list_line"></td>
+				</tr>
+				</table>
+			</td>
+			</tr>
+			<tr>
+			<td>
+
+			</td>
+			</tr>
+			</table>
+		</td>
+		</tr>
+		<tr>
+		<td height="20"></td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	<tr>
+	<td class="bottom_bg"></td>
+	</tr>
+	</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

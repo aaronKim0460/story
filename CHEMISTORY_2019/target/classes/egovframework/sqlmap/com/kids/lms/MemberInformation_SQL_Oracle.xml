@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="memberInformationDAO">
+
+	<typeAlias  alias="MemberInformationVO" type="egovframework.com.kids.lms.vo.MemberInformationVO"/>
+
+	<resultMap id="selectMemberInformationByEmail" class="egovframework.com.kids.lms.vo.MemberInformationVO">
+		<result property="memberId" 	column="MEMBER_ID"		/>
+		<result property="memberPw" 	column="MEMBER_PW"		/>
+		<result property="memberName" 	column="MEMBER_NAME"	/>
+		<result property="email" 		column="EMAIL"			/>
+	</resultMap>
+
+	<select id="MemberInformationDAO.selectMemberInformationByEmail" parameterClass="MemberInformationVO" resultMap="selectMemberInformationByEmail">
+		/* MemberInformationDAO.selectMemberInformationByEmail */
+		SELECT
+			TMI.MEMBER_ID
+			, TMI.MEMBER_PW
+			, TMI.MEMBER_NAME
+			, TMI.EMAIL
+		FROM
+			TC_MEMBER_INFORMATION TMI
+		WHERE
+			TMI.EMAIL = #email#
+	</select>
+	
+	<insert id="MemberInformationDAO.insertMemberInformation" parameterClass="MemberInformationVO">
+		/* MemberInformationDAO.insertMemberInformation */
+		INSERT INTO TC_MEMBER_INFORMATION
+		(
+			MEMBER_ID
+			, MEMBER_PW
+			, EMAIL
+			, MEMBER_NAME
+		)
+		VALUES
+		(
+			#memberId#
+			, #memberPw#
+			, #email#
+			, 'SYSTEM'
+		)
+	</insert>
+</sqlMap>

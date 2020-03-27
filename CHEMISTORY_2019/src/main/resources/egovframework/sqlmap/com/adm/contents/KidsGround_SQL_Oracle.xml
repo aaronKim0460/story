@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="KidsGround">
+
+    <typeAlias  alias="KidsGroundFaciltyVO" type="egovframework.com.adm.contents.kidsGround.vo.KidsGroundFaciltyVO"/>
+    <typeAlias  alias="KidsGroundReliefVO" type="egovframework.com.adm.contents.kidsGround.vo.KidsGroundReliefVO"/>
+
+    <resultMap id="kidsListVo" class="egovframework.com.adm.contents.kidsGround.vo.KidsGroundFaciltyVO">
+        <result property="fcltySn"      		column="FCLTY_SN"			columnIndex="1"/>
+		<result property="fcltyNo"	    		column="FCLTY_NO"			columnIndex="2"/>
+		<result property="fcltyNm"	    		column="FCLTY_NM"			columnIndex="3"/>
+		<result property="adres1"      			column="ADRES1"				columnIndex="4"/>
+		<result property="adres2"	   			column="ADRES2"				columnIndex="5"/>
+		<result property="instlDt"      		column="INSTL_DT"			columnIndex="6"/>
+		<result property="plcstra"      		column="PLCSTRA"			columnIndex="7"/>
+		<result property="operSe"      			column="OPER_SE"			columnIndex="8"/>
+		<result property="areaCl"      			column="AREA_CL"			columnIndex="9"/>
+		<result property="publicSe"	    		column="PUBLIC_SE"			columnIndex="10"/>
+		<result property="inoutSe"	    		column="INOUT_SE"			columnIndex="11"/>
+		<result property="fcltySe"	    		column="FCLTY_SE"			columnIndex="12"/>
+		<result property="instlYaar"	    	column="INSTL_YEAR"			columnIndex="13"/>
+		<result property="schulClsf"      		column="SCHUL_CLSF"			columnIndex="14"/>
+		<result property="ofcdc"      			column="OFCDC"				columnIndex="15"/>
+		<result property="pcpskl"	    		column="PCPSKL"				columnIndex="16"/>
+		<result property="fondSe"      			column="FOND_SE"			columnIndex="17"/>
+		<result property="schulSttus"	    	column="SCHUL_STTUS"		columnIndex="18"/>
+		<result property="fcltyTy"      		column="FCLTY_TY"			columnIndex="19"/>
+		<result property="arTotal"      		column="AR_TOTAL"			columnIndex="20"/>
+		<result property="arNrtrRoom"	    	column="AR_NRTR_ROOM"		columnIndex="21"/>
+		<result property="arBathRoom"     	 	column="AR_BATH_ROOM"		columnIndex="22"/>
+		<result property="arToilet"	    		column="AR_TOILET"			columnIndex="23"/>
+		<result property="arCookRoom"      		column="AR_COOK_ROOM"		columnIndex="24"/>
+		<result property="arOffm"	    		column="AR_OFFM"			columnIndex="25"/>
+		<result property="arMdlrtRoom"      	column="AR_MDLRT_ROOM"		columnIndex="26"/>
+		<result property="arEtc"	    		column="AR_ETC"				columnIndex="27"/>
+		<result property="arPlyRoom"      		column="AR_PLY_ROOM"		columnIndex="28"/>
+		<result property="resistDt"      		column="RESIST_DT"			columnIndex="29"/>
+		<result property="resisterId"      		column="REGISTER_ID"		columnIndex="30"/>
+		<result property="updtDt"      			column="UPDT_DT"			columnIndex="31"/>
+		<result property="udptId"				column="UPDT_ID"			columnIndex="32"/>
+		<result property="areaDetailCl"			column="AREA_DETAIL_CL"		columnIndex="33"/>
+		<result property="arAboveAt"			column="AR_ABOVE_AT"		columnIndex="34"/>
+		<result property="crtfcJdgmnDe"			column="CRTFC_JDGMN_DE"		columnIndex="35"/>
+		<result property="inspctJdgmnDe"		column="INSPCT_JDGMN_DE"	columnIndex="36"/>
+    </resultMap>
+    
+    <resultMap id="kidsDetailMap" class="egovframework.com.adm.contents.kidsGround.vo.KidsGroundFaciltyVO">
+    	<result property="fcltySn"      		column="FCLTY_SN"			columnIndex="1"/>
+		<result property="fcltyNo"	    		column="FCLTY_NO"			columnIndex="2"/>
+		<result property="fcltyNm"	    		column="FCLTY_NM"			columnIndex="3"/>
+		<result property="adres1"      			column="ADRES1"				columnIndex="4"/>
+		<result property="adres2"	   			column="ADRES2"				columnIndex="5"/>
+		<result property="fcltyTy"      		column="FCLTY_TY"			columnIndex="6"/>
+		<result property="areaCl"      			column="AREA_CL"			columnIndex="7"/>
+		<result property="areaDetailCl"			column="AREA_DETAIL_CL"		columnIndex="8"/>
+		<result property="instlDt"      		column="INSTL_DT"			columnIndex="9"/>
+		<result property="ofcdc"      			column="OFCDC"				columnIndex="10"/>
+		<result property="pcpskl"	    		column="PCPSKL"				columnIndex="11"/>
+		<result property="fondSe"      			column="FOND_SE"			columnIndex="12"/>
+		<result property="schulSttus"	    	column="SCHUL_STTUS"		columnIndex="13"/>
+    </resultMap>
+    
+    <resultMap id="kidsReliefListVo" class="egovframework.com.adm.contents.kidsGround.vo.KidsGroundReliefVO">
+    	<result property="crtfcSn"      		column="CRTFC_SN"			columnIndex="1"/>
+    	<result property="postpneAt"      		column="POSTPNE_AT"			columnIndex="2"/>
+    	<result property="applcYear"      		column="APPLC_YEAR"			columnIndex="3"/>
+    	<result property="crtfcAt"      		column="CRTFC_AT"			columnIndex="4"/>
+    	<result property="crtfcDt"      		column="CRTFC_DT"			columnIndex="5"/>
+    	<result property="crtfcNo"      		column="CRTFC_NO"			columnIndex="6"/>
+    	<result property="fcltyNm"      		column="FCLTY_NM"			columnIndex="7"/>
+    	<result property="rprsntv"      		column="RPRSNTV"			columnIndex="8"/>
+    	<result property="locplc"      			column="LOCPLC"				columnIndex="9"/>
+    	<result property="crtfcBgnde"      		column="CRTFC_BGNDE"		columnIndex="10"/>
+    	<result property="crtfcEndde"      		column="CRTFC_ENDDE"		columnIndex="11"/>
+    	<result property="fcltySn"      		column="FCLTY_SN"			columnIndex="12"/>
+    	<result property="instlDt"      		column="INSTL_DT"			columnIndex="13"/>
+    	<result property="operSe"      			column="OPER_SE"			columnIndex="14"/>
+    	<result property="areaCl"      			column="AREA_CL"			columnIndex="15"/>
+    	<result property="areaDetailCl"      	column="AREA_DETAIL_CL"		columnIndex="16"/>
+    	<result property="fcltyTy"      		column="FCLTY_TY"			columnIndex="17"/>
+    	<result property="registDt"      		column="REGIST_DT"			columnIndex="18"/>
+    	<result property="registerId"      		column="REGISTER_ID"		columnIndex="19"/>
+    	<result property="updtDt"      			column="UPDT_DT"			columnIndex="20"/>    	
+    	<result property="updtId"      			column="UPDT_ID"			columnIndex="21"/>    	
+    </resultMap>
+    
+    <select id="KidsGroundDao.selectKidsGroundFaciltyList" parameterClass="KidsGroundFaciltyVO" resultMap="kidsListVo">
+    /* KidsGroundDao.selectKidsGroundFaciltyList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT
+				FCLTY_SN
+			    ,FCLTY_NO
+			    ,FCLTY_NM
+			    ,ADRES1
+			    ,ADRES2
+			    ,INSTL_DT
+			    ,PLCSTRA
+			    ,OPER_SE
+			    ,AREA_CL
+			    ,PUBLIC_SE
+			    ,INOUT_SE
+			    ,FCLTY_SE
+			    ,INSTL_YEAR
+			    ,SCHUL_CLSF
+			    ,OFCDC
+			    ,PCPSKL
+			    ,FOND_SE
+			    ,SCHUL_STTUS
+			    ,FCLTY_TY
+			    ,AR_TOTAL
+			    ,AR_NRTR_ROOM
+			    ,AR_BATH_ROOM
+			    ,AR_TOILET
+			    ,AR_COOK_ROOM
+			    ,AR_OFFM
+			    ,AR_MDLRT_ROOM
+			    ,AR_ETC
+			    ,AR_PLY_ROOM
+			    ,RESIST_DT
+			    ,REGISTER_ID
+			    ,UPDT_DT
+			    ,UPDT_ID
+			    ,AREA_DETAIL_CL
+			    ,AR_ABOVE_AT
+			    ,CRTFC_JDGMN_DE
+			    ,INSPCT_JDGMN_DE
+			FROM
+				 TC_FCLTY
+			<dynamic prepend="WHERE">
+		    	<isNotEmpty prepend="AND" property="searchArea">
+		    		FCLTY_TY = #searchArea#
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<isEqual property="searchCnd" compareValue="fct">
+			    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    		<isEqual property="searchCnd" compareValue="fix">
+			    		<![CDATA[	PLCSTRA LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>		    		
+		    	</isNotEmpty>		    	
+		    </dynamic>
+			ORDER BY
+				 FCLTY_SN DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="KidsGroundDao.selectKidsGroundFaciltyListCnt" parameterClass="KidsGroundFaciltyVO" resultClass="int">
+    /* KidsGroundDao.selectKidsGroundFaciltyListCnt */
+    SELECT 
+    	count(*)
+    FROM
+    	TC_FCLTY
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchArea">
+    		FCLTY_TY = #searchArea#
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="fct">
+	    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="fix">
+	    		<![CDATA[	PLCSTRA LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>		    		
+    	</isNotEmpty>
+    </dynamic>
+    </select>
+    
+    <select id="KidsGroundDao.detailKidsGroundCurrent" parameterClass="KidsGroundFaciltyVO" resultMap="kidsDetailMap">
+    /* KidsGroundDao.detailKidsGroundCurrent */
+    SELECT
+		FCLTY_SN
+	    ,FCLTY_NO
+	    ,FCLTY_NM
+	    ,ADRES1
+	    ,ADRES2
+	    ,FCLTY_TY
+	    ,AREA_CL
+	    ,AREA_DETAIL_CL
+	    ,INSTL_DT
+	    ,OFCDC
+	    ,PCPSKL
+	    ,FOND_SE
+	    ,SCHUL_STTUS
+	FROM
+		TC_FCLTY
+	WHERE
+		FCLTY_SN = #fcltySn#
+    </select>
+    
+    <select id="KidsGroundDao.selectKidsGroundFaciltyExcelList" parameterClass="KidsGroundFaciltyVO" resultMap="kidsListVo">
+    /* KidsGroundDao.selectKidsGroundFaciltyExcelList */
+	SELECT
+		FCLTY_SN
+	    ,FCLTY_NO
+	    ,FCLTY_NM
+	    ,ADRES1
+	    ,ADRES2
+	    ,INSTL_DT
+	    ,PLCSTRA
+	    ,OPER_SE
+	    ,AREA_CL
+	    ,PUBLIC_SE
+	    ,INOUT_SE
+	    ,FCLTY_SE
+	    ,INSTL_YEAR
+	    ,SCHUL_CLSF
+	    ,OFCDC
+	    ,PCPSKL
+	    ,FOND_SE
+	    ,SCHUL_STTUS
+	    ,FCLTY_TY
+	    ,AR_TOTAL
+	    ,AR_NRTR_ROOM
+	    ,AR_BATH_ROOM
+	    ,AR_TOILET
+	    ,AR_COOK_ROOM
+	    ,AR_OFFM
+	    ,AR_MDLRT_ROOM
+	    ,AR_ETC
+	    ,AR_PLY_ROOM
+	    ,RESIST_DT
+	    ,REGISTER_ID
+	    ,UPDT_DT
+	    ,UPDT_ID
+	    ,AREA_DETAIL_CL
+	    ,AR_ABOVE_AT
+	    ,CRTFC_JDGMN_DE
+	    ,INSPCT_JDGMN_DE
+	FROM
+		 TC_FCLTY
+	<dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchArea">
+    		FCLTY_TY = #searchArea#
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="fct">
+	    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="fix">
+	    		<![CDATA[	PLCSTRA LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>		    		
+    	</isNotEmpty>
+    </dynamic>
+	ORDER BY
+		 FCLTY_SN DESC
+    </select>
+    
+    <delete id="KidsGroundDao.deleteFcltyTable">
+    /* KidsGroundDao.deleteFcltyTable */
+    DELETE FROM TC_FCLTY
+    </delete>
+    
+    <insert id="KidsGroundDao.insertFcltyData" parameterClass="KidsGroundFaciltyVO">
+    /* KidsGroundDao.insertFcltyData */
+    INSERT INTO TC_FCLTY    		
+    	(	FCLTY_SN
+			,FCLTY_NO
+			,FCLTY_NM
+			,ADRES1
+			,ADRES2
+			,INSTL_DT
+			,PLCSTRA
+			,OPER_SE
+			,AREA_CL
+			,PUBLIC_SE
+			,INOUT_SE
+			,FCLTY_SE
+			,INSTL_YEAR
+			,SCHUL_CLSF
+			,OFCDC
+			,PCPSKL
+			,FOND_SE
+			,SCHUL_STTUS
+			,FCLTY_TY
+			,AR_TOTAL
+			,AR_NRTR_ROOM
+			,AR_BATH_ROOM
+			,AR_TOILET
+			,AR_COOK_ROOM
+			,AR_OFFM
+			,AR_MDLRT_ROOM
+			,AR_ETC
+			,AR_PLY_ROOM
+			,RESIST_DT
+			,REGISTER_ID
+			,UPDT_DT
+			,UPDT_ID
+			,AREA_DETAIL_CL
+			,AR_ABOVE_AT)
+	VALUES(
+			#fcltySn#
+			,#fcltyNo#
+			,#fcltyNm#
+			,#adres1#
+			,#adres2#
+			,#instlDt#
+			,#plcstra#
+			,#operSe#
+			,#areaCl#
+			,#publicSe#
+			,#inoutSe#
+			,#fcltySe#
+			,#instlYaar#
+			,#schulClsf#
+			,#ofcdc#
+			,#pcpskl#
+			,#fondSe#
+			,#schulSttus#
+			,#fcltyTy#
+			,#arTotal#
+			,#arNrtrRoom#
+			,#arBathRoom#
+			,#arToilet#
+			,#arCookRoom#
+			,#arOffm#
+			,#arMdlrtRoom#
+			,#arEtc#
+			,#arPlyRoom#
+			,#resistDt#
+			,#resisterId#
+			,#updtDt#
+			,#udptId#
+			,#areaDetailCl#
+			,#arAboveAt#
+	)
+    </insert>
+    
+    <select id="KidsGroundDao.selectKidsGroundRelief" parameterClass="KidsGroundReliefVO" resultMap="kidsReliefListVo">
+    /* KidsGroundDao.selectKidsGroundRelief */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT
+				CRTFC_SN
+				,POSTPNE_AT
+				,APPLC_YEAR
+				,CRTFC_AT
+				,CRTFC_DT
+				,CRTFC_NO
+				,FCLTY_NM
+				,RPRSNTV
+				,LOCPLC
+				,CRTFC_BGNDE
+				,CRTFC_ENDDE
+				,FCLTY_SN
+				,INSTL_DT
+				,OPER_SE
+				,AREA_CL
+				,AREA_DETAIL_CL
+				,FCLTY_TY
+				,REGIST_DT
+				,REGISTER_ID
+				,UPDT_DT
+				,UPDT_ID
+			FROM
+				 TC_FCLTY_CRTFC_RESULT
+			<dynamic prepend="WHERE">
+		    	<isNotEmpty prepend="AND" property="searchArea">
+		    		FCLTY_TY = #searchArea#
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<isEqual property="searchCnd" compareValue="fct">
+			    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>
+		    		<isEqual property="searchCnd" compareValue="fix">
+			    		<![CDATA[	CRTFC_NO LIKE '%' || #searchKeyword# || '%' 		]]>
+			    	</isEqual>		    		
+		    	</isNotEmpty>
+		    </dynamic>
+			ORDER BY
+				 CRTFC_SN DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="KidsGroundDao.selectKidsGroundReliefCnt" parameterClass="KidsGroundReliefVO" resultClass="int">
+    /* KidsGroundDao.selectKidsGroundReliefCnt */
+    SELECT
+		COUNT(*)
+	FROM
+		 TC_FCLTY_CRTFC_RESULT
+	<dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchArea">
+    		FCLTY_TY = #searchArea#
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="fct">
+	    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="fix">
+	    		<![CDATA[	CRTFC_NO LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>		    		
+    	</isNotEmpty>
+    </dynamic>
+    </select>
+    
+    <select id="KidsGroundDao.selectKidsGroundReliefExcel" parameterClass="KidsGroundReliefVO" resultMap="kidsReliefListVo">
+    /* KidsGroundDao.selectKidsGroundReliefExcel */
+    SELECT
+		CRTFC_SN
+		,POSTPNE_AT
+		,APPLC_YEAR
+		,CRTFC_AT
+		,CRTFC_DT
+		,CRTFC_NO
+		,FCLTY_NM
+		,RPRSNTV
+		,LOCPLC
+		,CRTFC_BGNDE
+		,CRTFC_ENDDE
+		,FCLTY_SN
+		,INSTL_DT
+		,OPER_SE
+		,AREA_CL
+		,AREA_DETAIL_CL
+		,FCLTY_TY
+		,REGIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+	FROM
+		 TC_FCLTY_CRTFC_RESULT
+	<dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="searchArea">
+    		FCLTY_TY = #searchArea#
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCnd" compareValue="fct">
+	    		<![CDATA[	FCLTY_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>
+    		<isEqual property="searchCnd" compareValue="fix">
+	    		<![CDATA[	CRTFC_NO LIKE '%' || #searchKeyword# || '%' 		]]>
+	    	</isEqual>		    		
+    	</isNotEmpty>
+    </dynamic>
+	ORDER BY
+		 CRTFC_SN DESC
+    </select>
+    
+    <delete id="KidsGroundDao.deleteFcltyReliefTable">
+    /* KidsGroundDao.deleteFcltyReliefTable */
+    DELETE FROM TC_FCLTY_CRTFC_RESULT
+    </delete>
+    
+    <insert id="KidsGroundDao.insertFcltyReliefData" parameterClass="KidsGroundReliefVO">
+    /* KidsGroundDao.insertFcltyReliefData */
+    INSERT INTO TC_FCLTY_CRTFC_RESULT(
+    	CRTFC_SN
+		,POSTPNE_AT
+		,APPLC_YEAR		
+		,CRTFC_NO
+		,FCLTY_NM
+		,RPRSNTV
+		,LOCPLC
+		,CRTFC_BGNDE
+		,CRTFC_ENDDE		
+		,INSTL_DT
+		,OPER_SE
+		,AREA_CL
+		,AREA_DETAIL_CL
+		,FCLTY_TY
+		,REGIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+    )VALUES(
+    	#crtfcSn#
+		,#postpneAt#
+		,#applcYear#		
+		,#crtfcNo#
+		,#fcltyNm#
+		,#rprsntv#
+		,#locplc#
+		,#crtfcBgnde#
+		,#crtfcEndde#		
+		,#instlDt#
+		,#operSe#
+		,#areaCl#
+		,#areaDetailCl#
+		,#fcltyTy#
+		,#registDt#
+		,#registerId#
+		,#updtDt#
+		,#updtId#
+    )
+    </insert>
+    
+    <select id="KidsGroundDao.detailKidsGroundRelief" parameterClass="KidsGroundReliefVO" resultMap="kidsReliefListVo">
+    /* KidsGroundDao.detailKidsGroundRelief */
+    SELECT
+		CRTFC_SN
+		,POSTPNE_AT
+		,APPLC_YEAR
+		,CRTFC_AT
+		,CRTFC_DT
+		,CRTFC_NO
+		,FCLTY_NM
+		,RPRSNTV
+		,LOCPLC
+		,CRTFC_BGNDE
+		,CRTFC_ENDDE
+		,FCLTY_SN
+		,INSTL_DT
+		,OPER_SE
+		,AREA_CL
+		,AREA_DETAIL_CL
+		,FCLTY_TY
+		,REGIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+	FROM
+		 TC_FCLTY_CRTFC_RESULT
+	WHERE
+		CRTFC_SN =  #crtfcSn#
+	ORDER BY
+		 CRTFC_SN DESC
+    </select>
+    
+    <select id="KidsGroundDao.selectCheckMaxCount" resultClass="int">
+    /* KidsGroundDao.selectCheckMaxCount */
+    SELECT 
+    	NVL(MAX(aa.BACKUP_CNT),0)
+	FROM
+		TC_FCLTY_BACKUP aa
+    </select>
+    
+    <insert id="KidsGroundDao.insertBackUpFcltyData" parameterClass="int">
+    /* KidsGroundDao.insertBackUpFcltyData */
+    INSERT INTO TC_FCLTY_BACKUP(
+    	FCLTY_SN
+		,FCLTY_NO
+		,FCLTY_NM
+		,ADRES1
+		,ADRES2
+		,INSTL_DT
+		,PLCSTRA
+		,OPER_SE
+		,AREA_CL
+		,PUBLIC_SE
+		,INOUT_SE
+		,FCLTY_SE
+		,INSTL_YEAR
+		,SCHUL_CLSF
+		,OFCDC
+		,PCPSKL
+		,FOND_SE
+		,SCHUL_STTUS
+		,FCLTY_TY
+		,AR_TOTAL
+		,AR_NRTR_ROOM
+		,AR_BATH_ROOM
+		,AR_TOILET
+		,AR_COOK_ROOM
+		,AR_OFFM
+		,AR_MDLRT_ROOM
+		,AR_ETC
+		,AR_PLY_ROOM
+		,RESIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+		,AREA_DETAIL_CL
+		,AR_ABOVE_AT
+		,CRTFC_JDGMN_DE
+		,INSPCT_JDGMN_DE
+		,BACKUP_CNT
+    )SELECT
+    	FCLTY_SN
+		,FCLTY_NO
+		,FCLTY_NM
+		,ADRES1
+		,ADRES2
+		,INSTL_DT
+		,PLCSTRA
+		,OPER_SE
+		,AREA_CL
+		,PUBLIC_SE
+		,INOUT_SE
+		,FCLTY_SE
+		,INSTL_YEAR
+		,SCHUL_CLSF
+		,OFCDC
+		,PCPSKL
+		,FOND_SE
+		,SCHUL_STTUS
+		,FCLTY_TY
+		,AR_TOTAL
+		,AR_NRTR_ROOM
+		,AR_BATH_ROOM
+		,AR_TOILET
+		,AR_COOK_ROOM
+		,AR_OFFM
+		,AR_MDLRT_ROOM
+		,AR_ETC
+		,AR_PLY_ROOM
+		,RESIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+		,AREA_DETAIL_CL
+		,AR_ABOVE_AT
+		,CRTFC_JDGMN_DE
+		,INSPCT_JDGMN_DE
+		,#backupCnt#
+	FROM
+		TC_FCLTY
+    </insert>
+    
+    <select id="KidsGroundDao.selectBackUpChkCnt" parameterClass="int" resultClass="int">
+    /* KidsGroundDao.selectBackUpChkCnt */
+    SELECT
+    	COUNT(*)
+    FROM
+    	TC_FCLTY_BACKUP
+    WHERE
+    	BACKUP_CNT = #backupCnt#
+    </select>
+    
+    <delete id="KidsGroundDao.deleteFcltyBackUp" parameterClass="int">
+    /* KidsGroundDao.deleteFcltyBackUp */
+    DELETE FROM TC_FCLTY_BACKUP
+    WHERE
+    	BACKUP_CNT = #backupCnt#
+    </delete>
+    
+    <select id="KidsGroundDao.selectCheckMaxCountReleif" resultClass="int">
+    /* KidsGroundDao.selectCheckMaxCountReleif */
+    SELECT 
+    	NVL(MAX(aa.BACKUP_CNT),0)
+	FROM
+		TC_FCLTY_CRTFC_RESULT_BACKUP aa
+    </select>
+    
+    <insert id="KidsGroundDao.insertBackUpFcltyReliefData" parameterClass="int">
+    /* KidsGroundDao.insertBackUpFcltyReliefData */
+    INSERT INTO TC_FCLTY_CRTFC_RESULT_BACKUP(
+	    CRTFC_SN
+		,POSTPNE_AT
+		,APPLC_YEAR
+		,CRTFC_AT
+		,CRTFC_DT
+		,CRTFC_NO
+		,FCLTY_NM
+		,RPRSNTV
+		,LOCPLC
+		,CRTFC_BGNDE
+		,CRTFC_ENDDE
+		,FCLTY_SN
+		,INSTL_DT
+		,OPER_SE
+		,AREA_CL
+		,AREA_DETAIL_CL
+		,FCLTY_TY
+		,REGIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+		,BACKUP_CNT
+    )SELECT
+	    CRTFC_SN
+		,POSTPNE_AT
+		,APPLC_YEAR
+		,CRTFC_AT
+		,CRTFC_DT
+		,CRTFC_NO
+		,FCLTY_NM
+		,RPRSNTV
+		,LOCPLC
+		,CRTFC_BGNDE
+		,CRTFC_ENDDE
+		,FCLTY_SN
+		,INSTL_DT
+		,OPER_SE
+		,AREA_CL
+		,AREA_DETAIL_CL
+		,FCLTY_TY
+		,REGIST_DT
+		,REGISTER_ID
+		,UPDT_DT
+		,UPDT_ID
+		,#backupCnt#
+	FROM
+		TC_FCLTY_CRTFC_RESULT_BACKUP
+    </insert>
+    
+    <select id="KidsGroundDao.selectBackUpReliefChkCnt" parameterClass="int" resultClass="int">
+    /* KidsGroundDao.selectBackUpReliefChkCnt */
+    SELECT
+    	COUNT(*)
+    FROM
+    	TC_FCLTY_CRTFC_RESULT_BACKUP
+    WHERE
+    	BACKUP_CNT = #backupCnt#
+    </select>
+    
+    <delete id="KidsGroundDao.deleteFcltyReliefBackUp" parameterClass="int">
+    /* KidsGroundDao.deleteFcltyReliefBackUp */
+    DELETE FROM TC_FCLTY_CRTFC_RESULT_BACKUP
+    WHERE
+    	BACKUP_CNT = #backupCnt#
+    </delete>
+    
+</sqlMap>

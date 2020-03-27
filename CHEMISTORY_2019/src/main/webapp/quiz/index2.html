@@ -1,0 +1,469 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="케미스토리,">
+	<title></title>
+	
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/board.css">
+	<link rel="stylesheet" type="text/css" href="css/quizGame.css">
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body id="section1" class="ui-mobile">
+	<div style="position:relative; width:835px; margin:10px auto;">
+		
+			<!-- 케미스토리 가로세로 퀴즈 컨텐츠 리뉴얼 -->
+			<div class="qBox"><div class="qBoxCount"><span>0</span>초</div>
+				<ul class="qList">	
+					<li>
+						<div class="qListBox">
+							<div class="qListIn">
+							
+								<!-- 가로세로 퀴즈 영역 -->
+								<div class="quizIcon">
+									<div class="qListTxt01">낱말카드의<span></span>부분을<br/>클릭하여 퀴즈를 풀어주세요.</div>
+									<ul class="qIcoList">
+										<!-- 1번째 줄 -->
+										<li><span></span></li>
+										<li data-num="r_1"><span class="qIn"><span class="row_num">1</span></span></li>
+										<li><span></span></li>
+										<li data-num="r_2"><span class="qIn"><span class="row_num">2</span></span></li>
+										<li><span></span></li>
+										<li data-num="c_1"><span class="qIn"><span class="col_num">1</span></span></li>
+										<li data-num="c_1 r_3"><span class="qIn"></span></li>
+										
+										<!-- 2번째 줄 -->
+										<li><span></span></li>
+										<li data-num="r_1"><span class="qIn"></span></li>
+										<li><span></span></li>
+										<li data-num="r_2"><span class="qIn"></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_3"><span class="qIn"><span class="row_num">3</span></span></li>
+										
+										<!-- 3번째 줄 -->
+										<li><span></span></li>
+										<li data-num="r_1"><span class="qIn"></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"><span class="row_num">4</span></span></li>
+										<li><span></span></li>
+										<li data-num="r_3"><span class="qIn"></span></li>
+
+										<!-- 4번째 줄 -->
+										<li data-num="c_2"><span class="qIn"><span class="col_num">2</span></span></li>
+										<li data-num="c_2 r_1"><span class="qIn"></li>
+										<li data-num="c_2"><span class="qIn"></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"></li>
+										<li><span></span></li>
+										<li data-num="r_3"><span class="qIn"></li>
+										
+										<!-- 5번째 줄 -->
+										<li><span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"></li>
+										<li><span></span></li>
+										<li data-num="r_3"><span class="qIn"></li>
+
+										<!-- 6번째 줄 -->
+										<li data-num="c_3"><span class="qIn"><span class="col_num">3</span></span></li>
+										<li data-num="c_3"><span class="qIn"></li>
+										<li data-num="c_3"><span class="qIn"></li>
+										<li data-num="c_3"><span class="qIn"></li>
+										<li data-num="c_3 r_4"><span class="qIn"></li>
+										<li data-num="c_3"><span class="qIn"></li>
+										<li><span></span></li>
+										
+										<!-- 7번째 줄 -->
+										<li><span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li><span></span></li>
+										<li data-num="r_4"><span class="qIn"></li>
+										<li><span></span></li>	
+										<li><span></span></li>																										
+									</ul>
+								</div>
+								<!-- EOD : 가로세로 퀴즈 영역 -->
+								
+								<!-- 힌트 영역 -->
+								<div class="quizHint">
+									<p class="hintHead">힌트 정보<button><img src="images/hintIcon01.png"/></button></p>
+									<div class="hintInfo">
+										새집증후군은 새 집이나 새 건물에서 나오는
+										나쁜 물질로 인해 몸이 좋지 않은 것을
+										표현하는말입니다. 새집을 꾸미기 위해
+										사용되는 페인트, 벽지, 장판,  가구 등에
+										몸에 좋지 않은 물질이 들어 있을 수 있습니다.
+										이러한 몸에 좋지 않은 물질은 창문을 자주
+										열어서 집 밖으로 날아가도록 하는 것이 좋습니다.
+										<br/><br/>
+										새집증후군은 새 집이나 새 건물에서 나오는
+										나쁜 물질로 인해 몸이 좋지 않은 것을
+										표현하는말입니다. 새집을 꾸미기 위해
+										사용되는 페인트, 벽지, 장판,  가구 등에
+										몸에 좋지 않은 물질이 들어 있을 수 있습니다.
+										이러한 몸에 좋지 않은 물질은 창문을 자주
+										열어서 집 밖으로 날아가도록 하는 것이 좋습니다.
+									</div>
+									<div class="qHintBox">
+									</div>
+								</div>
+								<!-- EOD : 힌트 영역 -->
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="qListBox">
+							<div class="qListIn">
+								<div class="quizStart">
+									<div class="qListTxt01">왼쪽의 낱말카드를 클릭하면<br/>낱말 맞추기 퀴즈가 시작됩니다.</div>
+								
+								</div>
+								<div class="quizMain">
+									<div class="hori_keyBox">
+										<div class="hori_key">
+											<p><span>2</span>가로열쇠</p>
+											<button class="hintBtn" onclick="">힌트</button>
+										</div>
+										<div class="qListInfo">
+											<p class="infoTxt">나무를 태워서 만드는 것으로 집안에 있는 안 좋은 물질을 없애는데 도움을 주는 이것은 무엇일까요?</p>
+											<div class="infoAnswer">
+												<input type="text" maxlength="6" placeholder="답변을 입력해 주세요."/>
+											</div>
+											<button class="answerBtn" id="answerBtn01">정답</button>
+										</div>
+									</div>
+									<div class="verti_keyBox">
+										<div class="verti_key">
+											<p><span>1</span>세로열쇠</p>
+											<button class="hintBtn" onclick="">힌트</button>
+										</div>
+										<div class="qListInfo">
+											<p class="infoTxt">과자나 음료수를 더 맛있게 보이도록 넣는 물질로 빨간색, 파란색 등의 색을 띠고 있는 것은 무엇일까요?</p>
+											<div class="infoAnswer">
+												<input type="text" maxlength="6" placeholder="답변을 입력해 주세요."/>
+											</div>
+											<button class="answerBtn" id="answerBtn02">정답</button>
+										</div>
+									</div>
+								</div>
+							</div>						
+						</div>
+					</li>
+				</ul>
+				<div class="popBox">
+					<div class="popIn">
+						<!-- 총점 팝업 -->
+						<div class="popScore" style="display:none;">
+							<img src="images/scoreBg01.png" />
+							<div class="popScoreIn">
+								<div class="popScoreCon">
+									<img src="images/scoreImg.png"/>
+									<p>모든 낱말을 풀었습니다</p>
+									<span class="time"><strong>567</strong>초 <span>성공</span></span>
+									<button class="popScoreBtn2">확인</button>
+								</div>
+							</div>
+						</div>
+						<!-- EOD : 총점 팝업 -->		
+
+						<!-- 정답 팝업 -->
+						
+						<div class="popAnswer" style="display:none;">
+							<div class="popAnswerIn">
+								<div class="popAnswerImg">
+									<img class="popAnswerIco" src="images/popAnswerIco.png"/>
+									<img class="popAnswerBg02" src="images/popAnswerBg02.png">
+									<img class="popAnswerIco01" src="images/popAnswerIco01.png"/>
+									<img class="popAnswerIco02" src="images/popAnswerIco02.png"/>
+									<img class="popAnswerIco03" src="images/popAnswerIco03.png"/>
+									<img class="popAnswerIco04" src="images/popAnswerIco04.png"/>
+									<span class="answerBtn">정답입니다</span>
+									<p><button class="popScoreBtn">확인</button></p>
+								</div>
+							</div>
+						</div>
+						
+						<!-- EOD : 정답 팝업 -->
+						
+						<!-- 오답 팝업 -->
+						<div class="popWrong" style="display:none;">
+							<div class="popWrongIn">
+								<div class="popWrongImg">
+									<img class="popWrongIco01" src="images/popWrongIco01.png"/>
+									<img class="popWrongIco02" src="images/popWrongIco02.png"/>
+									<img class="popWrongIco03" src="images/popWrongIco03.png"/>
+									<img class="popWrongIco04" src="images/popWrongIco04.png"/>
+									<span class="answerBtn">오답입니다</span>
+									<p><button class="popScoreBtn">확인</button></p>
+								</div>
+							</div>
+						</div>
+							<!-- EOD : 오답 팝업 -->
+					</div>
+				</div>
+				
+
+			</div>
+			<!-- EOD : 케미스토리 가로세로 퀴즈 컨텐츠 리뉴얼 -->
+
+
+
+			<form id="detailForm" name="detailForm" method="post">
+				<input type="hidden" id="idx" name="idx" />
+				<input type="hidden" id="medium" name="medium" />
+				<input type="hidden" id="noxiousLevel" name="noxiousLevel" />
+			</form>
+<script type="text/javascript">
+		doDetail = function(idx){
+			$("#idx").val(idx);
+			var newPop = document.detailForm;
+			newPop.target="result";
+			newPop.action =  "http://www.chemistory.go.kr/kor/contents/noxiousmaterial/detailNoxiousMaterialKor.do";
+			newPop.method="post";
+			popup = window.open("","result","width=600, height=650, top=30, left=60 , resizable=yes");
+			popup.focus();
+			newPop.submit();
+		};
+		
+		
+		$(document).ready(function(){
+			quizS();			 
+		});
+
+		quizQ = new Object();
+
+		quizQ.c_1 = new Object();
+		quizQ.c_1.quiz = "사람이 먹고 마시는 것으로써 이것을 통해 사람은 몸에 필요한 다양한 영양분을 제공받고 보너스로 다양한 맛까지 느낄 수 있습니다. 이것은 무엇일까요?";
+		quizQ.c_1.hintInfo = '<span>총 두글자에요. 첫글자는 음!</span>먹을거리는 먹거나 마실 수 있는 모든 것을 가리키는 말로 음식은 주로 탄수화물, 단백질, 지방, 무기질 등의 영양소와 물이 포함되어 있으며, 동물이나 인간이 음식을 먹거나 마시는 목적은 영양소와 만족감을 얻을 수 있습니다.';
+		quizQ.c_1.hintText = null;
+		quizQ.c_1.key = '음식';
+
+		quizQ.c_2 = new Object();
+		quizQ.c_2.quiz = "농약이나 비료 등 화학물질을 사용하지 않고 몸에 좋은 친환경적인 방법으로 만들어진 농산물을 무슨 농산물이라고 할까요?";
+		quizQ.c_2.hintInfo = "<span>총 세글자에요. 첫글자는 유!</span>유기농은 인공적으로 만든 화학물질을 사용하지 않고 자연적인 방법으로 농사를 지어서 만든 농산물을 말합니다. 예를 든다면 벼농사를 지을 때 논에 우렁이를 풀어 벌레를 잡도록 한다던지, 과수원에서 벌레를 죽이기 위하여 마늘을 갈아서 뿌리기도 합니다. 이런 친환경 농법으로 만든 유기농 농산물은 사람의 몸에도 좋고 자연도 보호하는 두 가지 효과를 가지고 있습니다.";
+		quizQ.c_2.hintText = null;
+		quizQ.c_2.key = '유기농';
+		quizQ.c_2.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_img"><p class="movieTxt01">멀티미디어자료</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.c_2.hintLink = 'window.open("http://www.chemistory.go.kr/csu/edu/kid/outdoor/outdoor_f01.jsp","hint","width=634, height=480, scrollbars=yes")';
+		quizQ.c_2.key = '유기농';
+
+		quizQ.c_3 = new Object();
+		quizQ.c_3.quiz = "색이 없고 강한 냄새가 나는 물질로,  공기 중으로 쉽게 날라 가는 성질을 가진 즉, ‘휘발성 유기화합물(VOCs)’이라 부르며 새 옷, 새로 지은 집이나 압축목재를 사용한 가구, 일부 페인트, 플라스틱 식품용기, 담배연기, 자동차 배출가스 또는 스모그 등에 포함되어 우리의 폐와 눈, 코, 입의 자극을 주는 이 물질은 무엇일까요?";
+		quizQ.c_3.hintInfo = "<span>총 여섯글자에요. 첫글자는 폼!</span>폼알데하이드는 색이 없고 강한 냄새가 나는 물질입니다.  우리 몸에 들어오게 되면 폐와 눈, 코, 입의 자극을 줍니다.  공기 중으로 쉽게 날라 가는 성질을 가진 즉, ‘휘발성 유기화합물(VOCs)’이라 부르며, 햇빛에 의해 쉽게 분해됩니다.  우리몸에 들어오게 되면 숨가쁨, 쌕쌕거림, 가슴압박과 같은 증상이나, 천식과 같은 증상도 일으킵니다. 또한, 폼알데하이드는 사람에게 암을 일으키는 물질이므로 노출되지 않도록 주의하여야 합니다. ";
+		quizQ.c_3.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_img"><p class="movieTxt01">멀티미디어자료</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.c_3.hintLink = 'window.open("http://www.chemistory.go.kr/user/cop/bbs/selectBoardArticle.do?nttId=56&bbsId=BBSMSTR_000000000660&menuNo=12004","hint")';
+		quizQ.c_3.key = '폼알데하이드';
+
+		quizQ.r_1 = new Object();
+		quizQ.r_1.quiz = "집먼지 진드기, 꽃가루, 곰팡이 등과 같은 유발원인 때문에 발생되며 코, 기관지 비염 등의 질환을 일으키는 이것은 무엇일까요?";
+		quizQ.r_1.hintInfo = "<span>총 네글자에요. 첫글자는 알!</span>몸안에서 일어나는 비정상적인 면역반응의 일종. 일반적으로 해로운 영향을 유발하는 물질이 아니더라도 어떤 사람들에게는 천식, 비염, 두드러기 등이 나타나는 현상을 말한다. 알레르기를 유발하는 물질을 통틀어 알레르겐(Allergen)이란 용어로 일컫는다. 알레르기(Allergy)는 그리이스어의“Allos(변형된 것)”이라는 말에서 유래되었으며, 1908년 프랑스의 학자 폰 피케르가 처음으로 알레르기란 용어를 사용했답니다. 알레르기를 이기기 위해서는 건강한 면역성을 길러야 하겠습니다.";
+		quizQ.r_1.hintText = null;
+		quizQ.r_1.key = '알레르기';
+
+		quizQ.r_2 = new Object();
+		quizQ.r_2.quiz = "그리스어로 '불멸의 물건'이라는 뜻으로 불에 타지 않고 콘크리트, 건물공사 등에 쓰이나 1급 발암물질로 몸속에 들어가면 축척되는 이 물질은 뭘까요?";
+		quizQ.r_2.hintInfo = "<span>총 두글자에요. 첫글자는 석!</span>석면은 콘크리트, 난방로 등에 쓰이고 우리 주변에 화장실 문, 사무실 파티션의 재로로 쓰이는데 튼튼하지만 사람에게 치명적인 암을 일으키는 1급 발암물질입니다. 석면은 물건에서 공기로 ᄈᆞ져나와 코, 입, 피부를 통해 사람에게 들어가면 몸속에서 쌓이게 되는데요. 그렇게 되면 흉막질환, 석면폐증, 폐암, 악성중피증 같은 무서운 병을 일으키게 된답니다. 최근 어린이집, 학교 등 어린이가 생활하는 환경안의 석면을 제거하고자 많은 노력이 이루어지고 있답니다. 따라서 석면 성분이 주변에 많은 석명 공사장, 매연이 많은 거리에서는 꼭 마스크를 써서 건강을 지켜야 한답니다.";
+		quizQ.r_2.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_img"><p class="movieTxt01">멀티미디어자료</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.r_2.hintLink = 'window.open("http://www.chemistory.go.kr/user/cop/bbs/selectBoardArticle.do?nttId=164&bbsId=BBSMSTR_000000000660&menuNo=12004","hint")';
+		quizQ.r_2.key = '석면';
+
+		quizQ.r_3 = new Object();
+		quizQ.r_3.quiz = "과자나 음료수를 더 맛있게 보이도록 넣는 물질로 빨간색, 파란색 등의 색을 띠고 있는 것은 무엇일까요?";
+		quizQ.r_3.hintInfo = "<span>총 다섯글자에요. 첫글자는 식!</span>식품 첨가물은 우리가 먹는 음식에 맛, 냄새, 색깔을 좋게 만들기 위해 첨가되고 있습니다. 이런 식품 첨가물은 자연에서 만들어지는 것이 아니라 인공적으로 만든 화학물질입니다. 법으로 식품에 넣을 수 있는 첨가제의 양을 정해놓았지만 되도록 먹지 않는 것이 좋답니다.";
+		quizQ.r_3.hintText = '<div class="qHintBox"><p>자세한 사항은 홈페이지에서 알아보세요.</p><div class="qIcon_img"><p class="movieTxt01">멀티미디어자료</p><p class="movieTxt02">새창으로 정보확인하기</p></div></div>';
+		quizQ.r_3.hintLink = 'window.open("http://www.chemistory.go.kr/csu/edu/kid/school/school_f02.jsp","hint","width=634, height=480, scrollbars=yes")';
+		quizQ.r_3.key = '식품첨가물';
+
+		quizQ.r_4 = new Object();
+		quizQ.r_4.quiz = "플라스틱을 부드럽게 하기 위해 넣지만 몸에는 좋지 않은 물질은 무엇일까요?";
+		quizQ.r_4.hintInfo = "<span>총 다섯글자에요. 첫글자는 프!</span>프탈레이트는 딱딱한 플라스틱 재질 중에 하나인 PVC를 부드럽게 만들때 사용하는 화학물질입니다. 장난감이나, 젖병, 치아발육기 같은 어린이들이 주로 사용하는 제품에는 법으로 사용하지 못하게 되어있습니다. 그렇지만 부드러운 PVC 재질의 완구나 스티커는 조심하는 것이 좋습니다. 안전을 위하여 플라스틱 제품을 입으로 물지 않는 것이 좋고, 손을 통해 우리 몸에 들어올 수 있기때문에 손을 자주 깨끗이 씻어 주는 것이 좋습니다.";
+		quizQ.r_4.hintText = null;
+		quizQ.r_4.key = '프탈레이트';
+
+		
+
+
+		function quizS(){
+			var totalN = 0;
+			var maxN = 7;
+			var qHoverN,qRow,qCol,qHoverNsub;	//quiz over
+			var qCN,qCNLink,qCNum,iL;			//click
+			var keyN,keyLink,keyN2,keyL,totalN;	//key
+			var qStart = 0;						// start
+			var second,secondN,timer;			// time
+
+			$(".answerBtn").click(function(){
+				keyN = $(this).parent().parent().attr("data-num")
+				keyLink = eval("quizQ."+keyN+".key");
+				console.log(keyLink);
+				if($(this).parent().find("input").attr("value") == keyLink){
+					totalN++;
+					console.log(totalN);
+					if(totalN == maxN){
+						secondN = second/60;
+						clearInterval(timer);
+						$(".popScore").fadeIn(400,function(){
+							if(second > 60){
+								$(".popScoreCon .time").html("<strong>"+parseInt(secondN)+"</strong>분 <strong>"+(second-(parseInt(secondN)*60))+"</strong>초 <span>성공</span>");
+							}else{
+								$(".popScoreCon .time").html("<strong>"+second+"</strong>초 <span>성공</span>");
+							}
+						});
+						
+						$(".popScore .time").html($("qBoxCount").html());
+						$(".popBox").fadeIn(400);
+						
+
+					}else{
+						$(".popBox").fadeIn(400);
+						$(".popAnswer").fadeIn(400);
+						$(this).parent().parent().removeClass("on");
+					}
+					keyL = 0;
+					$(".qIcoList > li").each(function(n){
+						keyN2 = $(this).attr("data-num")
+						if(keyN2 !== undefined && keyN2.indexOf(keyN) > -1){	
+							$(this).html('<span class="icoText">'+keyLink.substr(keyL,1)+'</span>');
+							keyL++;
+						}
+						
+					});
+					
+				}else{
+					$(".popBox").fadeIn(400);
+					$(".popWrong").fadeIn(400);
+				}
+
+			});
+			
+			$(".popScoreBtn").click(function(){
+				$(".popBox").fadeOut(400);
+				$(".popScore").fadeOut(400);
+				$(".popAnswer").fadeOut(400);
+				$(".popWrong").fadeOut(400);
+			});
+			$(".popScoreBtn2").click(function(){
+				window.location.reload();
+			});
+
+			$(".hintBtn").click(function(){
+				keyN = $(this).parent().parent().attr("data-num")
+				keyLink = eval("quizQ."+keyN+".hintInfo");
+				$(".quizHint").addClass("on");
+				$(".quizHint .hintInfo").html(keyLink);
+				keyLink = eval("quizQ."+keyN+".hintText");
+				if(keyLink !== null){
+					$(".quizHint .hintInfo").after(keyLink);
+					keyLink = eval("quizQ."+keyN+".hintLink");
+					$(".qHintBox").attr("onclick",keyLink);
+				}else{
+					$(".qHintBox").remove();
+				}
+				
+			});
+			//힌트 hide
+			$(".hintHead button").click(function(){
+				$(".quizHint").removeClass("on");
+			});
+			
+			$(".qIcoList > li > .qIn").click(function(){
+				
+				//시간제어
+				if(qStart == 0){
+					$(".qBoxCount").addClass("on");
+					qStart = 1;
+
+					second = 0;
+					//time
+					$(".qBoxCount span").html(second);
+					timer = setInterval(function (){
+						second++;
+						secondN = second/60;
+						if(second > 60){
+							$(".qBoxCount").html("<span>"+parseInt(secondN)+"</span>분 <span>"+(second-(parseInt(secondN)*60))+"</span>초");
+						}else{
+							$(".qBoxCount span").html(second);
+						}
+					}, 1000);
+					$(".quizStart").fadeOut(150);
+
+					$(".quizMain").fadeIn(800);
+				}
+				//문제제어
+				$(".hori_keyBox").removeClass("on");
+				$(".verti_keyBox").removeClass("on");
+				qCN = $(this).parent().attr("data-num");
+				qCN = qCN.split(" ");
+				
+				$(".hori_keyBox .infoAnswer input").attr("value","");
+				$(".verti_keyBox .infoAnswer input").attr("value","");
+				
+				if(qCN.length == 2){
+					iL = 1;
+				}else{
+					iL = 0;
+				}
+				for(i=0; i <= iL; i++){
+					qCNLink = "quizQ."+qCN[i]+".quiz";
+					qCNum = qHoverN[i].split("_");
+					if(qHoverN[i].indexOf("c") > -1){
+						$(".hori_keyBox").addClass("on");
+						$(".hori_keyBox").attr("data-num",qHoverN[i]);
+						$(".hori_keyBox .infoTxt").text(eval(qCNLink));
+						$(".hori_key p span").text(qCNum[1]);				
+					}
+					if(qHoverN[i].indexOf("r") > -1){
+						$(".verti_keyBox").addClass("on");
+						$(".verti_keyBox").attr("data-num",qHoverN[i]);
+						$(".verti_keyBox .infoTxt").text(eval(qCNLink));
+						$(".verti_key p span").text(qCNum[1]);	
+					}
+				}
+			});
+
+			//over
+			$(".qIcoList > li").mouseenter(function(){
+				$(".qIcoList > li > span").removeClass("qRowHover");
+				$(".qIcoList > li > span").removeClass("qColHover");
+				qHoverN = $(this).attr("data-num");
+				if(qHoverN !== undefined){
+					qHoverN = qHoverN.split(" ");
+					$(".qIcoList > li").each(function(n){
+						qHoverNsub = $(this).attr("data-num");
+						if(qHoverNsub !== undefined){
+							if(qHoverNsub.indexOf(qHoverN[0]) > -1){
+								if(qHoverN[0].indexOf("r") > -1){
+									$(this).children("span").addClass("qRowHover");
+								}else{
+									$(this).children("span").addClass("qColHover");
+								}
+							}
+							if(qHoverN.length == 2 && qHoverNsub.indexOf(qHoverN[1]) > -1){
+								if(qHoverN[1].indexOf("r") > -1){
+									$(this).children("span").addClass("qRowHover");
+								}else{
+									$(this).children("span").addClass("qColHover");
+								}
+							}
+						}
+					});
+				}
+			});
+
+			// leave
+			$(".qIcoList").mouseleave(function(){
+				$(this).find("li > span").removeClass("qRowHover");
+				$(this).find("li > span").removeClass("qColHover");
+			});
+		}
+	</script>
+
+</body>
+</html>

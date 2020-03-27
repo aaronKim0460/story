@@ -1,0 +1,50 @@
+/* (주)한신정보기술 OOO - 2014.04.01 */
+
+/* Layout */
+#section1{}
+#container {position:relative;margin:0;}
+
+/* 사이드 메뉴 */
+#side {position:relative;display:inline; float:left; width:190px; margin:0 ; padding:0;z-index:10}
+.side_title{width:190px;height:172px;background:#0079c2 url('../../images/cms2/common/side_title_bg.png') ;}
+.side_title span{display:block;padding-top:70px;text-align:center;font-size:28px; color:#fff;font-weight:bold}
+.side_menu {margin:0;padding:0;border-left:1px solid #d7d7d7; border-right:1px solid #d7d7d7;border-bottom:3px solid #353e4d;box-sizing:border-box }
+.side_menu ul {margin:2px 4px; padding:0;}
+.side_menu ul li {margin:0;padding:0;border-top:1px dashed #ccc}
+.side_menu ul li:first-child{border:none}
+.side_menu ul li a {display: block; padding:12px 0 12px 10px; font-size:16px;color:#555;text-decoration:none;line-height:20px;background:#fff;}
+.side_menu ul li.on a, .side_menu ul li a:hover{background:url('../../images/cms2/common/side_bg02on.png') no-repeat right 10px;;color:#ed7100;}
+.side_menu ul ul {display: block; width: 100%; margin: 0;padding:5px 0;background:#fff;border-top:1px dashed #ccc}
+.side_menu ul ul li {padding:0;margin:0;border:none;background:url('../../images/cms2/common/side_bg03.png') no-repeat 12px 9px;line-height:10px;}
+.side_menu ul ul li a {display:block;height:auto !important;padding:2px 0 4px 18px;font-size:14px;color:#4e4e4e; font-weight: normal !important;line-height:19px;letter-spacing:-1px}
+.side_menu ul li.on li a {background:none;color:#414141 !important;font-weight: normal !important;}
+.side_menu ul ul li.on a, .side_menu ul ul li a:hover {background:url('../../images/cms2/common/side_bg03on.png') no-repeat 12px 9px;color:#000 !important; font-weight: bold !important;}
+
+
+/* 컨텐츠 */
+#colgroup {display:inline; float:right;width:760px;min-height:500px; padding:0; margin:0;}
+/*
+.sub_head {position:relative;height:110px;}
+.sub_title {position:absolute;top:78px;}
+.sub_title h1 {padding:0; margin:0; color:#ed7d17; font-size:30px;letter-spacing:-2px;font-weight:normal;font-weight:bold}
+
+.path {;width:100%;height:37px;line-height:37px;padding:0;color:#707070;font-size:14px; text-align:right;vertical-align:top }
+.path span{display:inline-block;width:30px;height:37px;background: url('../../images/cms2/common/location_arrow.png') no-repeat center center;vertical-align:top;text-indent:-9999px;font-size:0;line-height:0;color:#fff}
+.path img{vertical-align:middle;margin-bottom:3px}
+*/
+#contents{margin:0px 0 30px;min-height:450px;letter-spacing:0;color:#666;}
+/*
+.satisfaction{}
+.satisfaction .admin_info {position:relative;background:#f0f0f0 url('../../images/cms2/sub/admin_info_ico.png') no-repeat}
+.satisfaction .admin_info ul{margin-left:65px;}
+.satisfaction .admin_info ul li{float:left;display:inline;padding:0 20px;line-height:52px;background: url('../../images/cms2/sub/admin_info_line.png') no-repeat 0 center}
+.satisfaction .admin_info ul li:first-child{background:none}
+.satisfaction .admin_info ul li span{color:#252525;font-weight:bold;}
+
+.satisfaction .research {position:relative;padding:15px 10px;border:1px solid #ececec;border-top:none}
+.satisfaction .research .q {display:inline-block;margin:0 25px 0 18px;padding-left:22px;line-height:25px;background:url('../../images/cms2/sub/research_ico.png') no-repeat 0 center}
+.satisfaction .research form {display:inline-block;padding:0;}
+.satisfaction .research form input {vertical-align:middle;}
+.satisfaction .research form label{display:inline-block;margin:0 20px 0 5px}
+.satisfaction .research form input[type="submit"] {padding:0 15px;height:25px;color:#fff;font-size:14px;font-weight:bold;background:#7d7d7d}
+*/

@@ -1,0 +1,459 @@
+@charset "UTF-8";
+/******************************************************************
+	어린이 메인
+*******************************************************************/
+body.kid_gate {
+	height: 100%;
+	background: #c5c886 url("/csu/img/kid/bg_all.jpg") no-repeat top center;
+}
+#kid_gate_head {
+	margin: 0 auto;
+	width: 950px;
+	height: 100px;
+	position: relative;
+}
+#kid_gate_head h1 {
+	position: absolute;
+	left: 0px;
+	top: 20px;
+}
+#kid_global {
+	position: absolute;
+	left: 550px;
+	top: 0px;
+	z-index: 95;
+}
+#kid_navigation {
+	width: 743px;
+	height: 101px;
+	position: absolute;
+	left: 170px;
+	top: -5px;
+	z-index: 90;
+}
+#kid_global li {
+	float: left;
+}
+#kid_gate_body {
+	margin: -120px auto 0;
+	width: 950px;
+	padding: 0 0 120px;
+}
+#kid_search {
+	width: 300px;
+	height: 20px;
+	position: absolute;
+	left: 620px;
+	top: 23px;
+	z-index: 99;
+}
+#kid_search * {
+	vertical-align: middle;
+}
+#kid_search input {
+	margin: 0 12px 0 0;
+}
+#kid_search img {
+	cursor: pointer;
+	margin: 1px 0 0;
+}
+
+/******************************************************************
+	과정안내
+*******************************************************************/
+/* 컨텐츠 박스
+-------------------------------------------------------------------*/
+div.curr {width:100%; position:relative;}
+div.story_title h4 span.process {background:url(../img/cm/add/belt_01.gif) no-repeat 0 1px; padding-left:15px; color:#a36113; font-size:14px; letter-spacing:-0.5px; font-weight:bold;}
+div.curr div.pop_curr {position:absolute; width:456px; height:301px; top:70px; left:100px;}
+
+div.ex {width:100%;}
+div.ex p.btn_r {float:right; width:30%; text-align:right; margin:0 0 4px 0;}
+div.ex p.tt {float:left; height: 20px; background:url(../img/cm/add/belt_01.gif) no-repeat 0 1px; padding-top:1px; padding-left:15px; color:#a36113; font-size:14px; letter-spacing:-0.5px; font-weight:bold; margin:0 0 4px 0;}
+div.ex ul {float:left; width:100%; padding-bottom:20px;}
+div.ex ul li.top {background:url(../img/cm/add/bg_ex_top.gif) no-repeat 0 0; width:654px; height:13px;}
+div.ex ul li.middle {background:url(../img/cm/add/bg_ex_middle.gif) repeat-y 0 0; width:622px; padding:2px 16px;}
+div.ex ul li.bottom {background:url(../img/cm/add/bg_ex_bottom.gif) no-repeat 0 0; width:654px; height:13px;}
+
+/******************************************************************
+	케미이야기
+*******************************************************************/
+/* 컨텐츠 박스
+-------------------------------------------------------------------*/
+div.chemibox {
+	width: 704px;
+	background: url("/images/old/chemibox_bg_y.gif") repeat-y;
+	margin-top:30px;
+	position:relative;
+}
+div.chemibox .contTop {position:absolute; top:-30px; left:-30px;}
+div.chemibox div.title {
+	width: 654px;
+	height: 70px;
+	position: relative;
+	padding: 0 25px;
+	background: url("/images/old/kid_boxtop.gif") no-repeat left top;
+	margin-left:0;
+}
+div.chemibox div.title h3 {
+	position: absolute;
+	left: 23px;
+	top: 16px;
+}
+div.chemibox div.title div.chemi_tabmenu {
+	width: 455px;
+	position: absolute;
+	left: 200px;
+	top: 17px;
+	height: 26px;
+	overflow: hidden;
+}
+div.chemibox div.title div.chemi_tabmenu li {
+	padding: 0 2px 0 0;
+	float: left;
+}
+div.chemibox #myarea {
+	overflow: hidden;
+	clear: both;
+	width: 654px;
+	padding: 0 25px 35px;
+	background: url("/csu/img/kid/kid_boxbot.gif") no-repeat left bottom;
+}
+div.chemibox #myarea div.story_title {
+	margin: 0 0 10px;
+	height: 23px;
+	position: relative;
+	border-bottom: 1px dashed #555651;
+}
+div.chemibox #myarea div.location {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	font-size: 11px;
+}
+div.chemibox #myarea div.location span.home {
+	padding: 0 0 0 15px;
+	background: url("/csu/img/cm/bu/bu_indi.gif") no-repeat 0 0;
+}
+div.chemibox #myarea div.location span.current {
+	color: #ffa800;
+	font-weight: bold;
+}
+div.chemibox #myarea ul.house_tab li {
+	padding: 0 0 0 2px;
+	float: left;
+	background: url("/csu/img/kid/house_tab_bg.gif") no-repeat 0 2px;
+}
+div.chemibox #myarea ul.house_tab li.first {
+	background: none;
+	padding: 0;
+}
+div.area_box {
+	clear: both;
+	overflow: hidden;
+	width: 653px;
+	position: relative;
+}
+div.area_box p.summary {
+	padding: 0 0 10px;
+}
+div.area_box div.flash_area {
+	float: left;
+	padding: 6px 0 0 5px;
+	width: 428px;
+	height: 328px;
+	background: url("/csu/img/kid/house_flash_bg.gif") no-repeat;
+}
+div.area_box div.description {
+	padding: 4px 8px;
+	float: right;
+	width: 200px;
+	height: 331px;
+	background: url("/csu/img/kid/house_descript_bg.gif") no-repeat;
+}
+div.area_box div.description h5 {
+	background: url("/csu/img/kid/kid_chemi_sstl_.gif") no-repeat;
+	width: 152px;
+	height: 30px;
+	padding: 10px 0px 0px 50px;
+	font-size: 12px;
+	font-weight: bold;
+}
+div.area_box div.description div.kid_layer {
+	padding: 5px;
+	width: 190px;
+	height: 260px;
+	overflow: scroll;
+	border: 1px solid #e5e5e5;
+	overflow-x: hidden;
+}
+/******************************************************************
+	케미이야기:우리집 메인
+*******************************************************************/
+div.myhouse_main {
+	padding: 10px 0 0 10px;
+	width: 641px;
+	height: 479px;
+	background: url("/csu/img/kid/myhouse_main_bg.gif") no-repeat;
+}
+
+/******************************************************************
+	케미게임 메인
+*******************************************************************/
+div.chemigame {
+	margin: -11px 0 0 2px;
+	overflow: hidden;
+	width: 653px;
+	position: relative;
+}
+div.chemigame ul {
+	overflow: hidden;
+	margin: -1px 0 0 -1px;
+}
+div.chemigame ul li {
+	width: 287px;
+	height: 164px;
+	padding: 30px 20px 0 19px;
+	float: left;
+	border-top: 1px dashed #555651;
+	background: url("/csu/img/kid/quiz01_bar.gif") no-repeat 0 10px;
+}
+div.chemigame ul li.first {
+	background: none;
+}
+div.chemigame ul li span {
+	float: left;
+	width: 142px;
+}	
+div.chemigame ul li dl {
+	padding: 10px 0 0;
+	float: right;
+	width: 122px;
+}
+/******************************************************************
+	케미퀴즈 메인
+*******************************************************************/
+div.chemiquiz {
+	margin: -11px 0 0 2px;
+	overflow: hidden;
+	width: 653px;
+	position: relative;
+}
+div.chemiquiz ul {
+	margin: -1px 0 0 -1px;
+}
+div.chemiquiz ul li {
+	width: 287px;
+	height: 164px;
+	padding: 30px 20px 0 19px;
+	float: left;
+	border-top: 1px dashed #555651;
+	background: url("/images/old/quiz01_bar.gif") no-repeat 0 10px;
+}
+div.chemiquiz ul li span {
+	float: left;
+	width: 142px;
+}	
+div.chemiquiz ul li dl {
+	padding: 10px 0 0;
+	float: right;
+	width: 122px;
+}
+div.chemiquiz ul li.last {
+	width: 614px;
+	overflow: hidden;
+	border-top: 1px dashed #555651;
+}
+div.chemiquiz ul li.last dl {
+	padding: 10px 0 0;
+	float: right;
+	width: 452px;
+}
+/******************************************************************
+	케미퀴즈 : 단어퀴즈1
+*******************************************************************/
+div.chemi_quiz_area {
+	width: 704px;
+	background: url("/images/old/quiz_bg_y.gif") repeat-y;
+}
+div.chemi_quiz_area div.quiz_title {
+	width: 705px;
+	height: 58px;
+	position: relative;
+	background: url("/images/old/kid_boxtop01.gif") no-repeat;
+}
+div.chemi_quiz_area div.quiz_title h3 {
+	position: absolute;
+	left: 30px;
+	top: 20px;
+}
+div.chemi_quiz_area div.quiz_title div.location {
+	position: absolute;
+	right: 25px;
+	top: 50px;
+	font-size: 11px;
+}
+div.chemi_quiz_area div.quiz_title div.location span.home {
+	padding: 0 0 0 15px;
+	background: url("/images/old/bu_indi.gif") no-repeat 0 0;
+}
+div.chemi_quiz_area div.quiz_title div.location span.current {
+	color: #ffa800;
+	font-weight: bold;
+}
+div.chemi_quiz_area div.word_quiz {
+	padding: 0 0 22px 14px;
+	background: url("/images/old/kid_boxbot.gif") no-repeat left bottom;
+}
+div.chemiquiz2, div.chemiquiz3 {
+	width: 675px;
+	background: url("/images/old/right_bg.jpg") no-repeat right top;
+}
+div.box_quiz  {
+	overflow: hidden;
+	width: 675px;
+	padding: 0 0 57px;
+	background: url("/images/old/bottom.jpg") no-repeat bottom left;
+}
+div.box_quiz ul.picture {
+	width: 325px;
+	float: left;
+	padding: 0 0 0 40px;
+	background: url("/images/old/left.jpg") no-repeat;
+}
+div.box_quiz ul.picture li {
+	float: left;
+}
+div.box_quiz ul.picture li img {
+	vertical-align: top;
+}
+div.box_quiz div.quiz_list {
+	margin: 30px 0 0;
+	padding: 0 10px 0 0;
+	float: left;
+	width: 260px;
+	height: 309px;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+div.box_quiz div.quiz_list h4 {
+	display: none;
+}
+div.box_quiz div.quiz_list p.question {
+	padding: 10px 0 0;
+}
+div.box_quiz div.quiz_list p.descript {
+	text-align: right;
+	padding: 0 0 10px;
+}
+div.box_quiz div.quiz_list p.answer {
+	padding: 0 0 10px;
+	border-bottom: 1px dashed #333;
+}
+div.box_quiz div.quiz_list p.answer * {
+	vertical-align: middle;
+}
+div.box_quiz div.quiz_list input {
+	font-size: 12px;
+	color: #333;
+}
+div.box_quiz div.quiz_list p.complete {
+	text-align: right;
+	padding: 10px 0 0;
+}
+/******************************************************************
+	퀴즈완료
+*******************************************************************/
+div.quiz_last {
+	position: relative;
+	width: 675px;
+	height: 512px;
+	background: url("/csu/img/kid/quiz_last_bg.jpg") no-repeat;
+}
+div.quiz_last p.msg {
+	position: absolute;
+	left: 40px;
+	top: 62px;
+}
+div.quiz_last div.other {
+	position: absolute;
+	left: 380px;
+	top: 80px;
+}
+div.quiz_last div.other h4 {
+	padding: 0 0 10px;
+}
+div.quiz_last div.other ul {
+	padding: 0 0 50px;
+}
+div.quiz_last div.other ul li {
+	padding: 0 0 10px;
+}
+/******************************************************************
+	물질정보 상세보기
+*******************************************************************/
+div.kid_material_view h5 {
+	color: #875a00;
+	font-size: 12px;
+	padding: 0 0 10px;
+}
+div.kid_material_view h5 span {
+	font-weight: bold;
+	font-size: 15px;
+}
+div.kid_material_view #tab_material {
+	margin: 0 0 10px;
+	width: 656px;
+}
+div.kid_material_view #tab_material ul.tabmenu {
+	height: 28px;
+	overflow: hidden;
+	padding-left:2px;
+}
+div.kid_material_view #tab_material ul.tabmenu li {
+	float: left;
+}
+div.kid_material_view #tab_material div.tabstyle {
+	width: 656px;
+	clear: both;
+	background: red url("/csu/img/kid/kid_list_contbbg.gif") repeat-y;
+}
+div.kid_material_view #tab_material div.tabstyle div.material_content {
+	width: 616px;
+	clear: both;
+	padding: 20px;
+	background: url("/csu/img/kid/kid_list_contbbot.gif") no-repeat left bottom;
+}
+/*
+	어린이방
+
+.kid_mainbg{width:950px;height:700px;margin: 0 auto;}
+
+.kid_boxtop{background:url(/csu/img/kid/kid_boxtop.gif) no-repeat left top;width:708px;height:92px;padding:16px 0px 0px 25px;margin-top:10px;}
+.kid_boxtop_01{background:url(/csu/img/kid/kid_boxtop01.gif) no-repeat left top;width:708px;height:80px;
+     padding:16px 0 0 25px;margin-top:10px;}
+.kid_boxcen{background:url(/csu/img/kid/kid_boxcen.gif) repeat-y;;width:708px;}
+.kid_boxbot{background:url(/csu/img/kid/kid_boxbot.gif) no-repeat left bottom;width:708px;padding:0 0px 25px 25px;}
+.kid_boxbot_01{background:url(/csu/img/kid/kid_boxbot.gif) no-repeat left bottom;width:708px;padding:0 0px 25px 14px;}
+.kid_tab_area{padding-left:5px;}
+.kid_chemi_mainboxcen{background:url(/csu/img/kid/kid_chemi_mainboxcen.gif) repeat-y;width:652px;padding:0px 10px;}
+.kid_chemi_flashboxcen{background:url(/csu/img/kid/kid_chemi_flashboxcen.gif) repeat-y;width:433px;padding:0px 5px;}
+.kid_chemi_guidecen{background:url(/csu/img/kid/kid_chemi_guidecen.gif) repeat-y;width:216px;padding:0px 7px;}
+.kid_chemi_sstl{background:url(/csu/img/kid/kid_chemi_sstl_.gif) no-repeat;width:202px;height:36px;padding:13px 0px 0px 50px;font-weight:bold;}
+.kid_chemi_sstl_1{color:#875a00;font-weight:bold;font-size:13px;margin-bottom:10px;padding:0px 0px 0px 10px}
+.kid_title_area{width:653px;padding:15px 0px 10px 0px;}
+.kid_title{float:left;}
+.kid_indi{float:right;font-size:11px;}
+.kid_indi_on{font-size:11px;color:ffa800;font-weight:bold;}
+.kid_list_con{background:url(/csu/img/kid/kid_list_contbbg.gif) repeat-y;width:656px;padding:20px 20px 10px 20px;} 
+.kid_list_con td{line-height:140%;}
+.kid_layer{overflow-y:auto;overflow-x:hidden;width:200px;height:250px;padding:10px;border:1px solid #dddddd;margin-top:5px;}
+.kid_layer_1{overflow-y:auto;overflow-x:hidden;width:175px;height:250px;padding:10px;border:1px solid #dddddd;margin-top:5px;}
+.game_area{padding:0px 0px 30px 10px;height:450px;}
+.game_left{{float:left;}
+.game_right{{float:left;padding-left:50px;}
+.quiz_area{padding:0px 0px 30px 35px;width:620px;height:450px;}
+.quiz_font01{color:#167375;font-size:15px;}
+.quiz_font02{color:#fdfff0;font-size:15px;}
+.quiz_boxbg{background:url(/csu/img/kid/quiz_boxbg.gif) no-repeat;width:571px;height:133;padding:26px 0px 0px 33px;;margin-top:10px;}
+*/

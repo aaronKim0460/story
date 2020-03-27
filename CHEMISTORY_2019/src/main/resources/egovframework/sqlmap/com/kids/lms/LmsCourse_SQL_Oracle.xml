@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="lmsCourseDAO">
+
+	<typeAlias  alias="LmsCourseVO" type="egovframework.com.kids.lms.vo.LmsCourseVO"/>
+
+	<resultMap id="selectLmsCourseList" class="egovframework.com.kids.lms.vo.LmsCourseVO">
+		<result property="courseId" 		column="COURSE_ID"		/>
+		<result property="courseNm" 		column="COURSE_NM"		/>
+		<result property="screenWidth" 		column="SCREEN_WIDTH"	/>
+		<result property="screenHeight" 	column="SCREEN_HEIGHT"	/>
+		<result property="useYn" 			column="USE_YN"			/>
+		<result property="regDt" 			column="REG_DT"			/>
+		<result property="regId" 			column="REG_ID"			/>
+		<result property="regNm" 			column="REG_NM"			/>
+		<result property="courseContent" 	column="COURSE_CONTENT"	/>
+		<result property="chasiCount" 		column="CHASI_COUNT"	/>
+		<result property="questionCount" 	column="QUESTION_COUNT"	/>
+	</resultMap>
+	
+	<select id="LmsCourseDAO.selectLmsCourseList" parameterClass="LmsCourseVO" resultMap="selectLmsCourseList">
+		/* LmsCourseDAO.selectLmsCourseList */
+		SELECT * FROM (SELECT ROWNUM AS RN, T.* FROM
+		(
+			SELECT
+				LC.COURSE_ID
+				, LC.COURSE_NM
+				, LC.SCREEN_WIDTH
+				, LC.SCREEN_HEIGHT
+				, LC.USE_YN
+				, TO_CHAR(LC.REG_DT, 'YYYY.MM.DD') AS REG_DT
+				, LC.REG_ID
+				, LC.REG_NM
+				, LC.COURSE_CONTENT
+				, (
+					SELECT
+						COUNT(*)
+					FROM
+						LMS_CHASI LCH
+					WHERE
+						LCH.COURSE_ID = LC.COURSE_ID
+				) AS CHASI_COUNT
+				, (
+					SELECT
+						COUNT(*)
+					FROM
+						LMS_QUESTION LQ
+					WHERE
+						LQ.COURSE_ID = LC.COURSE_ID
+				) AS QUESTION_COUNT
+			FROM
+				LMS_COURSE LC
+			WHERE
+				1=1
+				<isNotEmpty property="searchKeyword">
+					<isEqual property="searchCondition" compareValue="title">
+						<![CDATA[ AND	LC.COURSE_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCondition" compareValue="nm">
+						<![CDATA[ AND	LC.REG_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+				</isNotEmpty>
+			ORDER BY
+				LC.REG_DT DESC
+		) T ) Z WHERE RN BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	</select>
+	
+	<select id="LmsCourseDAO.selectLmsCourseCount" parameterClass="LmsCourseVO" resultClass="java.lang.Integer">
+		/* LmsCourseDAO.selectLmsCourseCount */
+		SELECT
+			COUNT(*)
+		FROM
+			LMS_COURSE LC
+		WHERE
+			1=1
+			<isNotEmpty property="searchKeyword">
+				<isEqual property="searchCondition" compareValue="title">
+					<![CDATA[ AND	LC.COURSE_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+				<isEqual property="searchCondition" compareValue="nm">
+					<![CDATA[ AND	LC.REG_NM LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+			</isNotEmpty>
+	</select>
+	
+	<resultMap id="selectLmsCourse" class="egovframework.com.kids.lms.vo.LmsCourseVO">
+		<result property="courseId" 		column="COURSE_ID"		/>
+		<result property="courseNm" 		column="COURSE_NM"		/>
+		<result property="screenWidth" 		column="SCREEN_WIDTH"	/>
+		<result property="screenHeight" 	column="SCREEN_HEIGHT"	/>
+		<result property="useYn" 			column="USE_YN"			/>
+		<result property="regDt" 			column="REG_DT"			/>
+		<result property="regId" 			column="REG_ID"			/>
+		<result property="regNm" 			column="REG_NM"			/>
+		<result property="courseContent" 	column="COURSE_CONTENT"	/>
+		<result property="chasiCount" 		column="CHASI_COUNT"	/>
+		<result property="questionCount" 	column="QUESTION_COUNT"	/>
+		<result property="sugangCount" 		column="SUGANG_COUNT"	/>
+	</resultMap>
+	
+	<select id="LmsCourseDAO.selectLmsCourse" parameterClass="LmsCourseVO" resultMap="selectLmsCourse">
+		/* LmsCourseDAO.selectLmsCourse */
+		SELECT
+			LC.COURSE_ID
+			, LC.COURSE_NM
+			, LC.SCREEN_WIDTH
+			, LC.SCREEN_HEIGHT
+			, LC.USE_YN
+			, TO_CHAR(LC.REG_DT, 'YYYY.MM.DD') AS REG_DT
+			, LC.REG_ID
+			, LC.REG_NM
+			, LC.COURSE_CONTENT
+			, (
+				SELECT
+					COUNT(*)
+				FROM
+					LMS_CHASI LCH
+				WHERE
+					LCH.COURSE_ID = LC.COURSE_ID
+			) AS CHASI_COUNT
+			, (
+				SELECT
+					COUNT(*)
+				FROM
+					LMS_QUESTION LQ
+				WHERE
+					LQ.COURSE_ID = LC.COURSE_ID
+			) AS QUESTION_COUNT
+			, (
+					SELECT
+						COUNT(*)
+					FROM
+						LMS_SUGANG LS
+					WHERE
+						LS.COURSE_ID = LC.COURSE_ID
+				) AS SUGANG_COUNT
+		FROM
+			LMS_COURSE LC
+			WHERE LC.COURSE_ID = #courseId#
+	</select>
+	
+	<insert id="LmsCourseDAO.insertLmsCourse" parameterClass="LmsCourseVO">
+		<selectKey resultClass="java.lang.Long" keyProperty="courseId">
+			SELECT SEQ_COURSE.NEXTVAL FROM dual
+		</selectKey>
+		/* LmsCourseDAO.insertLmsCourse */
+		INSERT INTO LMS_COURSE
+		(
+			COURSE_ID 
+			 , COURSE_NM 
+			 , SCREEN_WIDTH 
+			 , USE_YN 
+			 , REG_DT 
+			 , REG_ID 
+			 , REG_NM 
+			 , SCREEN_HEIGHT 
+			 , COURSE_CONTENT 
+		)
+		VALUES
+		(
+			#courseId# 
+			 , #courseNm# 
+			 , #screenWidth# 
+			 , #useYn# 
+			 , SYSDATE 
+			 , #regId# 
+			 , #regNm# 
+			 , #screenHeight# 
+			 , #courseContent#
+		)
+	</insert>
+	
+	<update id="LmsCourseDAO.updateLmsCourse" parameterClass="LmsCourseVO">
+		/* LmsCourseDAO.updateLmsCourse */
+		UPDATE LMS_COURSE
+		SET
+			COURSE_NM = #courseNm#
+			, SCREEN_WIDTH = #screenWidth# 
+			, USE_YN = #useYn#
+			, SCREEN_HEIGHT = #screenHeight#  
+			, COURSE_CONTENT = #courseContent#
+		 WHERE
+		 	COURSE_ID = #courseId#
+	</update>
+	
+	<delete id="LmsCourseDAO.deleteLmsCourse" parameterClass="LmsCourseVO">
+		/* LmsCourseDAO.deleteLmsCourse */
+		DELETE
+		FROM
+			LMS_COURSE
+		WHERE
+			COURSE_ID = #courseId#
+	</delete>
+	
+	<resultMap id="selectLmsCourseListForUser" class="egovframework.com.kids.lms.vo.LmsCourseVO">
+		<result property="courseId" 		column="COURSE_ID"		/>
+		<result property="courseNm" 		column="COURSE_NM"		/>
+		<result property="screenWidth" 		column="SCREEN_WIDTH"	/>
+		<result property="screenHeight" 	column="SCREEN_HEIGHT"	/>
+		<result property="useYn" 			column="USE_YN"			/>
+		<result property="regDt" 			column="REG_DT"			/>
+		<result property="regId" 			column="REG_ID"			/>
+		<result property="regNm" 			column="REG_NM"			/>
+		<result property="courseContent" 	column="COURSE_CONTENT"	/>
+		<result property="questionCount" 	column="QUESTION_COUNT"	/>
+		<result property="sugangId" 		column="SUGANG_ID"	/>
+		<result property="testCount" 		column="TEST_COUNT"	/>
+		<result property="testPoint" 		column="TEST_POINT"	/>
+		<result property="chasiList" column="{courseId=COURSE_ID,sugangId=SUGANG_ID}" javaType="List" select="LmsChasiDAO.selectLmsChasiListByCourseId"/>
+	</resultMap>
+	
+	<select id="LmsCourseDAO.selectLmsCourseListForUser" parameterClass="LmsCourseVO" resultMap="selectLmsCourseListForUser">
+		/* LmsCourseDAO.selectLmsCourseListForUser */
+			SELECT
+				LC.COURSE_ID
+				, LC.COURSE_NM
+				, LC.SCREEN_WIDTH
+				, LC.SCREEN_HEIGHT
+				, LC.USE_YN
+				, TO_CHAR(LC.REG_DT, 'YYYY.MM.DD') AS REG_DT
+				, LC.REG_ID
+				, LC.REG_NM
+				, LC.COURSE_CONTENT
+				, (
+					SELECT
+						COUNT(*)
+					FROM
+						LMS_QUESTION LQ
+					WHERE
+						LQ.COURSE_ID = LC.COURSE_ID
+				) AS QUESTION_COUNT
+				<isNotEmpty property="userEmail">
+					, LE.SUGANG_ID
+					, LE.TEST_COUNT
+					, LE.TEST_POINT
+				</isNotEmpty>
+				<isEmpty property="userEmail">
+				, 0 AS TEST_COUNT
+				, '' AS SUGANG_ID
+				, 0 AS TEST_POINT
+				</isEmpty>
+			FROM
+				LMS_COURSE LC
+			<isNotEmpty property="userEmail">
+				LEFT OUTER JOIN
+				(
+			        SELECT
+					LS.COURSE_ID
+			        , LS.SUGANG_ID
+					, NVL2(LS.TEST_DT, 1, 0) AS TEST_COUNT
+					, LS.TEST_POINT
+					FROM
+					LMS_SUGANG LS
+					INNER JOIN
+			        TC_MEMBER_INFORMATION TMI
+			        ON
+			        LS.MEMBER_ID = TMI.MEMBER_ID
+			        AND TMI.EMAIL = #userEmail#
+		        ) LE
+		        ON
+		        LC.COURSE_ID = LE.COURSE_ID
+			</isNotEmpty>
+			WHERE
+				LC.USE_YN = 'Y'
+			<isNotEmpty property="searchCnd">
+				AND ROWNUM <![CDATA[<=]]> #searchCnd#
+			</isNotEmpty>
+			ORDER BY LC.COURSE_ID DESC
+	</select>
+	
+</sqlMap>

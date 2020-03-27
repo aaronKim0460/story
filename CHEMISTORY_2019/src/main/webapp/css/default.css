@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+/* reset style [start] */
+html,body, dl, dt, dd, ol, ul, li, form { margin: 0; padding: 0; border:0; line-height: 1.5em; }
+ol, ul, li { list-style:none;}
+img, fieldset{border:0 none;}
+table caption {display:none;}
+a:link { color:#666; text-decoration:none; }
+a:visited { color:#666; text-decoration:none; }
+a:hover { color:#0030ae; text-decoration:underline; }
+a:active { color:#0030ae; text-decoration:underline; }
+button{cursor:pointer;border:none;background:none}
+.skip {position:absolute; overflow:hidden; height:0; width:0; font-size:0; visibility:hidden;}
+.clear{clear: both;}
+
+body{
+    font-size:13px;line-height:1.8em;
+    color:#545454;
+    font-family: 'NanumGothic', nanum gothic, '맑은고딕', malgun gothic,'돋움',Dotum,'Apple SD Gothic Neo',Helvetica,sans-serif;
+}
+
+/* 입력 form */
+input{vertical-align:middle}
+input[type="text"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:24px;line-height:24px;font-size:12px;font-family:dotum;}
+input[type="password"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:24px;line-height:24px;font-size:12px;font-family:dotum;}
+input[type="file"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:24px;line-height:24px;font-size:12px;font-family:dotum;}
+input[type="submit"]{font-size:12px;font-family:dotum;color:#666;background:none}
+select{padding:1px 3px;border:solid 1px #dedede;height:21px;line-height:21px;font-size:12px;font-family:dotum;}
+textarea{padding:1px 3px;border:solid 1px #dedede;height:24px;line-height:24px;font-size:12px;font-family:dotum;}
+input[disabled="disabled"]{background:#ebebeb;color:#959595}
+select[disabled="disabled"]{background:#ebebeb;color:#959595}

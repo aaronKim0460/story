@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NoxiousMaterialKor">
+    
+    <typeAlias  alias="NoxiousMaterialKorVO" type="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousMaterialKorVO"/>
+    <typeAlias  alias="NoxiousEnvilomentKorVO" type="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousEnvilomentVO"/>
+    <typeAlias  alias="NoxiousInfoKorVO" type="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousInfoKorVO"/>
+    
+    <resultMap id="NoxiousMaterialKorStaticMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousMaterialKorMapVO">
+    	<result property="airH"				column="airH"				columnIndex="1"/>
+    	<result property="airM"				column="airM"				columnIndex="2"/>
+    	<result property="airL"				column="airL"				columnIndex="3"/>
+    	<result property="inAirH"			column="inAirH"				columnIndex="4"/>
+    	<result property="inAirM"			column="inAirM"				columnIndex="5"/>
+    	<result property="inAirL"			column="inAirL"				columnIndex="6"/>
+    	<result property="waterH"			column="waterH"				columnIndex="7"/>
+    	<result property="waterM"			column="waterM"				columnIndex="8"/>
+    	<result property="waterL"			column="waterL"				columnIndex="9"/>
+    	<result property="soilH"			column="soilH"				columnIndex="10"/>
+    	<result property="soilM"			column="soilM"				columnIndex="11"/>
+    	<result property="soilL"			column="soilL"				columnIndex="12"/>
+    	<result property="otherH"			column="otherH"				columnIndex="13"/>
+    	<result property="otherM"			column="otherM"				columnIndex="14"/>
+    	<result property="otherL"			column="otherL"				columnIndex="15"/>
+    	<result property="productH"			column="productH"			columnIndex="16"/>
+    	<result property="productM"			column="productM"			columnIndex="17"/>
+    	<result property="productL"			column="productL"			columnIndex="18"/>    	
+    </resultMap>
+    
+    <resultMap id="NoxiousMaterialKorListMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousMaterialKorVO">
+    	<result property="idx"			column="m_idx"				columnIndex="1"/>
+        <result property="eName"		column="m_ename"			columnIndex="2"/>
+        <result property="kName"		column="m_kname"			columnIndex="3"/>
+        <result property="cas"			column="m_cas"				columnIndex="4"/>              
+        <result property="attachFileId"	column="M_ATTACH_FILE_ID"	columnIndex="5"/>              
+        <result property="medium"		column="M_MEDIUM"			columnIndex="6"/>
+        <result property="outline"		column="M_OUTLINE"			columnIndex="7"/>
+        <result property="outlineCh"	column="M_OUTLINE_CH"		columnIndex="8"/>
+        <result property="searchCondition"		column="SEARCH_CONDITION"				columnIndex="9"/>
+        <result property="searchCondition1"		column="SEARCH_CONDITION1"				columnIndex="10"/>
+        <result property="searchCondition2"		column="SEARCH_CONDITION2"				columnIndex="11"/>
+        <result property="searchCondition3"		column="SEARCH_CONDITION3"				columnIndex="12"/>
+        <result property="reportCnt"			column="RPORT_CNT"						columnIndex="13"/>
+    </resultMap>
+    
+    <resultMap id="NoxiousMaterialKorListDataMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousMaterialKorVO">
+    	<result property="idx"			column="m_idx"				columnIndex="1"/>        
+        <result property="kName"		column="m_kname"			columnIndex="2"/>        
+    </resultMap>
+    
+    <resultMap id="NoxiousMaterialKorDetailMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousMaterialKorVO">
+        <result property="idx"				        column="M_IDX"						columnIndex="1"/>
+		<result property="eName"				    column="M_ENAME"					columnIndex="2"/>
+		<result property="kName"				    column="M_KNAME"					columnIndex="3"/>
+		<result property="cas"				        column="M_CAS"						columnIndex="4"/>
+		<result property="trait"				    column="M_TRAIT"					columnIndex="5"/>
+		<result property="traitCh"			        column="M_TRAIT_CH"					columnIndex="6"/>
+		<result property="medium"			        column="M_MEDIUM"					columnIndex="7"/>
+		<result property="noxiousLevel"		        column="M_NOXIOUS_LEVEL"			columnIndex="8"/>
+		<result property="outline"			        column="M_OUTLINE"					columnIndex="9"/>
+		<result property="basic"				    column="M_BASIC"					columnIndex="10"/>
+		<result property="tInfo"				    column="M_T_INFO"					columnIndex="11"/>
+		<result property="tSafe"				    column="M_T_SAFE"					columnIndex="12"/>
+		<result property="overG"				    column="M_OVER_G"					columnIndex="13"/>
+		<result property="infoAttentionMan"	        column="M_INFO_ATTENTION_MAN"		columnIndex="14"/>
+		<result property="overGRe"			        column="M_OVER_G_RE"				columnIndex="15"/>
+		<result property="overM"				    column="M_OVER_M"					columnIndex="16"/>
+		<result property="overMRe"			        column="M_OVER_M_RE"				columnIndex="17"/>
+		<result property="outlineRe"			    column="M_OUTLINE_RE"				columnIndex="18"/>
+		<result property="controlG"			        column="M_CONTROL_G"				columnIndex="19"/>
+		<result property="controlGRe"		        column="M_CONTROL_G_RE"				columnIndex="20"/>
+		<result property="planG"				    column="M_PLAN_G"					columnIndex="21"/>
+		<result property="planGRe"			        column="M_PLAN_G_RE"				columnIndex="22"/>
+		<result property="planM"				    column="M_PLAN_M"					columnIndex="23"/>
+		<result property="infoMatterChild"	        column="M_INFO_MATTER_CHILD"		columnIndex="24"/>
+		<result property="infoExpoChild"		    column="M_INFO_EXPO_CHILD"			columnIndex="25"/>
+		<result property="infoAttentionChild"       column="M_INFO_ATTENTION_CHILD"		columnIndex="26"/>
+		<result property="outlineCh"			    column="M_OUTLINE_CH"				columnIndex="27"/>
+		<result property="basicCh"			        column="M_BASIC_CH"					columnIndex="28"/>
+		<result property="tInfoCh"			        column="M_T_INFO_CH"				columnIndex="29"/>
+		<result property="tSafeCh"			        column="M_T_SAFE_CH"				columnIndex="30"/>
+		<result property="overGCh"			        column="M_OVER_G_CH"				columnIndex="31"/>
+		<result property="infoAttentionManCh"		column="M_INFO_ATTENTION_MAN_CH"	columnIndex="32"/>
+		<result property="overGReCh"				column="M_OVER_G_RE_CH"				columnIndex="33"/>
+		<result property="overMCh"					column="M_OVER_M_CH"				columnIndex="34"/>
+		<result property="overMReCh"				column="M_OVER_M_RE_CH"				columnIndex="35"/>
+		<result property="outlineReCh"				column="M_OUTLINE_RE_CH"			columnIndex="36"/>
+		<result property="controlGCh"				column="M_CONTROL_G_CH"				columnIndex="37"/>
+		<result property="controlGReCh"				column="M_CONTROL_G_RE_CH"			columnIndex="38"/>
+		<result property="planGCh"					column="M_PLAN_G_CH"				columnIndex="39"/>
+		<result property="planGReCh"				column="M_PLAN_G_RE_CH"				columnIndex="40"/>
+		<result property="planMCh"					column="M_PLAN_M_CH"				columnIndex="41"/>
+		<result property="infoMatterChildCh"		column="M_INFO_MATTER_CHILD_CH"		columnIndex="42"/>
+		<result property="infoExpoChildCh"			column="M_INFO_EXPO_CHILD_CH"		columnIndex="43"/>
+		<result property="infoAttentionChildCh"		column="M_INFO_ATTENTION_CHILD_CH"	columnIndex="44"/>
+		<result property="attachFileId"				column="M_ATTACH_FILE_ID"			columnIndex="45"/>
+		<result property="flag"						column="M_FLAG"						columnIndex="46"/>
+    </resultMap>
+    
+    <resultMap id="selectNoxiousEnviloMentKorListMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousEnvilomentVO">
+        <result property="envId"			column="env_id"				columnIndex="1"/>
+        <result property="envName"			column="env_name"			columnIndex="2"/>
+    </resultMap>
+    
+    <resultMap id="selectNoxiousEnviloMentKorListDataMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousEnvilomentVO">
+        <result property="envId"			column="env_id"				columnIndex="1"/>
+        <result property="envName"			column="env_name"			columnIndex="2"/>          
+        <result property="matId"			column="mat_id"				columnIndex="3"/>          
+        <result property="matName"			column="mat_name"			columnIndex="4"/>        
+        <result property="mappingList"		column="{envId = env_id, matId = mat_id, searchCnd = search_cnd, searchKeyword = search_keyword}" select="NoxiousMaterialKorDao.selectMappingKorList" javaType="List"/>
+    </resultMap>
+    
+    <resultMap id="selectMappingKorListMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousEnvilomentMappingVO">
+    	<result property="envId"		column="env_id"				columnIndex="1"/>
+        <result property="matId"		column="mat_id"				columnIndex="2"/>
+        <result property="idx"			column="m_idx"				columnIndex="3"/>        
+        <result property="kName"		column="m_kname"			columnIndex="4"/>           
+        <result property="cas"			column="m_cas"				columnIndex="5"/>
+        <result property="searchCondition"		column="SEARCH_CONDITION"				columnIndex="6"/>
+    </resultMap>
+    
+    <resultMap id="selectNoxiousInfoListMap" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousInfoKorVO">
+		<result property="rdIdx"      		column="RD_IDX"				columnIndex="1"/>
+		<result property="rdDataSource"     column="RD_DATA_SOURCE"		columnIndex="2"/>
+		<result property="rdEname"      	column="RD_ENAME"			columnIndex="3"/>
+		<result property="rdDataForm"      	column="RD_DATA_FORM"		columnIndex="4"/>
+		<result property="rdOver"      		column="RD_OVER"			columnIndex="5"/>
+		<result property="rdOverPath"      	column="RD_OVER_PATH"		columnIndex="6"/>
+		<result property="rdAge"      		column="RD_AGE"				columnIndex="7"/>
+		<result property="rdIn"      		column="RD_IN"				columnIndex="8"/>
+		<result property="rdPlan"      		column="RD_PLAN"			columnIndex="9"/>
+		<result property="rdInCh"      		column="RD_IN_CH"			columnIndex="10"/>
+		<result property="rdEtc"      		column="RD_ETC"				columnIndex="11"/>
+		<result property="rdPlanCh"      	column="RD_PLAN_CH"			columnIndex="12"/>
+		<result property="rdSource"      	column="RD_SOURCE"			columnIndex="13"/>
+		<result property="rdEtcCh"      	column="RD_ETC_CH"			columnIndex="14"/>
+		<result property="rdYear"      		column="RD_YEAR"			columnIndex="15"/>
+		<result property="rdKname"      	column="RD_KNAME"			columnIndex="16"/>
+		<result property="rdSourceCh"      	column="RD_SOURCE_CH"		columnIndex="17"/>
+		<result property="rdBad"      		column="RD_BAD"				columnIndex="18"/>
+		<result property="rdRegDate"      	column="RD_REG_DATE"		columnIndex="19"/>
+		<result property="rdMidx"      		column="RD_M_IDX"			columnIndex="20"/>
+		<result property="rdPoison"      	column="RD_POISON"			columnIndex="21"/>    	    	
+    </resultMap>
+    
+    <resultMap id="NoxiousInfoKorDetail" class="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiousInfoKorVO">
+		<result property="rdIdx"      		column="RD_IDX"				columnIndex="1"/>
+		<result property="rdDataSource"     column="RD_DATA_SOURCE"		columnIndex="2"/>
+		<result property="rdEname"      	column="RD_ENAME"			columnIndex="3"/>
+		<result property="rdDataForm"      	column="RD_DATA_FORM"		columnIndex="4"/>
+		<result property="rdOver"      		column="RD_OVER"			columnIndex="5"/>
+		<result property="rdOverPath"      	column="RD_OVER_PATH"		columnIndex="6"/>
+		<result property="rdAge"      		column="RD_AGE"				columnIndex="7"/>
+		<result property="rdIn"      		column="RD_IN"				columnIndex="8"/>
+		<result property="rdPlan"      		column="RD_PLAN"			columnIndex="9"/>
+		<result property="rdInCh"      		column="RD_IN_CH"			columnIndex="10"/>
+		<result property="rdEtc"      		column="RD_ETC"				columnIndex="11"/>
+		<result property="rdPlanCh"      	column="RD_PLAN_CH"			columnIndex="12"/>
+		<result property="rdSource"      	column="RD_SOURCE"			columnIndex="13"/>
+		<result property="rdEtcCh"      	column="RD_ETC_CH"			columnIndex="14"/>
+		<result property="rdYear"      		column="RD_YEAR"			columnIndex="15"/>
+		<result property="rdKname"      	column="RD_KNAME"			columnIndex="16"/>
+		<result property="rdSourceCh"      	column="RD_SOURCE_CH"		columnIndex="17"/>
+		<result property="rdBad"      		column="RD_BAD"				columnIndex="18"/>
+		<result property="rdRegDate"      	column="RD_REG_DATE"		columnIndex="19"/>
+		<result property="rdMidx"      		column="RD_M_IDX"			columnIndex="20"/>
+		<result property="rdPoison"      	column="RD_POISON"			columnIndex="21"/>    	    	
+    </resultMap>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousMaterialMapKorList" resultMap="NoxiousMaterialKorStaticMap">
+    /* NoxiousMaterialKorDao.selectNoxiousMaterialMapKorList */
+	SELECT
+		SUM(AA.airH) AS airH
+	    ,SUM(AA.airM) AS airM
+	    ,SUM(AA.airL) AS airL
+	    ,SUM(AA.inAirH) AS inAirH
+	    ,SUM(AA.inAirM) AS inAirM
+	    ,SUM(AA.inAirL) AS inAirL
+	    ,SUM(AA.waterH) AS waterH
+	    ,SUM(AA.waterM) AS waterM
+	    ,SUM(AA.waterL) AS waterL
+	    ,SUM(AA.soilH) AS soilH
+	    ,SUM(AA.soilM) AS soilM
+	    ,SUM(AA.soilL) AS soilL
+	    ,SUM(AA.otherH) AS otherH
+	    ,SUM(AA.otherM) AS otherM
+	    ,SUM(AA.otherL) AS otherL
+	    ,SUM(AA.productH) AS productH
+	    ,SUM(AA.productM) AS productM
+	    ,SUM(AA.productL) AS productL
+	FROM(
+	SELECT
+		CASE WHEN a.M_MEDIUM LIKE '%대기%' AND a.M_NOXIOUS_LEVEL = 'H' THEN 1 ELSE 0 END AS airH
+	    ,CASE WHEN a.M_MEDIUM LIKE '%대기%' AND a.M_NOXIOUS_LEVEL = 'M' THEN 1 ELSE 0 END AS airM
+	    ,CASE WHEN a.M_MEDIUM LIKE '%대기%' AND a.M_NOXIOUS_LEVEL = 'L' THEN 1 ELSE 0 END AS airL
+	    ,CASE WHEN a.M_MEDIUM LIKE '%실내공기%' AND a.M_NOXIOUS_LEVEL = 'H' THEN 1 ELSE 0 END AS inAirH
+	    ,CASE WHEN a.M_MEDIUM LIKE '%실내공기%' AND a.M_NOXIOUS_LEVEL = 'M' THEN 1 ELSE 0 END AS inAirM
+	    ,CASE WHEN a.M_MEDIUM LIKE '%실내공기%' AND a.M_NOXIOUS_LEVEL = 'L' THEN 1 ELSE 0 END AS inAirL
+	    ,CASE WHEN a.M_MEDIUM LIKE '%먹는물%' AND a.M_NOXIOUS_LEVEL = 'H' THEN 1 ELSE 0 END AS waterH
+	    ,CASE WHEN a.M_MEDIUM LIKE '%먹는물%' AND a.M_NOXIOUS_LEVEL = 'M' THEN 1 ELSE 0 END AS waterM
+	    ,CASE WHEN a.M_MEDIUM LIKE '%먹는물r%' AND a.M_NOXIOUS_LEVEL = 'L' THEN 1 ELSE 0 END AS waterL
+	    ,CASE WHEN a.M_MEDIUM LIKE '%토양%' AND a.M_NOXIOUS_LEVEL = 'H' THEN 1 ELSE 0 END AS soilH
+	    ,CASE WHEN a.M_MEDIUM LIKE '%토양%' AND a.M_NOXIOUS_LEVEL = 'M' THEN 1 ELSE 0 END AS soilM
+	    ,CASE WHEN a.M_MEDIUM LIKE '%토양%' AND a.M_NOXIOUS_LEVEL = 'L' THEN 1 ELSE 0 END AS soilL
+	    ,CASE WHEN a.M_MEDIUM LIKE '%기타%' AND a.M_NOXIOUS_LEVEL = 'H' THEN 1 ELSE 0 END AS otherH
+	    ,CASE WHEN a.M_MEDIUM LIKE '%기타%' AND a.M_NOXIOUS_LEVEL = 'M' THEN 1 ELSE 0 END AS otherM
+	    ,CASE WHEN a.M_MEDIUM LIKE '%기타r%' AND a.M_NOXIOUS_LEVEL = 'L' THEN 1 ELSE 0 END AS otherL
+	    ,CASE WHEN a.M_MEDIUM LIKE '%제품%' AND a.M_NOXIOUS_LEVEL = 'H' THEN 1 ELSE 0 END AS productH
+	    ,CASE WHEN a.M_MEDIUM LIKE '%제품%' AND a.M_NOXIOUS_LEVEL = 'M' THEN 1 ELSE 0 END AS productM
+	    ,CASE WHEN a.M_MEDIUM LIKE '%제품%' AND a.M_NOXIOUS_LEVEL = 'L' THEN 1 ELSE 0 END AS productL
+	FROM
+		TT_MATERIAL a
+	)AA    
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousMaterialMapKorListData" parameterClass="NoxiousMaterialKorVO" resultMap="NoxiousMaterialKorListDataMap">
+    /* NoxiousMaterialKorDao.selectNoxiousMaterialMapKorListData */
+    SELECT
+		tt.M_IDX		
+		,tt.M_KNAME
+	FROM
+		TT_MATERIAL tt
+	WHERE
+		<![CDATA[	tt.M_MEDIUM LIKE '%' || #medium# || '%' 		]]>		
+	AND
+		tt.M_NOXIOUS_LEVEL = #noxiousLevel#
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousMaterialKorList" parameterClass="NoxiousMaterialKorVO" resultMap="NoxiousMaterialKorListMap">    
+    /* NoxiousMaterialKorDao.selectNoxiousMaterialKorList */
+    SELECT  Z.*
+    		, (SELECT COUNT(M_IDX) FROM TT_RELATED_DATA
+            WHERE RD_M_IDX = Z.M_IDX) AS RPORT_CNT
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+			    SELECT
+					tt.M_IDX
+				    ,TRIM(tt.M_ENAME) M_ENAME
+				    ,TRIM(tt.M_KNAME) M_KNAME
+				    ,tt.M_CAS
+				    ,tt.M_ATTACH_FILE_ID
+				    ,tt.M_MEDIUM
+				    ,tt.M_OUTLINE
+				    ,tt.M_OUTLINE_CH    
+				    , (
+				    	SELECT MAX(NTT_ID) NTT_ID FROM TN_BBS
+				    	WHERE BBS_ID = #searchCondition#
+				    	AND USE_AT = 'Y'
+				    	AND METERIAL_ID IN (
+				    		SELECT * FROM(
+				    			SELECT M_IDX FROM TT_MATERIAL
+				    			ORDER BY TO_NUMBER(M_IDX) DESC
+				    		)
+				    		WHERE METERIAL_ID = TT.M_IDX 
+				    	)
+				    ) SEARCH_CONDITION
+				    , (
+                        SELECT MAX(NTT_ID) NTT_ID  FROM TN_BBS
+                        WHERE BBS_ID = #searchCondition#
+                        AND USE_AT = 'Y'
+                        AND CL1_DETAIL_CODE = 'BCC601'
+                        AND METERIAL_ID IN (
+                            SELECT * FROM(
+                                SELECT M_IDX FROM TT_MATERIAL
+                                ORDER BY TO_NUMBER(M_IDX) DESC
+                            )
+                            WHERE METERIAL_ID = TT.M_IDX 
+                        )
+                    ) SEARCH_CONDITION1
+                    , (
+                        SELECT MAX(NTT_ID) NTT_ID  FROM TN_BBS
+                        WHERE BBS_ID = #searchCondition#
+                        AND USE_AT = 'Y'
+                        AND CL1_DETAIL_CODE = 'BCC602'
+                        AND METERIAL_ID IN (
+                            SELECT * FROM(
+                                SELECT M_IDX FROM TT_MATERIAL
+                                ORDER BY TO_NUMBER(M_IDX) DESC
+                            )
+                            WHERE METERIAL_ID = TT.M_IDX 
+                        )
+                    ) SEARCH_CONDITION2
+                    , (
+                        SELECT MAX(NTT_ID) NTT_ID  FROM TN_BBS
+                        WHERE BBS_ID = #searchCondition#
+                        AND USE_AT = 'Y'
+                        AND CL1_DETAIL_CODE = 'BCC603'
+                        AND METERIAL_ID IN (
+                            SELECT * FROM(
+                                SELECT M_IDX FROM TT_MATERIAL
+                                ORDER BY TO_NUMBER(M_IDX) DESC
+                            )
+                            WHERE METERIAL_ID = TT.M_IDX 
+                        )
+                    ) SEARCH_CONDITION3
+				FROM
+					TT_MATERIAL tt
+					WHERE 1=1
+			    	<isNotEmpty prepend="AND" property="searchKeyword">
+						<isEqual property="searchCnd" compareValue="0">
+				    		<![CDATA[	tt.m_kname LIKE '%' || #searchKeyword# || '%' 		]]>
+						</isEqual>
+						<isEqual property="searchCnd" compareValue="1">
+							<![CDATA[	tt.M_CAS LIKE '%' || #searchKeyword# || '%' 		]]>
+						</isEqual>
+			    	</isNotEmpty>
+			    	<isNotEmpty prepend="AND" property="searchCnd2nd">
+						<![CDATA[	tt.M_MEDIUM LIKE '%' || #searchCnd2nd# || '%'  		]]>
+			    	</isNotEmpty>
+			    	AND (TT.M_KNAME != '기타' AND TT.M_IDX != 276)
+			    <isEqual property="searchCondition4" compareValue="kname">
+					ORDER BY M_KNAME			    
+			    </isEqual>
+			    <isEqual property="searchCondition4" compareValue="ename">
+			    	ORDER BY M_ENAME
+			    </isEqual>
+		    )AA
+		)Z
+		<![CDATA[
+		WHERE RNUM BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	    ]]>	
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNttid" parameterClass="egovframework.com.kor.contents.noxiousMaterial.vo.NoxiouMaterialBbsVO" resultClass="String">
+    /* NoxiousMaterialKorDao.selectNttid */
+    SELECT
+		MAX(bbs.NTT_ID) AS NTT_ID
+	FROM
+		TN_BBS bbs
+	WHERE
+		bbs.BBS_ID = #bbsId#
+	AND
+		bbs.CL1_DETAIL_CODE = #searchCl1DetailCode#
+	AND
+		bbs.METERIAL_ID = #idx#    
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousMaterialKorListCnt" parameterClass="NoxiousMaterialKorVO" resultClass="int">
+    /* NoxiousMaterialKorDao.selectNoxiousMaterialKorListCnt */
+	    SELECT
+			COUNT(*)    
+		FROM
+			TT_MATERIAL tt
+		<dynamic prepend="WHERE">
+	    	<isNotEmpty prepend="AND" property="searchKeyword">
+				<isEqual property="searchCnd" compareValue="0">
+		    		<![CDATA[	tt.m_kname LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+				<isEqual property="searchCnd" compareValue="1">
+					<![CDATA[	tt.M_OUTLINE LIKE '%' || #searchKeyword# || '%' 		]]>
+				</isEqual>
+	    	</isNotEmpty>
+			<isNotEmpty prepend="AND" property="searchCnd2nd">
+				<![CDATA[	tt.M_MEDIUM LIKE '%' || #searchCnd2nd# || '%' 		]]>
+			</isNotEmpty>
+	    </dynamic>
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.detailNoxiousMaterialKor" parameterClass="NoxiousMaterialKorVO" resultMap="NoxiousMaterialKorDetailMap">
+    /* NoxiousMaterialKorDao.detailNoxiousMaterialKor */
+    SELECT 
+    	M_IDX
+		,M_ENAME
+		,M_KNAME
+		,M_CAS					
+		,M_TRAIT
+		,M_TRAIT_CH
+		,M_MEDIUM
+		,M_NOXIOUS_LEVEL					
+		,M_OUTLINE					
+		,M_BASIC
+		,M_T_INFO
+		,M_T_SAFE
+		,M_OVER_G
+		,M_INFO_ATTENTION_MAN
+		,M_OVER_G_RE
+		,M_OVER_M
+		,M_OVER_M_RE
+		,M_OUTLINE_RE
+		,M_CONTROL_G
+		,M_CONTROL_G_RE
+		,M_PLAN_G					
+		,M_PLAN_G_RE
+		,M_PLAN_M
+		,M_INFO_MATTER_CHILD
+		,M_INFO_EXPO_CHILD
+		,M_INFO_ATTENTION_CHILD
+		,M_OUTLINE_CH
+		,M_BASIC_CH
+		,M_T_INFO_CH
+		,M_T_SAFE_CH
+		,M_OVER_G_CH
+		,M_INFO_ATTENTION_MAN_CH
+		,M_OVER_G_RE_CH
+		,M_OVER_M_CH
+		,M_OVER_M_RE_CH
+		,M_OUTLINE_RE_CH
+		,M_CONTROL_G_CH
+		,M_CONTROL_G_RE_CH
+		,M_PLAN_G_CH
+		,M_PLAN_G_RE_CH
+		,M_PLAN_M_CH
+		,M_INFO_MATTER_CHILD_CH
+		,M_INFO_EXPO_CHILD_CH
+		,M_INFO_ATTENTION_CHILD_CH
+		,M_REG_DATE
+		,M_ATTACH_FILE_ID
+		,M_FLAG
+    FROM
+    	TT_MATERIAL
+    WHERE
+    	M_IDX = #idx#
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousEnviloMentKorList" resultMap="selectNoxiousEnviloMentKorListMap">
+    /* NoxiousMaterialKorDao.selectNoxiousEnviloMentKorList */
+    SELECT
+    	ENV_ID
+    	,ENV_NAME    	
+    FROM
+    	TT_ENVILOMENT
+    ORDER BY
+    	ENV_ID ASC
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousEnviloMentKorListData" parameterClass="NoxiousEnvilomentKorVO" resultMap="selectNoxiousEnviloMentKorListDataMap">
+    /* NoxiousMaterialKorDao.selectNoxiousEnviloMentKorListData */
+	    SELECT  
+	    	Z.RNUM
+	    	,Z.ENV_ID
+	    	,(SELECT ENV_NAME FROM TT_ENVILOMENT WHERE ENV_ID = Z.ENV_ID) AS ENV_NAME
+	    	,Z.MAT_ID
+	    	,Z.MAT_NAME
+	    	,#searchCnd# AS search_cnd
+	    	,#searchKeyword# AS search_keyword
+    	FROM (
+    		SELECT ROWNUM RNUM, A.*	
+    		FROM (
+    			SELECT ENV_ID, MAT_ID, MAT_NAME, REG_DT 
+    			FROM TT_ENV_MATERIL
+    			WHERE 1=1
+       			AND MAT_ID IN (
+       				SELECT MAT_ID FROM TT_MAT_NOX_MAPPING
+       				WHERE 1=1
+           			AND M_IDX IN (
+           				SELECT M_IDX FROM TT_MATERIAL
+			            WHERE 1=1
+			            <isNotEmpty prepend="AND" property="searchKeyword">
+					    	<isEqual property="searchCnd" compareValue="0">
+								<![CDATA[	(M_KNAME LIKE '%' || #searchKeyword# || '%' OR M_CAS LIKE '%' || #searchKeyword# || '%')		]]>
+							</isEqual>
+							<isEqual property="searchCnd" compareValue="1">
+								<![CDATA[	M_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>
+							</isEqual>
+							<isEqual property="searchCnd" compareValue="2">
+								<![CDATA[	M_CAS LIKE '%' || #searchKeyword# || '%' 		]]>
+							</isEqual>
+					    </isNotEmpty>
+           			)
+	       			AND ENV_ID = #envId#
+       			)
+       			ORDER BY REG_DT DESC
+    		) A
+    	) Z
+		<![CDATA[
+		WHERE  RNUM  > #firstIndex#
+	    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+	    ]]>
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousEnviloMentKorListDataCnt" parameterClass="NoxiousEnvilomentKorVO" resultClass="int">
+    /* NoxiousMaterialKorDao.selectNoxiousEnviloMentKorListDataCnt */
+		SELECT COUNT(ENV_ID) FROM TT_ENV_MATERIL
+	    WHERE 1=1
+	    AND MAT_ID IN (
+			SELECT MAT_ID FROM TT_MAT_NOX_MAPPING
+	        WHERE 1=1
+	        AND M_IDX IN ( 
+	        	SELECT M_IDX FROM TT_MATERIAL
+	            WHERE 1=1
+	            <isNotEmpty prepend="AND" property="searchKeyword">
+			    	<isEqual property="searchCnd" compareValue="0">
+						<![CDATA[	(M_KNAME LIKE '%' || #searchKeyword# || '%' OR M_CAS LIKE '%' || #searchKeyword# || '%')		]]>
+					</isEqual>
+					<isEqual property="searchCnd" compareValue="1">
+						<![CDATA[	M_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+					<isEqual property="searchCnd" compareValue="2">
+						<![CDATA[	M_CAS LIKE '%' || #searchKeyword# || '%' 		]]>
+					</isEqual>
+			    </isNotEmpty>
+	           )
+			AND ENV_ID = #envId#
+	    )
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectMappingKorList" parameterClass="NoxiousEnvilomentKorVO" resultMap="selectMappingKorListMap">
+    /* NoxiousMaterialKorDao.selectMappingKorList */
+    select env_id
+        , mat_id
+        , m_idx
+        , m_kname
+        , m_cas
+        , max(SEARCH_CONDITION1)||max(SEARCH_CONDITION2)||max(SEARCH_CONDITION3) SEARCH_CONDITION
+	from(
+	    SELECT
+			mnm.ENV_ID
+		    ,mnm.MAT_ID
+		    ,mnm.M_IDX
+		    ,tt.M_KNAME
+		    ,tt.M_CAS    
+		     , case when bbs.CL1_DETAIL_CODE = 'BCC601' then 'BCC601' end SEARCH_CONDITION1
+	         , case when bbs.CL1_DETAIL_CODE = 'BCC602' then 'BCC602' end SEARCH_CONDITION2
+	         , case when bbs.CL1_DETAIL_CODE = 'BCC603' then 'BCC603' end SEARCH_CONDITION3
+		FROM
+			TT_MAT_NOX_MAPPING mnm
+		LEFT JOIN TN_BBS bbs
+			ON bbs.METERIAL_ID = mnm.M_IDX
+		INNER JOIN
+			(
+	        SELECT
+	                tt.M_IDX
+	                ,tt.M_KNAME
+	                ,tt.M_CAS
+	                , (
+	                    SELECT MAX(NTT_ID) NTT_ID FROM TN_BBS
+	                    WHERE BBS_ID = 'BBSMSTR_000000000660' 
+	                    AND USE_AT ='Y'
+	                    AND METERIAL_ID IN (
+	                        SELECT * FROM(
+	                            SELECT M_IDX FROM TT_MATERIAL
+	                            ORDER BY TO_NUMBER(M_IDX) DESC
+	                        )
+	                        WHERE METERIAL_ID = TT.M_IDX 
+	                    )
+	                ) SEARCH_CONDITION
+	            FROM
+	                TT_MATERIAL tt
+	        ) tt 
+			ON mnm.M_IDX = tt.M_IDX
+		WHERE
+			mnm.ENV_ID = #envId# 
+		AND
+			mnm.MAT_ID = #matId#
+		<isNotEmpty prepend="AND" property="searchKeyword">
+			<isEqual property="searchCnd" compareValue="0">
+				<![CDATA[	(tt.M_KNAME LIKE '%' || #searchKeyword# || '%' OR tt.M_CAS LIKE '%' || #searchKeyword# || '%')		]]>
+			</isEqual>
+			<isEqual property="searchCnd" compareValue="1">
+				<![CDATA[	tt.M_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>
+			<isEqual property="searchCnd" compareValue="2">
+				<![CDATA[	tt.M_CAS LIKE '%' || #searchKeyword# || '%' 		]]>
+			</isEqual>
+		</isNotEmpty>
+		order by mnm.m_idx
+		)
+	group by env_id        , mat_id        , m_idx        , m_kname        , m_cas
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousInfoList" parameterClass="NoxiousInfoKorVO" resultMap="selectNoxiousInfoListMap">
+    /* NoxiousMaterialKorDao.selectNoxiousInfoList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT
+				RD_IDX
+				,RD_DATA_SOURCE
+				,TRIM(RD_ENAME) RD_ENAME
+				,RD_DATA_FORM
+				,RD_OVER
+				,RD_OVER_PATH
+				,RD_AGE
+				,RD_IN
+				,RD_PLAN
+				,RD_IN_CH
+				,RD_ETC
+				,RD_PLAN_CH
+				,RD_SOURCE
+				,RD_ETC_CH
+				,RD_YEAR
+				,TRIM(RD_KNAME) RD_KNAME 
+				,RD_SOURCE_CH
+				,RD_BAD
+				,RD_REG_DATE
+				,RD_M_IDX
+				,RD_POISON
+			FROM
+				 TT_RELATED_DATA
+			<dynamic prepend="WHERE">		    	
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<isEqual property="searchCondition4" compareValue="물질명">
+			    		<![CDATA[	RD_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>		    		
+		    		</isEqual>
+		    		<isEqual property="searchCondition4" compareValue="출처">
+		    			<![CDATA[	RD_SOURCE LIKE '%' || #searchKeyword# || '%' 		]]>
+		    		</isEqual>
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchIdx">
+		    		<![CDATA[	RD_M_IDX = #searchIdx#	]]>
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchCondition1">
+		    		<![CDATA[	RD_DATA_FORM LIKE '%' || #searchCondition1# || '%'	]]>
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchCondition2">
+		    		<![CDATA[	RD_OVER_PATH LIKE '%' || #searchCondition2# || '%'	]]>
+		    	</isNotEmpty>
+		    	<isNotEmpty prepend="AND" property="searchCnd">
+		    		<![CDATA[	RD_OVER LIKE '%' || #searchCnd# || '%'	]]>
+		    	</isNotEmpty>
+		    </dynamic>
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.selectNoxiousInfoListCnt" parameterClass="NoxiousInfoKorVO" resultClass="int">
+    /* NoxiousMaterialKorDao.selectNoxiousInfoListCnt */
+    SELECT 
+    	count(*)
+    FROM
+    	TT_RELATED_DATA
+    <dynamic prepend="WHERE">		    	
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<isEqual property="searchCondition4" compareValue="물질명">
+	    		<![CDATA[	RD_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>		    		
+    		</isEqual>
+    		<isEqual property="searchCondition4" compareValue="출처">
+    			<![CDATA[	RD_SOURCE LIKE '%' || #searchKeyword# || '%' 		]]>
+    		</isEqual>
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchIdx">
+    		<![CDATA[	RD_M_IDX = #searchIdx#	]]>
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchCondition1">
+    		<![CDATA[	RD_DATA_FORM LIKE '%' || #searchCondition1# || '%'	]]>
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchCondition2">
+    		<![CDATA[	RD_OVER_PATH LIKE '%' || #searchCondition2# || '%'	]]>
+    	</isNotEmpty>
+    	<isNotEmpty prepend="AND" property="searchCnd">
+    		<![CDATA[	RD_OVER LIKE '%' || #searchCnd# || '%'	]]>
+    	</isNotEmpty>
+    </dynamic>
+    </select>
+    
+    <select id="NoxiousMaterialKorDao.detailNoxiousKorInfo" parameterClass="NoxiousInfoKorVO" resultMap="NoxiousInfoKorDetail">
+    /* NoxiousMaterialKorDao.detailNoxiousKorInfo */
+    SELECT
+		RD_IDX
+		,RD_DATA_SOURCE
+		,RD_ENAME
+		,RD_DATA_FORM
+		,RD_OVER
+		,RD_OVER_PATH
+		,RD_AGE
+		,RD_IN
+		,RD_PLAN
+		,RD_IN_CH
+		,RD_ETC
+		,RD_PLAN_CH
+		,RD_SOURCE
+		,RD_ETC_CH
+		,RD_YEAR
+		,RD_KNAME
+		,RD_SOURCE_CH
+		,RD_BAD
+		,RD_REG_DATE
+		,RD_M_IDX
+		,RD_POISON
+	FROM
+		 TT_RELATED_DATA
+	WHERE
+		RD_IDX = #rdIdx#
+    </select>
+    
+    
+    
+    
+</sqlMap>

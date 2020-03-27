@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="quizDAO">
+
+	<typeAlias  alias="QzSubjectVO" type="egovframework.com.kids.quiz.vo.QzSubjectVO"/>
+	<typeAlias  alias="QzItemVO" type="egovframework.com.kids.quiz.vo.QzItemVO"/>
+	<typeAlias  alias="QzCategoryVO" type="egovframework.com.kids.quiz.vo.QzCategoryVO"/>
+
+	<resultMap id="selectQuizList" class="egovframework.com.kids.quiz.vo.QzSubjectVO">
+		<result property="subjectKey" 		column="SUBJECT_KEY" 	/>
+		<result property="question" 		column="QUESTION" 		/>
+		<result property="comments" 		column="COMMENTS" 		/>
+		<result property="categoryKey" 		column="CATEGORY_KEY" 	/>
+		<result property="categoryName" 	column="CATEGORY_NAME" 	/>
+		<result property="itemList" column="SUBJECT_KEY" javaType="List" select="QuizDAO.selectItemList" />
+	</resultMap>
+	
+	<resultMap id="selectItemList" class="egovframework.com.kids.quiz.vo.QzItemVO">
+		<result property="itemKey" 	column="ITEM_KEY"	/>
+		<result property="contents" column="CONTENTS"	/>
+		<result property="isAnswer" column="IS_ANSWER"	/>
+	</resultMap>
+	
+	<resultMap id="selectCategoryList" class="egovframework.com.kids.quiz.vo.QzCategoryVO">
+		<result property="categoryKey" column="CATEGORY_KEY" 	/>
+		<result property="name" 		column="NAME" 			/>
+	</resultMap>
+	
+	<select id="QuizDAO.selectQuizList" parameterClass="QzSubjectVO" resultMap="selectQuizList">
+		/* QuizDAO.selectQuizList */
+		SELECT
+			QS.SUBJECT_KEY
+			, QS.QUESTION
+			, QS.COMMENTS
+			, QS.CATEGORY_KEY
+			, QC.NAME AS CATEGORY_NAME
+		FROM
+			QZ_SUBJECT QS
+		INNER JOIN
+			QZ_CATEGORY QC
+		ON
+			QS.CATEGORY_KEY = QC.CATEGORY_KEY
+		WHERE
+			QS.CATEGORY_KEY = #categoryKey#
+		ORDER BY QS.SUBJECT_KEY
+	</select>
+	
+	<select id="QuizDAO.selectItemList" parameterClass="String" resultMap="selectItemList">
+		/* QuizDAO.selectItemList */
+		SELECT
+			ITEM_KEY
+			, CONTENTS
+			, IS_ANSWER
+		FROM
+			QZ_ITEM
+		WHERE
+			SUBJECT_KEY = #subjectKey#
+		ORDER BY ITEM_KEY ASC
+	</select>
+	
+	<select id="QuizDAO.selectCategoryList" parameterClass="QzCategoryVO" resultMap="selectCategoryList">
+		/* QuizDAO.selectCategoryList */
+		SELECT
+			CATEGORY_KEY
+			, NAME
+		FROM
+			QZ_CATEGORY
+		ORDER BY CATEGORY_KEY ASC
+	</select>
+	
+	
+</sqlMap>

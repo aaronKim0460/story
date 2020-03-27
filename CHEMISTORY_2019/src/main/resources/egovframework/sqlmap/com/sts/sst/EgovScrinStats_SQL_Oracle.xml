@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ScrinStats">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="statsVO" type="egovframework.com.sts.com.StatsVO"/>
+	
+	<!-- 화면통계 조회 -->
+	<select id="ScrinStatsDAO.selectScrinStats" parameterClass="statsVO" resultClass="statsVO">
+		/* ScrinStatsDAO.selectScrinStats */
+		SELECT NVL(SUM(a.RDCNT),0) AS statsCo
+			 <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_WEB_LOG_SUMRY a,
+		       (SELECT URL
+			  	  FROM TN_PROGRM_LIST 
+			 	 WHERE PROGRM_FILE_NM = #detailStatsKind#) b
+		 WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND a.OCCRRNC_DE BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '')
+		   AND a.URL LIKE CONCAT(b.URL,'%')
+		 <isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 ORDER BY SUBSTR(OCCRRNC_DE, 1, 4) || '-' || SUBSTR(OCCRRNC_DE, 5, 2) || '-' || SUBSTR(OCCRRNC_DE, 7, 2)
+		 </isEqual>
+	</select>
+	
+	
+	<select id="ScrinStatsDAO.selectScrinStats_N" parameterClass="statsVO" resultClass="statsVO">
+		/* ScrinStatsDAO.selectScrinStats_N */
+		SELECT NVL(SUM(a.RDCNT),0) AS statsCo ,  MIN(A.URL) AS url, MIN(b.progrm_korean_nm) as progrmKoreanNm
+			 <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM TS_WEB_LOG_SUMRY a INNER JOIN TN_PROGRM_LIST b ON a.PROGRM_FILE_NM=b.PROGRM_FILE_NM
+		 WHERE 1 = 1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		   AND a.OCCRRNC_DE BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '') 
+		   AND b.URL LIKE '%'||replace(a.URL,'.do','')||'%'	 
+		 <isNotEmpty prepend="AND" property="detailStatsKind" >
+			<![CDATA[	
+				b.PROGRM_FILE_NM = #detailStatsKind#
+			]]>
+		 </isNotEmpty>
+		 
+		 <isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(a.OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(a.OCCRRNC_DE, 1, 4)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2)
+		 ORDER BY SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2)
+		 </isEqual>
+		 <isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2)
+		 ORDER BY SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2)
+		 </isEqual>
+	</select>
+	
+	<select id="ScrinStatsDAO.selectScrinStatsTopN" parameterClass="statsVO" resultClass="statsVO">
+		/* ScrinStatsDAO.selectScrinStatsTopN */
+		SELECT * FROM (
+		  SELECT SUM(a.RDCNT) as statsCo , SUM(NVL(a.IP_RDCNT, 0)) as ipStatsCo, a.URL as url, MIN(P.PROGRM_KOREAN_NM) progrmKoreanNm
+			 <!-- 기간검색(년) -->
+			 <isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(월) -->
+		     <isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) AS statsDate
+		     </isEqual>
+		     <!-- 기간검색(일) -->
+		     <isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2) AS statsDate
+		     </isEqual>
+		  FROM 
+		  	TS_WEB_LOG_SUMRY a 
+		  	INNER JOIN TN_PROGRM_LIST P
+		  	ON
+		  		A.PROGRM_FILE_NM=P.PROGRM_FILE_NM
+		  	<isNotEmpty property="menuSiteCode">
+		 	 INNER JOIN
+		 	 	TN_MENU_INFO TMI
+		 	 ON
+		 	 	P.PROGRM_FILE_NM=TMI.PROGRM_FILE_NM
+		 	 AND TMI.MENU_SITE_CODE = #menuSiteCode#
+		 	 </isNotEmpty>
+		  WHERE 1=1
+		   <!-- 시작일자~종료일자 기간제한 -->
+		  <isEmpty property="fromDate">
+	 	 	<isNotEmpty property="toDate">
+	 	 		<![CDATA[
+	 	   AND A.OCCRRNC_DE <= REPLACE(#toDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+	 	   AND A.OCCRRNC_DE >= REPLACE(#fromDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isNotEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+		   AND A.OCCRRNC_DE BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isNotEmpty> 
+		   <!-- AND a.url NOT LIKE '%do%'  -->
+		     <isEqual property="pdKind" compareValue="Y">
+		     	GROUP BY a.url , A.PROGRM_FILE_NM, SUBSTR(a.OCCRRNC_DE, 1, 4)
+			 	ORDER BY SUM(a.RDCNT) DESC, SUBSTR(a.OCCRRNC_DE, 1, 4)
+			 </isEqual>
+			 <isEqual property="pdKind" compareValue="M">
+			 	GROUP BY a.url , A.PROGRM_FILE_NM, SUBSTR(a.OCCRRNC_DE, 1, 4), SUBSTR(a.OCCRRNC_DE, 5, 2)
+			 	ORDER BY SUM(a.RDCNT) DESC, SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2)
+			 </isEqual>
+			 <isEqual property="pdKind" compareValue="D">
+			 	GROUP BY a.url , A.PROGRM_FILE_NM, SUBSTR(a.OCCRRNC_DE, 1, 4), SUBSTR(a.OCCRRNC_DE, 5, 2), SUBSTR(a.OCCRRNC_DE, 7, 2)
+			 	ORDER BY SUM(a.RDCNT) DESC, SUBSTR(a.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(a.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(a.OCCRRNC_DE, 7, 2)
+			 </isEqual>
+		 ) A 
+		 WHERE 1=1 AND ROWNUM BETWEEN 0 AND #printLimit#
+	</select>
+	
+	<select id="ScrinStatsDAO.selectScrinStatsTopList" parameterClass="statsVO" resultClass="egovMap">
+		/* ScrinStatsDAO.selectScrinStatsTopList */
+		SELECT SUM(A.RDCNT) AS STATS_CO
+		
+		<isEqual property="pdKind" compareValue="Y">
+		     , SUBSTR(A.OCCRRNC_DE, 1, 4) AS STATS_DATE
+		</isEqual>
+		<isEqual property="pdKind" compareValue="M">
+		     , SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 5, 2) AS STATS_DATE
+		</isEqual>
+		<isEqual property="pdKind" compareValue="D">
+		     , SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(A.OCCRRNC_DE, 7, 2) AS STATS_DATE
+		</isEqual>
+			,MIN(P.PROGRM_KOREAN_NM) PROGRM_KOREAN_NM
+		 FROM TS_WEB_LOG_SUMRY A INNER JOIN TN_PROGRM_LIST P ON A.PROGRM_FILE_NM=P.PROGRM_FILE_NM
+	 	 
+	 	 <isNotEmpty property="menuSiteCode">
+	 	 INNER JOIN
+	 	 	TN_MENU_INFO TMI
+	 	 ON
+	 	 	P.PROGRM_FILE_NM=TMI.PROGRM_FILE_NM
+	 	 AND TMI.MENU_SITE_CODE = #menuSiteCode#
+	 	 </isNotEmpty>
+	 	 
+	 	 WHERE 
+	 	 	<!-- A.URL NOT LIKE '%do%'  -->
+	 	 	1=1
+	 	 <isEmpty property="fromDate">
+	 	 	<isNotEmpty property="toDate">
+	 	 		<![CDATA[
+	 	   AND A.OCCRRNC_DE <= REPLACE(#toDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+	 	   AND A.OCCRRNC_DE >= REPLACE(#fromDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isEmpty>
+	 	 
+	 	 <isNotEmpty property="toDate">
+	 	 	<isNotEmpty property="fromDate">
+	 	 		<![CDATA[
+		   AND A.OCCRRNC_DE BETWEEN REPLACE(#fromDate#, '-', '') AND REPLACE(#toDate#, '-', '')
+	 	 		]]>
+	 	 	</isNotEmpty>
+	 	 </isNotEmpty>
+	 	 
+		<isEqual property="pdKind" compareValue="Y">
+		 GROUP BY SUBSTR(A.OCCRRNC_DE, 1, 4)
+		 ORDER BY SUBSTR(A.OCCRRNC_DE, 1, 4)
+		</isEqual>
+		<isEqual property="pdKind" compareValue="M">
+		 GROUP BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 5, 2)
+		 ORDER BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 5, 2)
+		</isEqual>
+		<isEqual property="pdKind" compareValue="D">
+		 GROUP BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(A.OCCRRNC_DE, 7, 2)
+		 ORDER BY SUBSTR(A.OCCRRNC_DE, 1, 4) || '-' || SUBSTR(A.OCCRRNC_DE, 5, 2) || '-' || SUBSTR(A.OCCRRNC_DE, 7, 2)
+		 </isEqual>
+	</select>
+	
+	<select id="ScrinStatsDAO.selectMenuTree" resultClass="egovMap">
+		/* ScrinStatsDAO.selectMenuTree */
+		<![CDATA[
+		SELECT MENU_ID AS MENU_NO
+			 , UPPER_MENU_ID AS UPPER_MENU_NO
+			 , MENU_ORDR
+			 , MENU_NM
+			 , MENU_SITE_CODE
+			 , PROGRM_FILE_NM
+		 FROM (SELECT TO_NUMBER(A.MENU_ID) MENU_ID
+					, A.MENU_ORDR
+					, A.MENU_NM
+					, DECODE(A.UPPER_MENU_ID, 0, TO_NUMBER(REPLACE(A.MENU_SITE_CODE, 'SITE', '')) * 10, A.UPPER_MENU_ID) AS UPPER_MENU_ID
+					, A.MENU_SITE_CODE
+					, A.PROGRM_FILE_NM
+				 FROM TN_MENU_INFO A
+				WHERE TO_NUMBER(A.MENU_ID) > 0	
+				UNION 		
+				SELECT TO_NUMBER(REPLACE(CODE, 'SITE', '')) * 10 AS MENU_ID
+					 , 0 AS MENU_ORDR
+					 , CODE_NM AS MENU_NM
+					 , 1 AS UPPER_MENU_ID
+					 , CODE AS MENU_SITE_CODE
+					 , '' AS PROGRM_FILE_NM
+				  FROM TC_CMMN_DETAIL_CODE W1 
+				 WHERE W1.CODE_ID = 'COM078' 				 
+				) Z
+		ORDER BY 
+			 Z.MENU_SITE_CODE
+			,Z.MENU_ID
+		]]>
+	</select> 
+	
+	<select id="ScrinStatsDAO.selectBbsCont" parameterClass="statsVO" resultClass="egovMap">
+		/* ScrinStatsDAO.selectBbsCont */
+		SELECT A.*
+			 , COUNT(1) OVER() AS TOT_CNT
+		  FROM TN_BBS A
+		 WHERE A.FRST_REGIST_PNTTM BETWEEN TO_DATE(REPLACE(#fromDate#, '-', ''), 'YYYYMMDD') AND TO_DATE(REPLACE(#toDate#, '-', ''), 'YYYYMMDD')
+		   AND ROWNUM = #printLimit#
+	</select>
+	
+<!-- 	<select id="ScrinStatsDAO.selectBbsCont"></select> -->
+	
+</sqlMap>

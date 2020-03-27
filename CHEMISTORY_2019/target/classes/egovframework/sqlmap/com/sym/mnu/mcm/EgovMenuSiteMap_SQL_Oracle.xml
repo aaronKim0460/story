@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MenuSiteMap">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="menuSiteMapVO" type="egovframework.com.sym.mnu.mcm.service.MenuSiteMapVO"/>
+	<typeAlias  alias="comDefaultVO" type="egovframework.com.cmm.ComDefaultVO"/>
+	
+	<select id="menuManageDAO.selectMenuCreatSiteMapList_D" parameterClass="menuSiteMapVO" resultClass="egovMap">
+		<![CDATA[
+			SELECT
+			       B.MENU_ID       AS "menuNo"
+				 , B.MENU_ORDR     AS "menuOrdr"
+				 , B.MENU_NM       AS "menuNm"
+				 , B.UPPER_MENU_ID AS "upperMenuId"
+				 , (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "chkURL"	
+			FROM   TN_AUTHOR_MENU A, TN_MENU_INFO B
+			WHERE  A.MENU_ID  = B.MENU_ID 
+			AND    A.AUTHOR_CODE = #authorCode#
+			ORDER BY B.MENU_ORDR
+		 ]]>
+	</select> 
+
+    <select id="menuManageDAO.selectSiteMapByUser" parameterClass="menuSiteMapVO" resultClass="egovMap">
+        <![CDATA[
+            SELECT
+                  A.MENU_ID AS menuNo
+                , A.MENU_ORDR AS menuOrdr
+                , A.MENU_NM AS menuNm
+                , A.UPPER_MENU_ID AS upperMenuId
+                , (SELECT Z.URL FROM TN_PROGRM_LIST Z WHERE A.PROGRM_FILE_NM = Z.PROGRM_FILE_NM) AS chkURL 
+            FROM TN_MENU_INFO A, TN_AUTHOR_MENU B, TN_EMPLYR_SCRTY_SETUP C, VN_USER_MASTER D
+            WHERE A.MENU_ID > 0
+              AND A.MENU_ID             = B.MENU_ID 
+              AND B.AUTHOR_CODE         = C.AUTHOR_CODE
+              AND C.SCRTY_DTRMN_TRGET_ID = D.ESNTL_ID
+              AND D.USER_ID             = #creatPersonId#
+            ORDER BY A.MENU_ORDR
+         ]]>
+    </select> 	
+
+	<select id="menuManageDAO.selectMenuCreatSiteMapURL_D" parameterClass="menuSiteMapVO" resultClass="egovMap">
+		<![CDATA[
+			SELECT 
+					B.PROGRM_FILE_NM   AS "progrmFileNm",
+					B.PROGRM_STRE_PATH AS "progrmStrePath",
+					B.PROGRM_KOREAN_NM  AS "progrmKoreanNm",
+					B.URL              AS "URL"        
+			FROM    TN_MENU_INFO A, TN_PROGRM_LIST B
+			WHERE   A.PROGRM_FILE_NM = B.PROGRM_FILE_NM
+			AND     A.MENU_ID = #menuNo#
+		 ]]>
+	</select> 
+
+	<insert id="menuManageDAO.insertSiteMap_S">
+		<![CDATA[
+			INSERT INTO COMTNSITEMAP ( MAPNG_CREAT_ID, CREATR_ID, MAPNG_FILE_NM, MAPNG_FILE_PATH )
+			VALUES (  #mapCreatId#, #creatPersonId#, #bndeFileNm#, #bndeFilePath#)
+		]]>
+	</insert>
+	
+	<select id="menuManageDAO.selectSiteMapCnt_S" parameterClass="menuSiteMapVO" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(MAPNG_CREAT_ID) AS "totcnt"
+			  FROM COMTNSITEMAP
+			 WHERE MAPNG_CREAT_ID like CONCAT(#mapCreatId#, '%')
+		]]>
+	</select>
+
+	<select id="menuManageDAO.EgovMenuCreatNierSiteMapList_D" parameterClass="menuSiteMapVO" resultClass="egovMap">
+		<![CDATA[
+			SELECT
+			       B.MENU_ID       AS "menuNo"
+				 , B.MENU_ORDR     AS "menuOrdr"
+				 , B.MENU_NM       AS "menuNm"
+				 , B.UPPER_MENU_ID AS "upperMenuId"
+				 , (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "chkURL"	
+			FROM   TN_AUTHOR_MENU A, TN_MENU_INFO B
+			WHERE  A.MENU_ID  = B.MENU_ID 
+			AND    A.AUTHOR_CODE = #authorCode#
+			AND    B.MENU_SITE_CODE = ( SELECT CODE FROM TC_CMMN_DETAIL_CODE WHERE CODE_ID ='COM078' AND CODE_NM = #siteType# )
+			ORDER BY B.MENU_ORDR, B.SORT_ORDR, B.MENU_ID
+		 ]]>
+	</select> 
+	
+	<select id="menuManageDAO.selectMenuTree" parameterClass="menuSiteMapVO" resultClass="egovMap">
+		<![CDATA[
+		SELECT 
+			   MENU_ID AS MENU_NO
+			 , UPPER_MENU_ID AS UPPER_MENU_NO
+			 , MENU_ORDR
+			 , MENU_NM
+			 , MENU_SITE_CODE
+			 , USE_YN
+			 , CHK_YN
+		 FROM 
+		 	(
+		 		SELECT TO_NUMBER(A.MENU_ID) AS MENU_ID
+					, A.MENU_ORDR
+					, A.MENU_NM
+					, DECODE(A.UPPER_MENU_ID, 0, TO_NUMBER(REPLACE(A.MENU_SITE_CODE, 'SITE', '')) * 10, A.UPPER_MENU_ID) AS UPPER_MENU_ID
+					, A.MENU_SITE_CODE
+					, 'Y' AS USE_YN
+					, (SELECT DECODE(COUNT(B.MENU_ID),  0, 'N', 'Y')
+						 FROM TN_AUTHOR_MENU B
+						WHERE B.MENU_ID = A.MENU_ID
+						  AND B.AUTHOR_CODE = #authorCode#) AS CHK_YN
+				 FROM TN_MENU_INFO A
+				WHERE A.MENU_ID > 0	
+				UNION
+				SELECT TO_NUMBER(REPLACE(CODE, 'SITE', '')) * 10 AS MENU_ID
+					 , 0 AS MENU_ORDR
+					 , CODE_NM AS MENU_NM
+					 , 1 AS UPPER_MENU_ID
+					 , CODE AS MENU_SITE_CODE
+					 , 'N' AS USE_YN
+					 , 'N' AS CHK_YN
+				  FROM TC_CMMN_DETAIL_CODE W1 
+				 WHERE W1.CODE_ID = 'COM078'
+				) Z
+		ORDER BY Z.MENU_SITE_CODE
+		   	   , Z.MENU_ID
+		]]>
+	</select> 
+
+</sqlMap>                            

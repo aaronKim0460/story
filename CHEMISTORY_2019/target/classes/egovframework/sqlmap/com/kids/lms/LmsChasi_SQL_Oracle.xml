@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="lmsChasiDAO">
+	
+	<typeAlias  alias="LmsChasiVO" type="egovframework.com.kids.lms.vo.LmsChasiVO"/>
+	
+	<resultMap id="selectLmsChasiListByCourseId" class="egovframework.com.kids.lms.vo.LmsChasiVO">
+		<result property="chasiId" 		column="CHASI_ID"		/>
+		<result property="chasi" 		column="CHASI"			/>
+		<result property="chasiNm" 		column="CHASI_NM"		/>
+		<result property="startUrl" 	column="START_URL"		/>
+		<result property="sugangCount" 	column="SUGANG_COUNT"	/>
+		<result property="chasiStudyDt" column="CHASI_STUDY_DT"	/>
+	</resultMap>
+	
+	<select id="LmsChasiDAO.selectLmsChasiListByCourseId" parameterClass="LmsChasiVO" resultMap="selectLmsChasiListByCourseId">
+		/* LmsChasiDAO.selectLmsChasiListByCourseId */
+		SELECT
+			LCH.CHASI_ID
+			, LCH.CHASI 
+			, LCH.CHASI_NM 
+			, LCH.START_URL
+			<isNotEmpty property="sugangId">
+			, NVL2(LSCR.CHASI_ID, 1, 0) AS SUGANG_COUNT
+      		, TO_CHAR(LSCR.CHASI_STUDY_DT, 'YYYY.MM.DD') AS CHASI_STUDY_DT
+			</isNotEmpty>
+			<isEmpty property="sugangId">
+			, 0 AS SUGANG_COUNT
+			, '' AS CHASI_STUDY_DT
+			</isEmpty>
+		FROM
+			LMS_CHASI LCH
+		<isNotEmpty property="sugangId">
+			LEFT OUTER JOIN
+				LMS_SUGANG_CHASI_RESULT LSCR
+			ON
+				LSCR.CHASI_ID = LCH.CHASI_ID
+			AND LSCR.SUGANG_ID = #sugangId#
+		</isNotEmpty>
+		WHERE
+			LCH.COURSE_ID = #courseId#
+		ORDER BY
+			LCH.CHASI ASC
+	</select>
+	
+	<resultMap id="selectLmsChasi" class="egovframework.com.kids.lms.vo.LmsChasiVO">
+		<result property="chasiId" 		column="CHASI_ID"		/>
+		<result property="chasi" 		column="CHASI"			/>
+		<result property="chasiNm" 		column="CHASI_NM"		/>
+		<result property="startUrl" 	column="START_URL"		/>
+		<result property="courseId" 	column="COURSE_ID"		/>
+	</resultMap>
+	
+	<select id="LmsChasiDAO.selectLmsChasi" parameterClass="LmsChasiVO" resultMap="selectLmsChasi">
+		/* LmsChasiDAO.selectLmsChasi */
+		SELECT
+			LCH.CHASI_ID
+			, LCH.CHASI 
+			, LCH.CHASI_NM 
+			, LCH.START_URL
+			, LCH.COURSE_ID
+		FROM
+			LMS_CHASI LCH
+		WHERE
+			LCH.CHASI_ID = #chasiId#
+	</select>
+	
+	<insert id="LmsChasiDAO.insertLmsChasi" parameterClass="LmsChasiVO">
+		<selectKey resultClass="java.lang.Long" keyProperty="chasiId">
+			SELECT SEQ_CHASI.NEXTVAL FROM dual
+		</selectKey>
+		/* LmsChasiDAO.insertLmsChasi */
+		INSERT INTO LMS_CHASI
+		(
+			CHASI_ID 
+			, CHASI
+			, CHASI_NM
+			, START_URL
+			, COURSE_ID
+		)
+		VALUES
+		(
+			#chasiId# 
+			, #chasi#
+			, #chasiNm#
+			, #startUrl#
+			, #courseId#
+		)
+	</insert>
+	
+	<update id="LmsChasiDAO.udpateLmsChasi" parameterClass="LmsChasiVO">
+		/* LmsChasiDAO.udpateLmsChasi */
+		UPDATE LMS_CHASI
+		SET
+			CHASI = #chasi#
+			, CHASI_NM = #chasiNm#
+			, START_URL = #startUrl#
+		WHERE
+			CHASI_ID = #chasiId#
+	</update>
+	
+	<delete id="LmsChasiDAO.deleteLmsChasi" parameterClass="LmsChasiVO">
+		/* LmsChasiDAO.deleteLmsChasi */
+		DELETE
+		FROM
+			LMS_CHASI
+		WHERE
+			CHASI_ID = #chasiId#
+	</delete>
+	
+	<delete id="LmsChasiDAO.deleteLmsChasiByCourseId" parameterClass="LmsChasiVO">
+		/* LmsChasiDAO.deleteLmsChasiByCourseId */
+		DELETE
+		FROM
+			LMS_CHASI
+		WHERE
+			COURSE_ID = #courseId#
+	</delete>
+</sqlMap>

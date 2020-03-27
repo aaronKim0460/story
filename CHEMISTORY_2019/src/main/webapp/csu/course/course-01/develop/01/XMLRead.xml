@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<contentIndex>
+	<chapter title="아토피피부염의 관리는 이렇게!" chpterNum="1">
+		<menu>
+			<subMenu title="마음열기">1</subMenu>
+			<subMenu title="학습목표">1</subMenu>
+		</menu>
+		<menu>
+			<subMenu title="학습하기1">2</subMenu>
+			<subMenu title="학습하기2">1</subMenu>
+			<subMenu title="학습하기3">1</subMenu>
+			<subMenu title="학습하기4">6</subMenu>
+		</menu>
+		<menu>
+			<subMenu title="QUIZ">1</subMenu>
+			<subMenu title="학습정리">1</subMenu>
+			<subMenu title="차시예고">1</subMenu>
+		</menu>
+	</chapter>
+</contentIndex>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NoxiousInfo">
+
+    <typeAlias  alias="NoxiousInfoVO" type="egovframework.com.adm.contents.material.vo.NoxiousInfoVO"/>
+    
+    <resultMap id="NoxiousInfoList" class="egovframework.com.adm.contents.material.vo.NoxiousInfoVO">
+		<result property="rdIdx"      		column="RD_IDX"				columnIndex="1"/>
+		<result property="rdDataSource"     column="RD_DATA_SOURCE"		columnIndex="2"/>
+		<result property="rdEname"      	column="RD_ENAME"			columnIndex="3"/>
+		<result property="rdDataForm"      	column="RD_DATA_FORM"		columnIndex="4"/>
+		<result property="rdOver"      		column="RD_OVER"			columnIndex="5"/>
+		<result property="rdOverPath"      	column="RD_OVER_PATH"		columnIndex="6"/>
+		<result property="rdAge"      		column="RD_AGE"				columnIndex="7"/>
+		<result property="rdIn"      		column="RD_IN"				columnIndex="8"/>
+		<result property="rdPlan"      		column="RD_PLAN"			columnIndex="9"/>
+		<result property="rdInCh"      		column="RD_IN_CH"			columnIndex="10"/>
+		<result property="rdEtc"      		column="RD_ETC"				columnIndex="11"/>
+		<result property="rdPlanCh"      	column="RD_PLAN_CH"			columnIndex="12"/>
+		<result property="rdSource"      	column="RD_SOURCE"			columnIndex="13"/>
+		<result property="rdEtcCh"      	column="RD_ETC_CH"			columnIndex="14"/>
+		<result property="rdYear"      		column="RD_YEAR"			columnIndex="15"/>
+		<result property="rdKname"      	column="RD_KNAME"			columnIndex="16"/>
+		<result property="rdSourceCh"      	column="RD_SOURCE_CH"		columnIndex="17"/>
+		<result property="rdBad"      		column="RD_BAD"				columnIndex="18"/>
+		<result property="rdRegDate"      	column="RD_REG_DATE"		columnIndex="19"/>
+		<result property="rdMidx"      		column="RD_M_IDX"			columnIndex="20"/>
+		<result property="rdPoison"      	column="RD_POISON"			columnIndex="21"/>    	    	
+    </resultMap>
+    
+    <resultMap id="NoxiousInfoDetail" class="egovframework.com.adm.contents.material.vo.NoxiousInfoVO">
+		<result property="rdIdx"      		column="RD_IDX"				columnIndex="1"/>
+		<result property="rdDataSource"     column="RD_DATA_SOURCE"		columnIndex="2"/>
+		<result property="rdEname"      	column="RD_ENAME"			columnIndex="3"/>
+		<result property="rdDataForm"      	column="RD_DATA_FORM"		columnIndex="4"/>
+		<result property="rdOver"      		column="RD_OVER"			columnIndex="5"/>
+		<result property="rdOverPath"      	column="RD_OVER_PATH"		columnIndex="6"/>
+		<result property="rdAge"      		column="RD_AGE"				columnIndex="7"/>
+		<result property="rdIn"      		column="RD_IN"				columnIndex="8"/>
+		<result property="rdPlan"      		column="RD_PLAN"			columnIndex="9"/>
+		<result property="rdInCh"      		column="RD_IN_CH"			columnIndex="10"/>
+		<result property="rdEtc"      		column="RD_ETC"				columnIndex="11"/>
+		<result property="rdPlanCh"      	column="RD_PLAN_CH"			columnIndex="12"/>
+		<result property="rdSource"      	column="RD_SOURCE"			columnIndex="13"/>
+		<result property="rdEtcCh"      	column="RD_ETC_CH"			columnIndex="14"/>
+		<result property="rdYear"      		column="RD_YEAR"			columnIndex="15"/>
+		<result property="rdKname"      	column="RD_KNAME"			columnIndex="16"/>
+		<result property="rdSourceCh"      	column="RD_SOURCE_CH"		columnIndex="17"/>
+		<result property="rdBad"      		column="RD_BAD"				columnIndex="18"/>
+		<result property="rdRegDate"      	column="RD_REG_DATE"		columnIndex="19"/>
+		<result property="rdMidx"      		column="RD_M_IDX"			columnIndex="20"/>
+		<result property="rdPoison"      	column="RD_POISON"			columnIndex="21"/>    	    	
+    </resultMap>
+    
+    <select id="NoxiousInfoDao.selectNoxiousInfoList" parameterClass="NoxiousInfoVO" resultMap="NoxiousInfoList">
+    /* NoxiousInfoDao.selectNoxiousInfoList */
+    SELECT  *
+    FROM  (
+	    SELECT ROWNUM RNUM, AA.*
+        FROM  (
+		    SELECT
+				RD_IDX
+				,RD_DATA_SOURCE
+				,RD_ENAME
+				,RD_DATA_FORM
+				,RD_OVER
+				,RD_OVER_PATH
+				,RD_AGE
+				,RD_IN
+				,RD_PLAN
+				,RD_IN_CH
+				,RD_ETC
+				,RD_PLAN_CH
+				,RD_SOURCE
+				,RD_ETC_CH
+				,RD_YEAR
+				,RD_KNAME
+				,RD_SOURCE_CH
+				,RD_BAD
+				,RD_REG_DATE
+				,RD_M_IDX
+				,RD_POISON
+			FROM
+				 TT_RELATED_DATA
+			<dynamic prepend="WHERE">		    	
+		    	<isNotEmpty prepend="AND" property="searchKeyword">
+		    		<![CDATA[	RD_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>		    		
+		    	</isNotEmpty>
+		    </dynamic>
+			ORDER BY
+				 RD_IDX DESC
+	    )AA
+	)Z
+	<![CDATA[
+	WHERE  RNUM  > #firstIndex#
+    AND  RNUM <= #firstIndex# + #recordCountPerPage#
+    ]]>
+    </select>
+    
+    <select id="NoxiousInfoDao.selectNoxiousInfoListCnt" parameterClass="NoxiousInfoVO" resultClass="int">
+    /* NoxiousInfoDao.selectNoxiousInfoListCnt */
+    SELECT 
+    	count(*)
+    FROM
+    	TT_RELATED_DATA
+    <dynamic prepend="WHERE">		    	
+    	<isNotEmpty prepend="AND" property="searchKeyword">
+    		<![CDATA[	RD_KNAME LIKE '%' || #searchKeyword# || '%' 		]]>		    		
+    	</isNotEmpty>
+    </dynamic>
+    </select>
+    
+    <insert id="NoxiousInfoDao.insertNoxiousInfo" parameterClass="NoxiousInfoVO">
+    /* NoxiousInfoDao.insertNoxiousInfo */
+    INSERT INTO TT_RELATED_DATA(
+    	RD_IDX
+		,RD_DATA_SOURCE
+		,RD_ENAME
+		,RD_DATA_FORM
+		,RD_OVER
+		,RD_OVER_PATH
+		,RD_AGE
+		,RD_IN
+		,RD_PLAN
+		,RD_IN_CH
+		,RD_ETC
+		,RD_PLAN_CH
+		,RD_SOURCE
+		,RD_ETC_CH
+		,RD_YEAR
+		,RD_KNAME
+		,RD_SOURCE_CH
+		,RD_BAD
+		,RD_REG_DATE
+		,RD_M_IDX
+		,RD_POISON
+    )VALUES(
+    	#rdIdx#   
+		,#rdDataSource#
+		,#rdEname# 
+		,#rdDataForm#
+		,#rdOver#  
+		,#rdOverPath#
+		,#rdAge#   
+		,#rdIn#    
+		,#rdPlan#  
+		,#rdInCh#  
+		,#rdEtc#   
+		,#rdPlanCh#
+		,#rdSource#
+		,#rdEtcCh# 
+		,#rdYear#  
+		,#rdKname# 
+		,#rdSourceCh#
+		,#rdBad#   
+		,SYSDATE 
+		,#rdMidx#  
+		,#rdPoison#    
+    )
+    </insert>
+    
+    <select id="NoxiousInfoDao.detailNoxiousInfo" parameterClass="NoxiousInfoVO" resultMap="NoxiousInfoDetail">
+    /* NoxiousInfoDao.detailNoxiousInfo */
+    SELECT
+		RD_IDX
+		,RD_DATA_SOURCE
+		,RD_ENAME
+		,RD_DATA_FORM
+		,RD_OVER
+		,RD_OVER_PATH
+		,RD_AGE
+		,RD_IN
+		,RD_PLAN
+		,RD_IN_CH
+		,RD_ETC
+		,RD_PLAN_CH
+		,RD_SOURCE
+		,RD_ETC_CH
+		,RD_YEAR
+		,RD_KNAME
+		,RD_SOURCE_CH
+		,RD_BAD
+		,RD_REG_DATE
+		,RD_M_IDX
+		,RD_POISON
+	FROM
+		 TT_RELATED_DATA
+	WHERE
+		RD_IDX = #rdIdx#
+    </select>
+    
+    <delete id="NoxiousMaterialDao.deleteNoxiousInfo" parameterClass="NoxiousInfoVO">
+    /* NoxiousMaterialDao.deleteNoxiousInfo */
+    DELETE FROM TT_RELATED_DATA
+    WHERE RD_IDX = #rdIdx#
+    </delete>
+    
+    <update id="NoxiousMaterialDao.updateNoxiousInfo">
+    /* NoxiousMaterialDao.updateNoxiousInfo */
+    UPDATE TT_RELATED_DATA
+    <dynamic prepend="SET">		
+		<isNotEmpty prepend="," property="rdDataSource">RD_DATA_SOURCE = #rdDataSource#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdEname">RD_ENAME = #rdEname#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdDataForm">RD_DATA_FORM = #rdDataForm#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdOver">RD_OVER = #rdOver#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdOverPath">RD_OVER_PATH = #rdOverPath#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdAge">RD_AGE = #rdAge#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdIn">RD_IN = #rdIn#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdPlan">RD_PLAN = #rdPlan#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdInCh">RD_IN_CH = #rdInCh#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdEtc">RD_ETC = #rdEtc#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdPlanCh">RD_PLAN_CH = #rdPlanCh#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdSource">RD_SOURCE = #rdSource#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdEtcCh">RD_ETC_CH = #rdEtcCh#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdYear">RD_YEAR = #rdYear#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdKname">RD_KNAME = #rdKname#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdSourceCh">RD_SOURCE_CH = #rdSourceCh#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdBad">RD_BAD = #rdBad#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdMidx">RD_M_IDX = #rdMidx#</isNotEmpty>
+		<isNotEmpty prepend="," property="rdPoison">RD_POISON = #rdPoison#</isNotEmpty>
+    </dynamic>
+    WHERE RD_IDX = #rdIdx#    	
+    </update>
+</sqlMap>

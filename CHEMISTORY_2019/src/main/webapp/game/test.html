@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="./js/jquery.js"></script>
+ </head>
+ <body>
+	<span>0</span>
+	<script>
+		var total = 1440;
+		var total2 = 0;
+		var totalL = 100
+		function time() {
+			total2 = total2+(total/50)
+			if(total <= total2){
+				$("span").text(total);
+			}else{
+				$("span").text(total2);
+			}
+		}
+		setInterval("time()", 20);
+	</script>
+ </body>
+</html>

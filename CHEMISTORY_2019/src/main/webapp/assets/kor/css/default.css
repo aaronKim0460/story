@@ -1,0 +1,77 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);    
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+/* reset style [start] */
+html,body, iframe,h1, h2, h3, h4, h5, h6, p, blockquote,pre,
+q, s, dl, dt, dd, ol, ul, li, fieldset, form, input, table,tr, th ,td{ margin: 0; padding: 0; border:0; line-height: 1.5em; }
+img, fieldset{border:0 none;}
+
+body{
+    position:relative;
+    font-size:14px;line-height:1.8em;
+    color:#757575;
+     font-family:'Nanum Gothic','나눔고딕','돋움', Dotum, sans-serif;
+     letter-spacing:-1px;
+}
+
+
+strong{ font-weight: bold; }
+em,dfn,cite,address{ font-style: normal; }
+sup,sub{ font-size: .92em; }
+del{ text-decoration: line-through; }
+button{cursor:pointer;border:none;background:none;margin:0;padding:0}
+span.button,img.button,a.button {vertical-align:middle;}
+ol, ul, li { list-style:none;}
+table {border-collapse:collapse; border-spacing:0;}
+legend {position:absolute; visibility:hidden; overflow:hidden; width:0; height:0; font-size:0%;}
+table caption {display:none;}
+hr {display:none;}
+
+a:link { color:#636363; text-decoration:none; }
+a:visited { color:#636363; text-decoration:none; }
+a:hover { color:#636363; text-decoration:underline; }
+a:active { color:#636363; text-decoration:underline; }
+
+.clearfix:after {display:block; clear:both; content:"."; visibility:hidden; height:0;}
+.clearfix {display: inline-block;}
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+.skip {position:absolute; overflow:hidden; height:0; width:0; font-size:0; visibility:hidden;}
+.clear{clear: both;}
+.hidden {display:none;}
+
+.mgt0 {margin-top:0 !important;}
+.mgt10 {margin-top:10px !important;}
+.mgt20 {margin-top:20px !important;}
+.mgt25 {margin-top:25px !important;}
+.mgt30 {margin-top:30px !important;}
+.mgt50 {margin-top:50px !important;}
+
+.f11 {font-size:11px !important;}
+.f12 {font-size:12px !important;}
+.f14 {font-size:14px !important;}
+.f16 {font-size:16px !important;}
+.f18 {font-size:18px !important;}
+.f20 {font-size:20px !important;}
+
+.cgreen {color:#00a898 !important;}
+.corange {color:#e76618 !important;}
+.cyellgreen {color:#7e9c00 !important;}
+.cblack {color:#000 !important;}
+.cgray {color:#666666 !important}
+
+
+
+.w110 {width:110px !important;}
+.w120 {width:120px !important;}
+
+/* 입력 form */
+input{vertical-align:middle}
+input[type="text"]{padding:1px;margin:1px 0;border:solid 1px #c9c9c9;height:26px;line-height:26px;font-size:12px;font-family:dotum;}
+input[type="password"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:dotum;}
+input[type="file"]{padding:1px;margin:1px 0;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:dotum;}
+input[type="submit"]{font-size:12px;font-family:dotum;color:#666;background:none}
+select{padding:1px 3px;border:solid 1px #c9c9c9;height:26px;line-height:26px;font-size:12px;font-family:dotum;}
+textarea{padding:1px 3px;border:solid 1px #dedede;height:26px;line-height:26px;font-size:12px;font-family:dotum;}
+input[disabled="disabled"]{background:#ebebeb;color:#959595}
+select[disabled="disabled"]{background:#ebebeb;color:#959595}

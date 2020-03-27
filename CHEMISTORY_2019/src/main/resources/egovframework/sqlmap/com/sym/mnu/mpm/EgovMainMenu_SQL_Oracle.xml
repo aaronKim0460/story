@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MainMenu">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="menuManageVO" type="egovframework.com.sym.mnu.mpm.service.MenuManageVO"/>
+	<typeAlias  alias="comDefaultVO" type="egovframework.com.cmm.ComDefaultVO"/>
+
+	<select id="menuManageDAO.selectMainMenuHead" parameterClass="MenuManageVO" resultClass="egovMap">
+		/* menuManageDAO.selectMainMenuHead */
+		<![CDATA[
+            SELECT
+			      B.MENU_ID           	AS "menuNo"
+				, B.MENU_ORDR         	AS "menuOrdr"
+				, B.MENU_NM           	AS "menuNm"
+				, B.UPPER_MENU_ID     	AS "upperMenuId"
+				, B.MENU_DC           	AS "menuDc"
+				, B.RELATE_IMAGE_PATH 	AS "relateImagePath"
+				, B.RELATE_IMAGE_NM   	AS "relateImageNm"
+				, B.PROGRM_FILE_NM    	AS "progrmFileNm"
+				, (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "chkURL"
+				, B.MENU_TY_CODE		AS "menuType"
+				, B.SYS_MENU_AT 		AS  "sysMenuAt"	
+			FROM TN_AUTHOR_MENU A, TN_MENU_INFO B
+			WHERE  B.MENU_ID > 0
+			AND    B.UPPER_MENU_ID = 0
+			AND    A.MENU_ID  = B.MENU_ID
+			AND    A.AUTHOR_CODE = (SELECT C.AUTHOR_CODE from TN_EMPLYR_SCRTY_SETUP C
+	                                WHERE  C.SCRTY_DTRMN_TRGET_ID = #tmpUniqId#)
+	        AND    B.MENU_SITE_CODE = (SELECT CODE FROM TC_CMMN_DETAIL_CODE D WHERE CODE_ID='COM078' AND D.CODE_NM = #siteType#)
+			ORDER BY B.MENU_ORDR, B.SORT_ORDR
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectAdminMenuLeft" parameterClass="MenuManageVO" resultClass="egovMap">
+		/* menuManageDAO.selectAdminMenuLeft */
+		<![CDATA[
+			SELECT menuNo			AS "menuNo"
+			      , menuOrdr 		AS "menuOrdr"
+			      , menuNm 			AS "menuNm"
+			      , upperMenuId		AS "upperMenuId"
+			      , relateImagePath	AS "relateImagePath"
+			      , relateImageNm	AS "relateImageNm"
+			      , chkUrl			AS "chkUrl"
+			      , menuType		AS "menuType"
+			      , (LEVEL - 1) 	AS "menuLevel"
+			  FROM ( SELECT B.MENU_ID           AS menuNo
+			               , B.MENU_ORDR         AS menuOrdr
+			               , B.MENU_NM           AS menuNm
+			               , B.UPPER_MENU_ID     AS upperMenuId
+			               , B.RELATE_IMAGE_PATH AS relateImagePath
+			               , B.RELATE_IMAGE_NM   AS relateImageNm
+			               , (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS chkURL
+			               , B.MENU_TY_CODE		 AS menuType
+			               , B.SORT_ORDR AS menuSort
+			           FROM TN_AUTHOR_MENU A
+			               , TN_MENU_INFO B
+			          WHERE A.MENU_ID  = B.MENU_ID
+			            AND A.AUTHOR_CODE = ( SELECT AUTHOR_CODE
+			                                    FROM TN_EMPLYR_SCRTY_SETUP
+			                                   WHERE SCRTY_DTRMN_TRGET_ID = #tmpUniqId#)
+			       ) M
+			 START WITH menuNo = #tempInt#
+			 CONNECT BY PRIOR menuNo = upperMenuId
+			 ORDER SIBLINGS BY menuOrdr, menuSort
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectMainMenuLeft" parameterClass="MenuManageVO" resultClass="egovMap">
+		/* menuManageDAO.selectMainMenuLeft */
+		<![CDATA[
+			SELECT
+			       B.MENU_ID           AS "menuNo"
+				 , B.MENU_ORDR         AS "menuOrdr"
+				 , B.MENU_NM           AS "menuNm"
+				 , B.UPPER_MENU_ID     AS "upperMenuId"
+				 , B.RELATE_IMAGE_PATH AS "relateImagePath"
+				 , B.RELATE_IMAGE_NM   AS "relateImageNm"
+				 , (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "chkURL"
+				 , B.MENU_TY_CODE		  AS "menuType"
+			FROM   TN_AUTHOR_MENU A, TN_MENU_INFO B
+			WHERE  A.MENU_ID  = B.MENU_ID
+			AND    A.AUTHOR_CODE = (SELECT AUTHOR_CODE from TN_EMPLYR_SCRTY_SETUP
+	                                WHERE  SCRTY_DTRMN_TRGET_ID = #tmpUniqId#)
+			ORDER BY B.MENU_ORDR , B.SORT_ORDR ASC
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectLastMenuURL" parameterClass="MenuManageVO" resultClass="String">
+		/* menuManageDAO.selectLastMenuURL */
+		<![CDATA[
+			SELECT 
+				CASE 
+					WHEN INSTR(URL,'dir')>0 THEN 
+						URL
+					WHEN INSTR(URL,'?')>0 THEN 
+						URL||'&menuNo='||TO_CHAR(#menuNo#)
+					ELSE
+						URL||'?menuNo='||TO_CHAR(#menuNo#)
+				END URL
+			FROM   TN_PROGRM_LIST
+			WHERE  PROGRM_FILE_NM =
+			       (SELECT PROGRM_FILE_NM FROM TN_MENU_INFO
+				    WHERE MENU_ID = #menuNo#)
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectLastMenuNo" parameterClass="MenuManageVO" resultClass="long">
+		/* menuManageDAO.selectLastMenuNo */
+		<![CDATA[
+			select MIN(A.MENU_ID)
+			from   TN_AUTHOR_MENU A, TN_MENU_INFO B
+			where  A.MENU_ID = B.MENU_ID
+			and	   UPPER_MENU_ID = #menuNo#
+			and    MENU_ORDR =
+			      (select MIN(MENU_ORDR)
+			       from TN_AUTHOR_MENU A, TN_MENU_INFO B
+			       where A.MENU_ID = B.MENU_ID
+			       AND   A.AUTHOR_CODE = (SELECT AUTHOR_CODE from TN_EMPLYR_SCRTY_SETUP
+	                                      WHERE  SCRTY_DTRMN_TRGET_ID = #tempValue#)
+			       AND   B.UPPER_MENU_ID = #menuNo#)
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectLastMenuNoCnt" parameterClass="MenuManageVO" resultClass="int">
+		/* menuManageDAO.selectLastMenuNoCnt */
+		<![CDATA[
+			select count(MENU_ID)
+			from   TN_MENU_INFO
+			where  UPPER_MENU_ID = #menuNo#
+			and    MENU_ORDR =
+			      (select MIN(MENU_ORDR)
+			       from TN_AUTHOR_MENU A, TN_MENU_INFO B
+			       where A.MENU_ID = B.MENU_ID
+			       AND   A.AUTHOR_CODE = (SELECT AUTHOR_CODE from TN_EMPLYR_SCRTY_SETUP
+	                                      WHERE  SCRTY_DTRMN_TRGET_ID = #tempValue#)
+			       AND   B.UPPER_MENU_ID = #menuNo#)
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectNoLoginMainMenuHead" parameterClass="MenuManageVO" resultClass="egovMap">
+		/* menuManageDAO.selectNoLoginMainMenuHead */
+		<![CDATA[
+
+
+		SELECT
+			      B.MENU_ID           AS "menuNo"
+				, B.MENU_ORDR         AS "menuOrdr"
+				, B.MENU_NM           AS "menuNm"
+				, B.UPPER_MENU_ID     AS "upperMenuId"
+				, B.MENU_DC           AS "menuDc"
+				, B.RELATE_IMAGE_PATH AS "relateImagePath"
+				, B.RELATE_IMAGE_NM   AS "relateImageNm"
+				, B.PROGRM_FILE_NM    AS "progrmFileNm"
+				, (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "chkURL"
+				, B.MENU_TY_CODE		  AS "menuType"
+			FROM TN_AUTHOR_MENU A, TN_MENU_INFO B
+			WHERE  B.MENU_ID > 0
+			AND    A.MENU_ID  = B.MENU_ID
+			AND	   A.AUTHOR_CODE = #authorCode#
+	   		AND    B.MENU_SITE_CODE = (SELECT CODE FROM TC_CMMN_DETAIL_CODE D WHERE CODE_ID='COM078' AND D.CODE_NM = #siteType#)
+			ORDER BY B.MENU_ORDR ASC  , B.SORT_ORDR ASC  , TO_NUMBER(B.MENU_ID) 
+
+		]]>
+	</select>
+
+	<select id="menuManageDAO.selectNoLoginMenuLeft_3D" parameterClass="MenuManageVO" resultClass="egovMap">
+		/* menuManageDAO.selectNoLoginMenuLeft_3D */
+		<![CDATA[
+			SELECT
+			       B.MENU_ID           AS "menuNo"
+				 , B.MENU_ORDR         AS "menuOrdr"
+				 , B.MENU_NM           AS "menuNm"
+				 , B.UPPER_MENU_ID     AS "upperMenuId"
+				 , B.RELATE_IMAGE_PATH AS "relateImagePath"
+				 , B.RELATE_IMAGE_NM   AS "relateImageNm"
+				 , (SELECT C.URL FROM TN_PROGRM_LIST C WHERE B.PROGRM_FILE_NM = C.PROGRM_FILE_NM) AS "chkURL"
+				 , PROGRM_FILE_NM    AS "progrmFileNm"
+				 , MENU_TY_CODE AS "menuType"
+				, TAB_MENU_CONT     AS  "tabMenuCont"
+                , TAB_MENU_USE_AT 	AS  "tabMenuUseAt"
+                , TAB_MENU_TEXT 	AS  "tabMenuText"					 
+			FROM   TN_AUTHOR_MENU A, TN_MENU_INFO B
+			WHERE  A.MENU_ID  = B.MENU_ID
+			AND A.AUTHOR_CODE = #authorCode#
+      		AND (UPPER_MENU_ID IN (SELECT MENU_ID FROM TN_MENU_INFO WHERE UPPER_MENU_ID = DECODE(#topMenuNo#, 0, #menuNo#, #topMenuNo#)) or UPPER_MENU_ID = DECODE(#topMenuNo#, 0, #menuNo#, #topMenuNo#) OR B.MENU_ID = DECODE(#topMenuNo#, 0, #menuNo#, #topMenuNo#))
+			ORDER BY B.MENU_ORDR ASC, B.SORT_ORDR ASC, B.MENU_ID 
+		]]>
+	</select>
+</sqlMap>
